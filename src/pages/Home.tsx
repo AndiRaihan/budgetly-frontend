@@ -4,9 +4,18 @@ import viteLogo from "/vite.svg";
 import { Link } from "react-router-dom";
 import ThemeSwitch from '../components/ThemeSwitch.tsx'
 import Button from "@mui/material/Button";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../redux/store.ts";
+import { increment } from "../redux/counterSlice.ts";
+import { toggleDarkMode } from "../redux/darkModeSlice.ts";
 
 export default function Home() {
-  const [count, setCount] = useState(() => parseInt(localStorage.getItem("count") ?? "0" ));
+
+  const {counter, darkMode} = useSelector((state: RootState) => state)
+
+  const count = counter.count
+
+  const dispatch = useDispatch()
 
   useEffect(() => {
     localStorage.setItem("count", count.toString());
@@ -14,7 +23,7 @@ export default function Home() {
   
 
   return (
-    <>
+    <div className={darkMode.isDarkMode ? "dark" : ""}>
       <div className="flex flex-row justify-around w-auto">
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
@@ -25,8 +34,11 @@ export default function Home() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
+        <button className=" m-2" onClick={() => dispatch(increment())}>
           count is {count}
+        </button>
+        <button className=" bg-yellow-50 dark:bg-gray-800 text-blue-950 dark:text-yellow-50" onClick={() => dispatch(toggleDarkMode())}>
+          Current mode is {darkMode.isDarkMode ? "dark" : "light"}
         </button>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
@@ -41,6 +53,6 @@ export default function Home() {
         </Link>
         <ThemeSwitch />
       </div>
-    </>
+    </div>
   );
 }
