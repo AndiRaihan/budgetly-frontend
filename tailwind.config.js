@@ -11,9 +11,21 @@ export default {
           300: '#D6F5E2'
         }
       },
-      primary: '#5D98E9',
-      secondary: '#D1CEF8',
-      accent: '#291BC5',
+      primary: {
+        100: '#AED4FF',
+        200: '#5D98E9',
+        300: '#1A62CC'
+      },
+      secondary: {
+        100: '#E3D7FF',
+        200: '#D1CEF8',
+        300: '#BFB3F1'
+      },
+      accent: {
+        100: '#FFC8C8',
+        200: '#FF7B7B',
+        300: '#FF2E2E'
+      },
     },
     extend: {
       fontFamily: {
