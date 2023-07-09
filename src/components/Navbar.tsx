@@ -1,4 +1,3 @@
-import React from "react";
 import ThemeSwitch from "./ThemeSwitch";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
