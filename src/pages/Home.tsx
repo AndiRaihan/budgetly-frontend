@@ -22,7 +22,7 @@ export default function Home() {
 
   return (
     <div
-      className={"bg-background-light-200 h-screen flex flex-col justify-center items-center".concat(
+      className={"bg-background-light-100 h-screen flex flex-col justify-center items-center".concat(
         darkMode.isDarkMode ? "dark" : ""
       )}
     >
@@ -55,7 +55,7 @@ export default function Home() {
         </p>
       </div>
       <div className="flex flex-row mx-auto my-4 justify-around">
-        <Link to="/Unknown-Link">
+        <Link to="/Unknown-Link/tset/dasda">
           <Button variant="outlined">Go to a Random Page</Button>
         </Link>
         <ThemeSwitch />

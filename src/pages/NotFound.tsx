@@ -8,7 +8,7 @@ export default function NotFound() {
   const navigate = useNavigate();
   return (
     <div
-      className={"bg-background-light-200 h-screen flex flex-col justify-center items-center".concat(
+      className={"bg-background-light-100 h-screen flex flex-col justify-center items-center".concat(
         darkMode.isDarkMode ? "dark" : ""
       )}
     >
