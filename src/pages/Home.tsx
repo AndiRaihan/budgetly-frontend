@@ -22,7 +22,7 @@ export default function Home() {
 
   return (
     <div
-      className={"bg-background-light-100 h-screen flex flex-col justify-center items-center".concat(
+      className={"bg-background-light-100 h-screen flex flex-col justify-center items-center ".concat(
         darkMode.isDarkMode ? "dark" : ""
       )}
     >
@@ -41,7 +41,7 @@ export default function Home() {
             count is {count}
           </button>
           <button
-            className=" bg-yellow-50 dark:bg-gray-800 text-blue-950 dark:text-yellow-50"
+            className=" bg-yellow-50 bg-gray-dark:800 text-blue-950 dark:text-yellow-50"
             onClick={() => dispatch(toggleDarkMode())}
           >
             Current mode is {darkMode.isDarkMode ? "dark" : "light"}

@@ -4,6 +4,7 @@ export interface DarkModeState {
   isDarkMode: boolean;
 }
 
+// TODO: Check user preference from local storage first
 const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 const initialState: DarkModeState = {
   isDarkMode: prefersDark,

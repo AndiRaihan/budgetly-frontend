@@ -16,7 +16,7 @@ export default function Navbar() {
       <h1>Menu</h1>
       <div>
         <ThemeSwitch checked={darkMode.isDarkMode} onClick={handleSwitch} />
-        <button className="bg-primary-200 w-36 h-7 rounded-md hover:bg-primary-100 transition-colors duration-300">
+        <button className="bg-primary-200 w-36 h-7 rounded-md hover:bg-primary-300 transition-all duration-300 focus:ring-4 focus:bg-primary-300 shadow-lg transform active:scale-75 mx-5">
           Register
         </button>
       </div>
