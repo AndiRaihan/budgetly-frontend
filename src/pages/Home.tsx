@@ -22,9 +22,8 @@ export default function Home() {
 
   return (
     <div
-      className={"bg-background-light-100 h-screen flex flex-col justify-center items-center ".concat(
-        darkMode.isDarkMode ? "dark" : ""
-      )}
+      className={`bg-background-light-100 h-screen flex flex-col justify-center items-center
+        ${darkMode.isDarkMode ? "dark" : ""}`}
     >
       <div className="flex flex-row justify-around w-auto">
         <a href="https://vitejs.dev" target="_blank">

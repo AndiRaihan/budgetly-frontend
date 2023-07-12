@@ -4,7 +4,7 @@ import { RootState } from "../redux/store";
 import { toggleDarkMode } from "../redux/darkModeSlice";
 import Logo from "./Logo";
 
-export default function Navbar() {
+export default function Navbar({ toggleSideNav }: NavbarProps) {
   const { darkMode } = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
 
@@ -13,7 +13,13 @@ export default function Navbar() {
   }
 
   return (
-    <nav className=" bg-background-light-200 flex justify-between items-center p-4 h-14">
+    <nav className=" bg-background-light-200 flex justify-between items-center p-4 h-14 fixed w-full z-50">
+      <button
+        className="flex items-center justify-center h-8 w-8"
+        onClick={toggleSideNav}
+      >
+        Test
+      </button>
       <Logo />
       <ul className="flex flex-row items-center justify-center">
         <li className="p-2">
@@ -25,9 +31,15 @@ export default function Navbar() {
           </a>
         </li>
         <li className=" flex items-center justify-center bg-primary-200 w-36 h-7 rounded-md hover:bg-primary-300 transition-all duration-300 focus:ring-4 focus:bg-primary-300 shadow-lg transform active:scale-75 mx-5">
-          <a className="flex-1 flex-grow text-center" href="/register">Register</a>
+          <a className="flex-1 flex-grow text-center" href="/register">
+            Register
+          </a>
         </li>
       </ul>
     </nav>
   );
 }
+
+export type NavbarProps = {
+  toggleSideNav: () => void;
+};
