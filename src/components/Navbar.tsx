@@ -25,7 +25,7 @@ export default function Navbar() {
           </a>
         </li>
         <li className=" flex items-center justify-center bg-primary-200 w-36 h-7 rounded-md hover:bg-primary-300 transition-all duration-300 focus:ring-4 focus:bg-primary-300 shadow-lg transform active:scale-75 mx-5">
-          <a href="/register">Register</a>
+          <a className="flex-1 flex-grow text-center" href="/register">Register</a>
         </li>
       </ul>
     </nav>
