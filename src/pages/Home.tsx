@@ -9,7 +9,7 @@ import { RootState } from "../redux/store.ts";
 import { increment } from "../redux/counterSlice.ts";
 import { toggleDarkMode } from "../redux/darkModeSlice.ts";
 
-export default function Home() {
+export default function Home({translate} : HomeProps) {
   const { counter, darkMode } = useSelector((state: RootState) => state);
 
   const count = counter.count;
@@ -23,7 +23,7 @@ export default function Home() {
   return (
     <div
       className={`bg-background-light-100 h-screen flex flex-col justify-center items-center
-        ${darkMode.isDarkMode ? "dark" : ""}`}
+        ${darkMode.isDarkMode ? "dark" : ""} ${translate ? "translate-x-0" : " translate-x-32"} ease-in-out duration-200`}
     >
       <div className="flex flex-row justify-around w-auto">
         <a href="https://vitejs.dev" target="_blank">
@@ -62,3 +62,7 @@ export default function Home() {
     </div>
   );
 }
+
+export type HomeProps = {
+  translate: boolean
+};

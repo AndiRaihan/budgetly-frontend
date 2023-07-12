@@ -14,13 +14,15 @@ export default function Navbar({ toggleSideNav }: NavbarProps) {
 
   return (
     <nav className=" bg-background-light-200 flex justify-between items-center p-4 h-14 fixed w-full z-50">
-      <button
-        className="flex items-center justify-center h-8 w-8"
-        onClick={toggleSideNav}
-      >
-        Test
-      </button>
-      <Logo />
+      <div className="flex items-center justify-center">
+        <button
+          className="flex items-center justify-center h-8 w-20 hover:bg-background-light-300 rounded-md"
+          onClick={toggleSideNav}
+        >
+          Test
+        </button>
+        <Logo />
+      </div>
       <ul className="flex flex-row items-center justify-center">
         <li className="p-2">
           <ThemeSwitch checked={darkMode.isDarkMode} onClick={handleSwitch} />

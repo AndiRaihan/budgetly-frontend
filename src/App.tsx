@@ -18,7 +18,7 @@ function App() {
       <Navbar toggleSideNav={toggleNavBar}   />
       <SideNav show={showNavbar} />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home translate={showNavbar} />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
