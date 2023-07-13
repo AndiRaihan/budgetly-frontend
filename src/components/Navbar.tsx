@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { toggleDarkMode } from "../redux/darkModeSlice";
 import Logo from "./Logo";
+import { Link } from "react-router-dom";
 
 export default function Navbar({ toggleSideNav }: NavbarProps) {
   const { darkMode } = useSelector((state: RootState) => state);
@@ -28,14 +29,14 @@ export default function Navbar({ toggleSideNav }: NavbarProps) {
           <ThemeSwitch checked={darkMode.isDarkMode} onClick={handleSwitch} />
         </li>
         <li className=" h-8 w-20 hover:bg-background-light-300 rounded-md flex items-center justify-center">
-          <a className=" flex-1 flex-grow" href="/login">
+          <Link className=" flex-1 flex-grow" to="/login">
             <h1 className=" text-center">Login</h1>
-          </a>
+          </Link>
         </li>
         <li className=" flex items-center justify-center bg-primary-200 w-36 h-7 rounded-md hover:bg-primary-300 transition-all duration-300 focus:ring-4 focus:bg-primary-300 shadow-lg transform active:scale-75 mx-5">
-          <a className="flex-1 flex-grow text-center" href="/register">
+          <Link className="flex-1 flex-grow text-center" to="/register">
             Register
-          </a>
+          </Link>
         </li>
       </ul>
     </nav>
