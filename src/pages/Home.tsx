@@ -8,8 +8,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store.ts";
 import { increment } from "../redux/counterSlice.ts";
 import { toggleDarkMode } from "../redux/darkModeSlice.ts";
+import CurrentPage from "../utils/CurrentPage.tsx";
 
-export default function Home({translate} : HomeProps) {
+export default function Home({translate} : PageProps) {
   const { counter, darkMode } = useSelector((state: RootState) => state);
 
   const count = counter.count;
@@ -63,6 +64,7 @@ export default function Home({translate} : HomeProps) {
   );
 }
 
-export type HomeProps = {
+export type PageProps = {
   translate: boolean
+  changeCurrentPage: (currentTab : CurrentPage) => void
 };
