@@ -8,7 +8,8 @@ export default {
         light : {
           100: '#F2FCF6',
           200: '#E6F9EE',
-          300: '#D6F5E2'
+          300: '#D6F5E2',
+          400: '#B8E7D1'
         }
       },
       primary: {
