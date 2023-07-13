@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar";
 import SideNav from "./components/SideNav";
 import { useState } from "react";
 import CurrentPage from "./utils/CurrentPage";
+import Register from "./pages/Register";
 
 function App() {
   const [showNavbar, setShowNavbar] = useState(false);
@@ -32,6 +33,7 @@ function App() {
             />
           }
         />
+        <Route path="/register" element={<Register />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
