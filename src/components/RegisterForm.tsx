@@ -76,9 +76,9 @@ export default function RegisterForm() {
         </label>
       </div>
       {!emailValid && (
-        <p className="text-red-600 dark:text-red-500 text-sm">
+        <span className="text-red-600 dark:text-red-500 text-sm">
           {errors.email?.message}
-        </p>
+        </span>
       )}
       <div className="relative m-5 w-72">
         <input
@@ -138,6 +138,7 @@ export default function RegisterForm() {
         <button
           type="submit"
           className="text-center text-background-light-200 bg-gradient-to-r from-[#D1CEF8] to-[#5D98E9] flex-1 rounded-md self-stretch"
+          disabled={!(emailValid && passwordValid && confirmPasswordValid)}
         >
           Sign Up
         </button>
