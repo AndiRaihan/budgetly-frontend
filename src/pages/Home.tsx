@@ -24,7 +24,7 @@ export default function Home({translate} : PageProps) {
   return (
     <div
       className={`bg-background-light-100 h-screen flex flex-col justify-center items-center
-        ${darkMode.isDarkMode ? "dark" : ""} ${translate ? "translate-x-0" : " translate-x-52"} ease-in-out duration-200`}
+        ${darkMode.isDarkMode ? "dark" : ""} ${translate ? "translate-x-52" : " translate-x-0"} ease-in-out duration-200`}
     >
       <div className="flex flex-row justify-around w-auto">
         <a href="https://vitejs.dev" target="_blank">

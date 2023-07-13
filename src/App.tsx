@@ -4,7 +4,7 @@ import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import Navbar from "./components/Navbar";
 import SideNav from "./components/SideNav";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import CurrentPage from "./utils/CurrentPage";
 import Register from "./pages/Register";
 
@@ -13,14 +13,20 @@ function App() {
 
   const [currentTab, setCurrentTab] = useState(CurrentPage.Tracking);
 
+  const [showNavbar, setShowNavbar] = useState(true);
+
+  useEffect(() => {
+    setShowSidebar(false);
+  }, [showNavbar]);
+
   const toggleSidebar = () => {
     setShowSidebar((prev) => !prev);
   };
 
   return (
     <BrowserRouter>
-      <Navbar toggleSideNav={toggleSidebar} />
-      <SideNav show={showSidebar} currentTab={currentTab} />
+      {showNavbar && <Navbar toggleSideNav={toggleSidebar} setNavbar={setShowNavbar} />}
+      {showNavbar && <SideNav show={showSidebar} currentTab={currentTab} />}
       <Routes>
         <Route
           path="/"

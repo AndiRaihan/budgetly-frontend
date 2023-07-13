@@ -3,12 +3,23 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { toggleDarkMode } from "../redux/darkModeSlice";
 import Logo from "./Logo";
-import { Link } from "react-router-dom";
-import menu from "../assets/menu.svg"
+import { Link, useLocation } from "react-router-dom";
+import menu from "../assets/menu.svg";
+import { useEffect } from "react";
 
-export default function Navbar({ toggleSideNav }: NavbarProps) {
+export default function Navbar({ toggleSideNav, setNavbar }: NavbarProps) {
   const { darkMode } = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
+
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.pathname === "/register" || location.pathname === "/login") {
+      setNavbar(false);
+    } else {
+      setNavbar(true);
+    }
+  }, [location.pathname]);
 
   function handleSwitch() {
     dispatch(toggleDarkMode());
@@ -46,4 +57,5 @@ export default function Navbar({ toggleSideNav }: NavbarProps) {
 
 export type NavbarProps = {
   toggleSideNav: () => void;
+  setNavbar: React.Dispatch<React.SetStateAction<boolean>>;
 };

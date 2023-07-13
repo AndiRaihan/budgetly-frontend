@@ -8,7 +8,7 @@ function SideNav({ show, currentTab }: SideNavProps) {
   return (
     <nav
       className={` top-18 left-0 h-full w-52 fixed bg-background-light-300 ${
-        show ? " -translate-x-full" : "translate-x-0"
+        show ?  "translate-x-0" : "-translate-x-full"
       } ease-in-out duration-200`}
     >
       <ul className="flex flex-col items-center py-20 h-full">

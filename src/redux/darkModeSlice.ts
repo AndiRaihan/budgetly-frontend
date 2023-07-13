@@ -16,7 +16,6 @@ export const darkModeSlice = createSlice({
   reducers: {
     toggleDarkMode: (state) => {
       state.isDarkMode = !state.isDarkMode;
-      console.log("Masuk")
     },
   },
 });
