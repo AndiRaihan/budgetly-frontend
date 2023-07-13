@@ -8,7 +8,7 @@ type RegisterInput = {
   confirmPassword: string;
 };
 
-//TODO: Fix form styling and confirmPassword validation
+//TODO: Fix form styling
 
 export default function RegisterForm() {
   const EMAIL_REGEX =
@@ -116,8 +116,8 @@ export default function RegisterForm() {
           }
           placeholder=" "
           {...register("confirmPassword", {
-            required: "The two password is different",
-            validate: (value) => value === watch("password"),
+            required: "Please retype your password",
+            validate: (value) => value === watch("password") || "Passwords do not match",
           })}
         />
         <label
