@@ -7,6 +7,7 @@ import SideNav from "./components/SideNav";
 import { useEffect, useState } from "react";
 import CurrentPage from "./utils/CurrentPage";
 import Register from "./pages/Register";
+import Login from "./pages/Login";
 
 function App() {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -40,6 +41,7 @@ function App() {
           }
         />
         <Route path="/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
