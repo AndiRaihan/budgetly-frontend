@@ -9,24 +9,24 @@ import CurrentPage from "./utils/CurrentPage";
 import Register from "./pages/Register";
 
 function App() {
-  const [showNavbar, setShowNavbar] = useState(false);
+  const [showSidebar, setShowSidebar] = useState(false);
 
   const [currentTab, setCurrentTab] = useState(CurrentPage.Tracking);
 
-  const toggleNavBar = () => {
-    setShowNavbar((prev) => !prev);
+  const toggleSidebar = () => {
+    setShowSidebar((prev) => !prev);
   };
 
   return (
     <BrowserRouter>
-      <Navbar toggleSideNav={toggleNavBar} />
-      <SideNav show={showNavbar} currentTab={currentTab} />
+      <Navbar toggleSideNav={toggleSidebar} />
+      <SideNav show={showSidebar} currentTab={currentTab} />
       <Routes>
         <Route
           path="/"
           element={
             <Home
-              translate={showNavbar}
+              translate={showSidebar}
               changeCurrentPage={(CurrentPage: CurrentPage) =>
                 setCurrentTab(CurrentPage)
               }

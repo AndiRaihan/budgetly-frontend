@@ -1,4 +1,3 @@
-import React from "react";
 import RegisterForm from "../components/RegisterForm";
 import LayeredWaves3 from "../assets/layered-waves-var-3.svg";
 
