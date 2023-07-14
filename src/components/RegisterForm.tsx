@@ -54,86 +54,92 @@ export default function RegisterForm() {
       noValidate
     >
       <h1 className="text-3xl mb-3">Create your free account</h1>
-      <div className="relative m-5">
-        <input
-          type="email"
-          id="email"
-          className={emailValid ? NORMAL_INPUT_CLASS : ERROR_INPUT_CLASS}
-          placeholder=" "
-          {...register("email", {
-            required: "Email is required",
-            pattern: {
-              value: EMAIL_REGEX,
-              message: "Please enter a valid Email",
-            },
-          })}
-        />
-        <label
-          htmlFor="username"
-          className={emailValid ? NORMAL_LABEL_CLASS : ERROR_LABEL_CLASS}
-        >
-          Email
-        </label>
+      <div className="w-72 m-5">
+          <div className="relative">
+            <input
+              type="email"
+              id="email"
+              className={emailValid ? NORMAL_INPUT_CLASS : ERROR_INPUT_CLASS}
+              placeholder=" "
+              {...register("email", {
+                required: "Email is required",
+                pattern: {
+                  value: EMAIL_REGEX,
+                  message: "Please enter a valid Email",
+                },
+              })}
+            />
+            <label
+              htmlFor="username"
+              className={emailValid ? NORMAL_LABEL_CLASS : ERROR_LABEL_CLASS}
+            >
+              Email
+            </label>
+          </div>
+          {!emailValid && (
+            <span className="text-red-600 dark:text-red-500 text-sm ml-1">
+              {errors.email?.message}
+            </span>
+          )}
       </div>
-      {!emailValid && (
-        <span className="text-red-600 dark:text-red-500 text-sm">
-          {errors.email?.message}
-        </span>
-      )}
-      <div className="relative m-5 w-72">
-        <input
-          type="password"
-          id="password"
-          className={passwordValid ? NORMAL_INPUT_CLASS : ERROR_INPUT_CLASS}
-          placeholder=" "
-          {...register("password", {
-            required: "Password is required",
-            pattern: {
-              value: PASSWORD_REGEX,
-              message:
-                "Password must contain at least 8 characters, 1 uppercase, 1 lowercase, 1 number and 1 special character",
-            },
-          })}
-        />
-        <label
-          htmlFor="password"
-          className={passwordValid ? NORMAL_LABEL_CLASS : ERROR_LABEL_CLASS}
-        >
-          Password
-        </label>
+      <div className="w-72 mb-5">
+          <div className="relative w-72">
+            <input
+              type="password"
+              id="password"
+              className={passwordValid ? NORMAL_INPUT_CLASS : ERROR_INPUT_CLASS}
+              placeholder=" "
+              {...register("password", {
+                required: "Password is required",
+                pattern: {
+                  value: PASSWORD_REGEX,
+                  message:
+                    "Password must contain at least 8 characters, 1 uppercase, 1 lowercase, 1 number and 1 special character",
+                },
+              })}
+            />
+            <label
+              htmlFor="password"
+              className={passwordValid ? NORMAL_LABEL_CLASS : ERROR_LABEL_CLASS}
+            >
+              Password
+            </label>
+          </div>
+          {!passwordValid && (
+            <p className="text-red-600 dark:text-red-500 text-sm ml-1">
+              {errors.password?.message}
+            </p>
+          )}
       </div>
-      {!passwordValid && (
-        <p className="text-red-600 dark:text-red-500 text-sm">
-          {errors.password?.message}
-        </p>
-      )}
-      <div className="relative m-5">
-        <input
-          type="password"
-          id="confirm_password"
-          className={
-            confirmPasswordValid ? NORMAL_INPUT_CLASS : ERROR_INPUT_CLASS
-          }
-          placeholder=" "
-          {...register("confirmPassword", {
-            required: "Please retype your password",
-            validate: (value) => value === watch("password") || "Passwords do not match",
-          })}
-        />
-        <label
-          htmlFor="confirm_password"
-          className={
-            confirmPasswordValid ? NORMAL_LABEL_CLASS : ERROR_LABEL_CLASS
-          }
-        >
-          Confirm Password
-        </label>
+      <div className="w-72 mb-5">
+          <div className="relative">
+            <input
+              type="password"
+              id="confirm_password"
+              className={
+                confirmPasswordValid ? NORMAL_INPUT_CLASS : ERROR_INPUT_CLASS
+              }
+              placeholder=" "
+              {...register("confirmPassword", {
+                required: "Please retype your password",
+                validate: (value) => value === watch("password") || "Passwords do not match",
+              })}
+            />
+            <label
+              htmlFor="confirm_password"
+              className={
+                confirmPasswordValid ? NORMAL_LABEL_CLASS : ERROR_LABEL_CLASS
+              }
+            >
+              Confirm Password
+            </label>
+          </div>
+          {!confirmPasswordValid && (
+            <p className="text-red-600 dark:text-red-500 text-sm ml-1">
+              {errors.confirmPassword?.message}
+            </p>
+          )}
       </div>
-      {!confirmPasswordValid && (
-        <p className="text-red-600 dark:text-red-500 text-sm">
-          {errors.confirmPassword?.message}
-        </p>
-      )}
       <div className="flex items-center justify-center w-1/3 h-8 my-4">
         <button
           type="submit"
