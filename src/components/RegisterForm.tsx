@@ -141,7 +141,7 @@ export default function RegisterForm() {
       <div className="flex items-center justify-center w-1/3 h-8 my-4">
         <button
           type="submit"
-          className="text-center text-background-light-200 bg-gradient-to-r from-[#D1CEF8] to-[#5D98E9] flex-1 rounded-md self-stretch"
+          className="text-center text-background-light-200 bg-gradient-to-r from-[#D1CEF8] to-[#5D98E9] flex-1 rounded-md self-stretch disabled:opacity-50"
           disabled={!(emailValid && passwordValid && confirmPasswordValid)}
         >
           Sign Up
