@@ -9,6 +9,7 @@ import { RootState } from "../redux/store.ts";
 import { increment } from "../redux/counterSlice.ts";
 import { toggleDarkMode } from "../redux/darkModeSlice.ts";
 import CurrentPage from "../utils/CurrentPage.tsx";
+import TrackingForm from "../components/TrackingForm.tsx";
 
 export default function Home({translate} : PageProps) {
   const { counter, darkMode } = useSelector((state: RootState) => state);
@@ -26,14 +27,7 @@ export default function Home({translate} : PageProps) {
       className={`bg-background-light-100 h-screen flex flex-col justify-center items-center
         ${darkMode.isDarkMode ? "dark" : ""} ${translate ? "translate-x-52" : " translate-x-0"} ease-in-out duration-200`}
     >
-      <div className="flex flex-row justify-around w-auto">
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
+      <TrackingForm />
       <div className="flex flex-col justify-center items-center">
         <h1>Vite + React</h1>
         <div className="card">

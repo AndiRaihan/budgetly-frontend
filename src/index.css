@@ -5,10 +5,20 @@
 
 @layer base {
   body {
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
   }
-  
-  h1, h2, h3 {
-    font-family: 'Sintony', sans-serif;
+
+  h1,
+  h2,
+  h3 {
+    font-family: "Sintony", sans-serif;
+  }
+
+  input[type='number']::-webkit-outer-spin-button,
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number'] {
+    -webkit-appearance: none;
+    margin: 0;
+    -moz-appearance: textfield !important;
   }
 }
