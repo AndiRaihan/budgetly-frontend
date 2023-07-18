@@ -1,10 +1,10 @@
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import Switch from "@mui/material/Switch";
 
-export default function TrackingForm() {
+export default function TrackingForm({showForm}: TrackingFormProps) {
   type TrackingInput = {
     trackingName: string;
-    amount: number;
+    amount: number | null;
     trackDate: Date;
     trackType: boolean;
     category: string;
@@ -21,10 +21,10 @@ export default function TrackingForm() {
   const handleReset = () => {
     reset({
         trackingName: "",
-        amount: undefined,
+        amount: null,
         trackDate: new Date(),
         trackType: false,
-        category: "",
+        category: "Placeholder",
     })
   }
 
@@ -33,7 +33,7 @@ export default function TrackingForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col justify-center bg-transparent border-2 shadow-md p-5 w-11/12"
+      className={`m-5 ${showForm? 'opacity-100 translate-y-0' : "opacity-0 -translate-y-full absolute"} transition-all duration-75 ease-linear flex flex-col justify-center bg-transparent border-2 shadow-md p-5 w-11/12`}
       noValidate
     >
       <h1 className="text-3xl mb-3 self-center">Input Tracking</h1>
@@ -69,7 +69,7 @@ export default function TrackingForm() {
             <Controller
               name="trackType"
               control={control}
-              rules={{ required: true }}
+              defaultValue={false}
               render={({ field }) => <Switch {...field} />}
             />
             <span className="text-black ml-0 mr-3">Expense</span>
@@ -84,10 +84,14 @@ export default function TrackingForm() {
             </select>
         </div>
         <div>
-            <button type="button" onClick={handleReset}>Cancel</button>
-            <button type="submit" className="mx-5">Submit</button>
+            <button type="button" className=" bg-gray-400 rounded-md py-1 px-3 hover:brightness-90" onClick={handleReset}>Cancel</button>
+            <button type="submit" className="mx-5 bg-[#FFDA45] rounded-md py-1 px-3 hover:brightness-90">Submit</button>
         </div>
       </div>
     </form>
   );
+}
+
+type TrackingFormProps = {
+  showForm : boolean;
 }
