@@ -31,7 +31,7 @@ export default function RegisterForm() {
     register,
     handleSubmit,
     watch,
-    formState: { errors },
+    formState: { errors, isDirty, isValid },
   } = useForm<RegisterInput>();
 
   const [emailValid, setEmailValid] = useState(true);

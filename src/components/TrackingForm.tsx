@@ -1,7 +1,8 @@
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import Switch from "@mui/material/Switch";
+import IconWarning from "../assets/icon _warning_.svg";
 
-export default function TrackingForm({showForm}: TrackingFormProps) {
+export default function TrackingForm({ showForm }: TrackingFormProps) {
   type TrackingInput = {
     trackingName: string;
     amount: number | null;
@@ -15,56 +16,66 @@ export default function TrackingForm({showForm}: TrackingFormProps) {
     handleSubmit,
     control,
     reset,
-    formState: { errors },
+    formState: { errors, isDirty, isValid },
   } = useForm<TrackingInput>();
 
   const handleReset = () => {
     reset({
-        trackingName: "",
-        amount: null,
-        trackDate: new Date(),
-        trackType: false,
-        category: "Placeholder",
-    })
-  }
+      trackingName: "",
+      amount: null,
+      trackDate: new Date(),
+      trackType: false,
+      category: "Placeholder",
+    });
+  };
 
   const onSubmit: SubmitHandler<TrackingInput> = (data) => console.log(data);
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className={`m-5 ${showForm? 'opacity-100 translate-y-0' : "opacity-0 -translate-y-full absolute"} transition-all duration-75 ease-linear flex flex-col justify-center bg-transparent border-2 shadow-md p-5 w-11/12`}
+      className={`m-5 ${
+        showForm
+          ? "opacity-100 translate-y-0"
+          : "opacity-0 -translate-y-full absolute"
+      } transition-all duration-75 ease-linear flex flex-col justify-center bg-transparent border-2 shadow-md p-5 w-11/12`}
       noValidate
     >
       <h1 className="text-3xl mb-3 self-center">Input Tracking</h1>
-      <input
-        id="trackingName"
-        type="text"
-        className="bg-transparent placeholder-black focus:placeholder-slate-600"
-        placeholder="Expense/Income Name"
-        {...register("trackingName")}
-      />
+      <div className="flex">
+        <input
+          id="trackingName"
+          type="text"
+          className="bg-transparent placeholder-black focus:placeholder-slate-600"
+          placeholder="Expense/Income Name"
+          {...register("trackingName", {
+            required: "Tracking name is required",
+          })}
+        />
+      </div>
       <input
         id="amount"
         type="number"
-        className="bg-transparent placeholder-black focus:placeholder-slate-600 text-4xl"
+        className="bg-transparent placeholder-black focus:placeholder-slate-600 hover:placeholder-slate-600 text-4xl"
         placeholder="Amount"
         {...register("amount", {
           required: "Amount is required",
           valueAsNumber: true,
         })}
       />
-      <div className="flex justify-between p-5 items-center">
-        <div>
-            <input
-              id="track-date"
-              type="date"
-              className="bg-transparent"
-              {...register("trackDate", {
-                required: "Date is required",
-                valueAsDate: true,
-              })}
-            />
+
+      <div className="flex justify-between py-5 items-center">
+        <div className="flex">
+          <input
+            id="track-date"
+            type="date"
+            className="bg-transparent"
+            {...register("trackDate", {
+              required: "Date is required",
+              valueAsDate: true,
+            })}
+          />
+          <div className="border border-background-light-400 rounded-md mx-2">
             <span className="text-black ml-3 mr-0">Income</span>
             <Controller
               name="trackType"
@@ -73,25 +84,68 @@ export default function TrackingForm({showForm}: TrackingFormProps) {
               render={({ field }) => <Switch {...field} />}
             />
             <span className="text-black ml-0 mr-3">Expense</span>
-            <select
-              className="bg-transparent focus:ring-primary-100 focus:border-primary-100 focus:border px-2 py-1 rounded-md"
-              {...register("category")}
-            >
-              <option value="Placeholder" disabled selected hidden>
-                Category
-              </option>
-              <option value="contoh">Contoh</option>
-            </select>
+          </div>
+          <select
+            className="bg-transparent focus:ring-primary-100 focus:border-primary-100 focus:border px-2 py-1 rounded-md"
+            {...register("category", {
+              required: "Category is required",
+              validate: (value) =>
+                value !== "Placeholder" || "Please select category",
+            })}
+          >
+            <option value="Placeholder" disabled selected hidden>
+              Category
+            </option>
+            <option value="contoh">Contoh</option>
+          </select>
         </div>
         <div>
-            <button type="button" className=" bg-gray-400 rounded-md py-1 px-3 hover:brightness-90" onClick={handleReset}>Cancel</button>
-            <button type="submit" className="mx-5 bg-[#FFDA45] rounded-md py-1 px-3 hover:brightness-90">Submit</button>
+          <button
+            type="button"
+            className=" bg-gray-400 rounded-md py-1 px-3 hover:brightness-90"
+            onClick={handleReset}
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            className={`mx-5 bg-[#FFDA45] rounded-md py-1 px-3 ${
+              isValid && isDirty ? "hover:brightness-90" : ""
+            } disabled:opacity-60`}
+            disabled={!isDirty || !isValid}
+          >
+            Submit
+          </button>
         </div>
       </div>
+      {errors.trackingName && (
+        <p className="text-red-600 dark:text-red-500 text-sm flex justify-center items-center self-start">
+          <img src={IconWarning} className="w-3 mx-2" />
+          {errors.trackingName.message}
+        </p>
+      )}
+      {errors.amount && (
+        <p className="text-red-600 dark:text-red-500 text-sm flex justify-center items-center self-start">
+          <img src={IconWarning} className="w-3 mx-2" />
+          {errors.amount.message}
+        </p>
+      )}
+      {errors.trackDate && (
+        <p className="text-red-600 dark:text-red-500 text-sm flex justify-center items-center self-start">
+          <img src={IconWarning} className="w-3 mx-2" />
+          {errors.trackDate.message}
+        </p>
+      )}
+      {errors.category && (
+        <p className="text-red-600 dark:text-red-500 text-sm flex justify-center items-center self-start">
+          <img src={IconWarning} className="w-3 mx-2" />
+          {errors.category.message}
+        </p>
+      )}
     </form>
   );
 }
 
 type TrackingFormProps = {
-  showForm : boolean;
-}
+  showForm: boolean;
+};
