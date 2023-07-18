@@ -17,9 +17,9 @@ export default {
           }
         },
         primary: {
-          100: '#AED4FF',
-          200: '#5D98E9',
-          300: '#1A62CC'
+          100: '#A6BAAE',
+          200: '#7BA88E',
+          300: '#668573'
         },
         secondary: {
           100: '#E3D7FF',
