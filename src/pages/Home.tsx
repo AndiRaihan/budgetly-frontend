@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import reactLogo from "../assets/react.svg";
 import viteLogo from "/vite.svg";
 import { Link } from "react-router-dom";
@@ -12,6 +12,7 @@ import CurrentPage from "../utils/CurrentPage.tsx";
 import TrackingForm from "../components/TrackingForm.tsx";
 
 export default function Home({translate} : PageProps) {
+  const [showForm, setShowForm] = useState(false);
   const { counter, darkMode } = useSelector((state: RootState) => state);
 
   const count = counter.count;
@@ -27,7 +28,8 @@ export default function Home({translate} : PageProps) {
       className={`bg-background-light-100 h-screen flex flex-col justify-center items-center
         ${darkMode.isDarkMode ? "dark" : ""} ${translate ? "translate-x-52" : " translate-x-0"} ease-in-out duration-200`}
     >
-      <TrackingForm />
+      <TrackingForm showForm={showForm} />
+      <button onClick={() => setShowForm((prevState) => !prevState)}>Show Form</button>
       <div className="flex flex-col justify-center items-center">
         <h1>Vite + React</h1>
         <div className="card">
