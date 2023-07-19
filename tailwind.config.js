@@ -4,6 +4,9 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      transitionProperty: {
+        'max-height': 'max-height'
+      },
       fontFamily: {
         poppins: ["poppins", "sans-serif"],
       },

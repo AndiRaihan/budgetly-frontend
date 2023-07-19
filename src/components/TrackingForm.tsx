@@ -34,11 +34,11 @@ export default function TrackingForm({ showForm }: TrackingFormProps) {
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className={`m-5 ${
+      className={` ${
         showForm
-          ? "opacity-100 translate-y-0"
-          : "opacity-0 -translate-y-full absolute -z-50"
-      } transition-all duration-75 ease-linear flex flex-col justify-center bg-transparent border-2 shadow-md p-5 w-11/12`}
+          ? "max-h-screen p-5 m-5 border-2 shadow-md"
+          : "max-h-0 p-0 m-0 shadow-none border-none"
+      } transition-all ease-in-out duration-300 flex flex-col justify-center bg-transparent w-11/12 overflow-hidden`}
       noValidate
     >
       <h1 className="text-3xl mb-3 self-center">Input Tracking</h1>
