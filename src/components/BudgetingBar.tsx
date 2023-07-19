@@ -9,7 +9,7 @@ export default function BudgetingBar() {
             Budgeting
         </div>
         <div className='text-white z-30'>
-            Rp 120.000
+            50%
         </div>
     </div>
   )

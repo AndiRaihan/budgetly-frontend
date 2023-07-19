@@ -37,7 +37,7 @@ export default function TrackingForm({ showForm }: TrackingFormProps) {
       className={`m-5 ${
         showForm
           ? "opacity-100 translate-y-0"
-          : "opacity-0 -translate-y-full absolute"
+          : "opacity-0 -translate-y-full absolute -z-50"
       } transition-all duration-75 ease-linear flex flex-col justify-center bg-transparent border-2 shadow-md p-5 w-11/12`}
       noValidate
     >
