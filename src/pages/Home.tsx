@@ -10,6 +10,8 @@ import { increment } from "../redux/counterSlice.ts";
 import { toggleDarkMode } from "../redux/darkModeSlice.ts";
 import CurrentPage from "../utils/CurrentPage.tsx";
 import TrackingForm from "../components/TrackingForm.tsx";
+import TrackingBar from "../components/TrackingBar.tsx";
+import BudgetingBar from "../components/BudgetingBar.tsx";
 
 export default function Home({translate} : PageProps) {
   const [showForm, setShowForm] = useState(false);
@@ -56,6 +58,8 @@ export default function Home({translate} : PageProps) {
         </Link>
         <ThemeSwitch />
       </div>
+      <TrackingBar />
+      <BudgetingBar />
     </div>
   );
 }
