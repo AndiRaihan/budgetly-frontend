@@ -2,7 +2,7 @@ import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import Switch from "@mui/material/Switch";
 import IconWarning from "../assets/icon _warning_.svg";
 
-export default function TrackingForm({ showForm }: TrackingFormProps) {
+export default function TrackingForm({ showForm, setShowForm: setShowForm }: TrackingFormProps) {
   type TrackingInput = {
     trackingName: string;
     amount: number | null;
@@ -20,6 +20,7 @@ export default function TrackingForm({ showForm }: TrackingFormProps) {
   } = useForm<TrackingInput>();
 
   const handleReset = () => {
+    setShowForm(false);
     reset({
       trackingName: "",
       amount: null,
@@ -41,7 +42,6 @@ export default function TrackingForm({ showForm }: TrackingFormProps) {
       } transition-all ease-in-out duration-300 flex flex-col justify-center bg-transparent w-11/12 overflow-hidden`}
       noValidate
     >
-      <h1 className="text-3xl mb-3 self-center">Input Tracking</h1>
       <div className="flex">
         <input
           id="trackingName"
@@ -64,7 +64,7 @@ export default function TrackingForm({ showForm }: TrackingFormProps) {
         })}
       />
 
-      <div className="flex justify-between py-5 items-center">
+      <div className="flex justify-between items-center">
         <div className="flex">
           <input
             id="track-date"
@@ -148,4 +148,5 @@ export default function TrackingForm({ showForm }: TrackingFormProps) {
 
 type TrackingFormProps = {
   showForm: boolean;
+  setShowForm: React.Dispatch<React.SetStateAction<boolean>>;
 };
