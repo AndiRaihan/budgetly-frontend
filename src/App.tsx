@@ -20,6 +20,22 @@ function App() {
     setShowSidebar(false);
   }, [showNavbar]);
 
+  useEffect(() => {
+    const handlePopstate = () => {
+      if (window.location.pathname === "/register" || window.location.pathname === "/login") {
+        setShowNavbar(false);
+      } else {
+        setShowNavbar(true);
+      }
+    };
+  
+    window.addEventListener("popstate", handlePopstate);
+  
+    return () => {
+      window.removeEventListener("popstate", handlePopstate);
+    };
+  }, []);
+
   const toggleSidebar = () => {
     setShowSidebar((prev) => !prev);
   };
