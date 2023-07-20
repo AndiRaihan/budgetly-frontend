@@ -27,7 +27,7 @@ export default function Home({translate} : PageProps) {
 
   return (
     <div
-      className={`bg-background-light-100 h-screen flex flex-col justify-center items-center
+      className={`bg-background-light-100 h-screen flex flex-col pt-20 items-center
         ${darkMode.isDarkMode ? "dark" : ""} ${translate ? "translate-x-52 w-[calc(100vw-13rem)]" : " translate-x-0 w-screen"} transition-all ease-in-out duration-200 overflow-hidden`}
     >
       <TrackingForm showForm={showForm} />
