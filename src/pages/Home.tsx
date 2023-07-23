@@ -1,17 +1,9 @@
 import { useEffect, useState } from "react";
-import reactLogo from "../assets/react.svg";
-import viteLogo from "/vite.svg";
-import { Link } from "react-router-dom";
-import ThemeSwitch from "../components/ThemeSwitch.tsx";
-import Button from "@mui/material/Button";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store.ts";
-import { increment } from "../redux/counterSlice.ts";
-import { toggleDarkMode } from "../redux/darkModeSlice.ts";
 import CurrentPage from "../utils/CurrentPage.tsx";
 import TrackingForm from "../components/TrackingForm.tsx";
 import TrackingBar from "../components/TrackingBar.tsx";
-import BudgetingBar from "../components/BudgetingBar.tsx";
 
 export default function Home({ translate }: PageProps) {
   const [showForm, setShowForm] = useState(false);
@@ -25,8 +17,6 @@ export default function Home({ translate }: PageProps) {
   });
 
   const count = counter.count;
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     localStorage.setItem("count", count.toString());
