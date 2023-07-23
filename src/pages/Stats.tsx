@@ -66,7 +66,7 @@ export default function Stats({ translate, changeCurrentPage }: PageProps) {
           />
           <span className="text-xl">Ex</span>
         </div>
-        <div className="relative">
+        <div className="relative z-50">
           <button
             className="flex items-center justify-center rounded-2xl text-3xl z-20 bg-background-light-400 py-1 px-5 w-44 text-background-light-100"
             onClick={() => setIsDropdownOpen((prev) => !prev)}
