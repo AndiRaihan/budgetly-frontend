@@ -66,7 +66,6 @@ export default function Stats({ translate, changeCurrentPage }: PageProps) {
           />
           <span className="text-xl">Ex</span>
         </div>
-        {/* TODO: Nanti Jadiin Dropdown */}
         <div className="relative">
           <button
             className="flex items-center justify-center rounded-2xl text-3xl z-20 bg-background-light-400 py-1 px-5 w-44 text-background-light-100"
@@ -91,7 +90,6 @@ export default function Stats({ translate, changeCurrentPage }: PageProps) {
           </div>
         </div>
       </div>
-      {/* Add Pie Chart Here: https://stackblitz.com/edit/canvasjs-react-pie-chart-exploded?file=index.js */}
       <div className="flex justify-center items-center w-full">
         <PieChart items={data} />
       </div>
