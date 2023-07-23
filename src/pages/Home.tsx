@@ -7,7 +7,7 @@ import TrackingBar from "../components/TrackingBar.tsx";
 
 export default function Home({ translate }: PageProps) {
   const [showForm, setShowForm] = useState(false);
-  const { counter, darkMode } = useSelector((state: RootState) => state);
+  const { darkMode } = useSelector((state: RootState) => state);
 
   const currentDate = new Date();
   const formattedDate = currentDate.toLocaleDateString("en-US", {
@@ -15,12 +15,6 @@ export default function Home({ translate }: PageProps) {
     day: "numeric",
     month: "long",
   });
-
-  const count = counter.count;
-
-  useEffect(() => {
-    localStorage.setItem("count", count.toString());
-  }, [count]);
 
   return (
     <div
