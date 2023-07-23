@@ -5,7 +5,8 @@ import CurrentPage from "../utils/CurrentPage.tsx";
 import TrackingForm from "../components/TrackingForm.tsx";
 import TrackingBar from "../components/TrackingBar.tsx";
 
-export default function Home({ translate }: PageProps) {
+export default function Home({ translate, changeCurrentPage }: PageProps) {
+  changeCurrentPage(CurrentPage.Tracking);
   const [showForm, setShowForm] = useState(false);
   const { darkMode } = useSelector((state: RootState) => state);
 
