@@ -1,12 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { RootState } from "../redux/store";
 import CurrentPage from "../utils/CurrentPage";
 import { useSelector } from "react-redux";
 import { Switch } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import Period from "../utils/Period";
-
+import PieChart from "../components/PieChart";
 export default function Stats({ translate, changeCurrentPage }: PageProps) {
   changeCurrentPage(CurrentPage.Stats);
 
@@ -18,13 +17,28 @@ export default function Stats({ translate, changeCurrentPage }: PageProps) {
 
   const periods = Object.values(Period);
 
+  const data = [
+    {
+      label: "Buku",
+      y: 20,
+    },
+    {
+      label: "Pensil",
+      y: 15,
+    },
+    {
+      label: "Penghapus",
+      y: 50,
+    },
+  ];
+
   const DropDownItem: any = periods.map((periodsItem) => (
     <li
       className={`${
         periodsItem === period
           ? "bg-primary-200 hover:bg-primary-100 text-background-light-100"
           : "hover:bg-background-light-200 text-black"
-      } px-4 py-2  hover:cursor-pointer`}
+      } px-4 py-2 hover:cursor-pointer`}
       key={periodsItem}
       onClick={() => setPeriod(periodsItem)}
     >
@@ -44,7 +58,7 @@ export default function Stats({ translate, changeCurrentPage }: PageProps) {
       } transition-all ease-in-out duration-200 overflow-hidden`}
     >
       <div className="flex justify-between items-end p-1 ml-5 mb-3 w-11/12">
-        <div className="">
+        <div>
           <span className="text-xl">In</span>
           <Switch
             checked={isIncome}
@@ -59,11 +73,13 @@ export default function Stats({ translate, changeCurrentPage }: PageProps) {
             onClick={() => setIsDropdownOpen((prev) => !prev)}
           >
             {period}
-            {isDropdownOpen ? (
-              <ArrowDropUpIcon fontSize="large" />
-            ) : (
+            <div
+              className={`${
+                isDropdownOpen && "rotate-180"
+              } transition-all duration-300`}
+            >
               <ArrowDropDownIcon fontSize="large" />
-            )}
+            </div>
           </button>
 
           <div
@@ -74,6 +90,10 @@ export default function Stats({ translate, changeCurrentPage }: PageProps) {
             <ul className="pb-2 pt-8 ">{DropDownItem}</ul>
           </div>
         </div>
+      </div>
+      {/* Add Pie Chart Here: https://stackblitz.com/edit/canvasjs-react-pie-chart-exploded?file=index.js */}
+      <div className="flex justify-center items-center w-full">
+        <PieChart items={data} />
       </div>
     </div>
   );
