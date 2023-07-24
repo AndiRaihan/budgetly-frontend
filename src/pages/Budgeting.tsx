@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import CurrentPage from "../utils/CurrentPage";
 import BudgetingForm from "../components/BudgetingForm";
+import BudgetingBar from "../components/BudgetingBar";
 
 export default function Budgeting({ translate, changeCurrentPage }: PageProps) {
   changeCurrentPage(CurrentPage.Budgeting);
@@ -44,6 +45,10 @@ export default function Budgeting({ translate, changeCurrentPage }: PageProps) {
       {showForm && (
         <hr className="border rounded-md w-11/12 ml-5 border-black" />
       )}
+      <BudgetingBar />
+      <BudgetingBar />
+      <BudgetingBar />
+      <BudgetingBar />
     </div>
   );
 }
