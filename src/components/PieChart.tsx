@@ -1,3 +1,4 @@
+// @ts-ignore
 import CanvasJSReact from "@canvasjs/react-charts";
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
@@ -8,7 +9,7 @@ export default function PieChart({ items }: PageProps) {
       data: [
         {
           type: "pie",
-          click: function (e) {
+          click: function (e: { dataSeries: { dataPoints: string | any[]; }; dataPoint: { exploded: boolean; }; }) {
             for (var i = 0; i < e.dataSeries.dataPoints.length; i++) {
               e.dataSeries.dataPoints[i].exploded = false;
             }
