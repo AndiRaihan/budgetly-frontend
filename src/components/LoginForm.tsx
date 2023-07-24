@@ -10,7 +10,7 @@ export default function RegisterForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: {},
   } = useForm<RegisterInput>();
 
   const onSubmit: SubmitHandler<RegisterInput> = (data) => console.log(data);

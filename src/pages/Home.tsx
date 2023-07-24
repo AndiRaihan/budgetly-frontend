@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { useSelector } from "react-redux";
 import { RootState } from "../redux/store.ts";
 import CurrentPage from "../utils/CurrentPage.tsx";
 import TrackingForm from "../components/TrackingForm.tsx";
