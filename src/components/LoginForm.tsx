@@ -7,6 +7,7 @@ type RegisterInput = {
 };
 
 export default function RegisterForm() {
+  // TODO: Tambahin message kalo gagal login
   const {
     register,
     handleSubmit,
@@ -59,6 +60,7 @@ export default function RegisterForm() {
         </button>
       </div>
       <p className="text-gray-500 my-2">
+        {/* TODO: Damn perlu belajar english lagi ini */}
         Haven't have an account?{" "}
         <Link to="/register" className="text-primary-200">
           Sign Up
