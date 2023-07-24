@@ -4,10 +4,12 @@ import { RootState } from "../redux/store.ts";
 import CurrentPage from "../utils/CurrentPage.tsx";
 import TrackingForm from "../components/TrackingForm.tsx";
 import TrackingBar from "../components/TrackingBar.tsx";
+import TuneIcon from "@mui/icons-material/Tune";
 
 export default function Home({ translate, changeCurrentPage }: PageProps) {
   changeCurrentPage(CurrentPage.Tracking);
   const [showForm, setShowForm] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const { darkMode } = useSelector((state: RootState) => state);
 
   const currentDate = new Date();
@@ -30,8 +32,41 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
         <h1 className="text-3xl">
           Today <span className="text-sm">{formattedDate}</span>
         </h1>
-        {/* TODO: Ubah jadi dropdown filter */}
-        <h1>Filter</h1>
+        <div className="relative z-50">
+          <button
+            className="flex items-center justify-center text-xl z-20 py-1 px-5 hover:bg-background-light-200"
+            onClick={() => setIsDropdownOpen((prev) => !prev)}
+          >
+            <span>
+              <TuneIcon />
+            </span>
+            Filter
+          </button>
+
+          <div
+            className={`transition-all duration-300 ${
+              isDropdownOpen ? "max-h-60" : "max-h-0"
+            } absolute top-10 left-0 bg-background-light-300 -z-50 rounded-2xl shadow w-44 overflow-hidden`}
+          >
+            <ul className="pb-2 pt-2 ">
+              <li
+                className={`hover:bg-background-light-200 text-blackpx-4 hover:cursor-pointer px-4 py-2`}
+              >
+                Opsi 1
+              </li>
+              <li
+                className={`hover:bg-background-light-200 text-blackpx-4 hover:cursor-pointer px-4 py-2`}
+              >
+                Opsi 2
+              </li>
+              <li
+                className={`hover:bg-background-light-200 text-blackpx-4 hover:cursor-pointer px-4 py-2`}
+              >
+                Opsi 3
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
       <TrackingForm showForm={showForm} setShowForm={setShowForm} />
       <button

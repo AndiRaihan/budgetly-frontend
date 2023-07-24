@@ -4,10 +4,12 @@ import { RootState } from "../redux/store";
 import CurrentPage from "../utils/CurrentPage";
 import BudgetingForm from "../components/BudgetingForm";
 import BudgetingBar from "../components/BudgetingBar";
+import { Switch } from "@mui/material";
 
 export default function Budgeting({ translate, changeCurrentPage }: PageProps) {
   changeCurrentPage(CurrentPage.Budgeting);
   const [showForm, setShowForm] = useState(false);
+  const [isPercentage, setIsPercentage] = useState(false);
   const { darkMode } = useSelector((state: RootState) => state);
 
   const currentDate = new Date();
@@ -31,7 +33,14 @@ export default function Budgeting({ translate, changeCurrentPage }: PageProps) {
           Today <span className="text-sm">{formattedDate}</span>
         </h1>
         {/* TODO: Ubah jadi dropdown Switch  */}
-        <h1>Switch</h1>
+        <div>
+          <span className="text-xl">%</span>
+          <Switch
+            checked={isPercentage}
+            onChange={() => setIsPercentage((prev) => !prev)}
+          />
+          <span className="text-xl">$</span>
+        </div>
       </div>
       <BudgetingForm showForm={showForm} setShowForm={setShowForm} />
       <button
