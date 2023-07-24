@@ -42,7 +42,6 @@ export default function TrackingForm({ showForm, setShowForm: setShowForm }: Tra
       } transition-all ease-in-out duration-300 flex flex-col justify-center bg-transparent w-11/12 overflow-hidden`}
       noValidate
     >
-      <div className="flex">
         <input
           id="trackingName"
           type="text"
@@ -52,7 +51,6 @@ export default function TrackingForm({ showForm, setShowForm: setShowForm }: Tra
             required: "Tracking name is required",
           })}
         />
-      </div>
       <input
         id="amount"
         type="number"
