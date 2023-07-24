@@ -9,6 +9,7 @@ import CurrentPage from "./utils/CurrentPage";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Stats from "./pages/Stats";
+import Budgeting from "./pages/Budgeting";
 
 function App() {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -61,6 +62,17 @@ function App() {
           path="/stats"
           element={
             <Stats
+              translate={showSidebar}
+              changeCurrentPage={(CurrentPage: CurrentPage) =>
+                setCurrentTab(CurrentPage)
+              }
+            />
+          }
+        />
+        <Route
+          path="/budgeting"
+          element={
+            <Budgeting
               translate={showSidebar}
               changeCurrentPage={(CurrentPage: CurrentPage) =>
                 setCurrentTab(CurrentPage)
