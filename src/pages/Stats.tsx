@@ -46,8 +46,6 @@ export default function Stats({ translate, changeCurrentPage }: PageProps) {
     </li>
   ));
 
-  console.log(DropDownItem);
-
   return (
     <div
       className={`bg-background-light-100 h-screen flex flex-col pt-20 items-start px-16
