@@ -32,7 +32,6 @@ export default function Budgeting({ translate, changeCurrentPage }: PageProps) {
         <h1 className="text-3xl">
           Today <span className="text-sm">{formattedDate}</span>
         </h1>
-        {/* TODO: Ubah jadi dropdown Switch  */}
         <div>
           <span className="text-xl">%</span>
           <Switch
