@@ -48,7 +48,7 @@ export default function Budgeting({ translate, changeCurrentPage }: PageProps) {
           !showForm ? "max-h-max p-1 ml-5" : "max-h-0"
         } transition-all ease-in-out duration-300  self-start text-start hover:bg-background-light-200 rounded-md w-11/12 overflow-hidden`}
       >
-        +Add Expense/income
+        +Add Budget
       </button>
       {showForm && (
         <hr className="border rounded-md w-11/12 ml-5 border-black" />
