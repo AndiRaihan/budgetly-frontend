@@ -17,7 +17,7 @@ function SideNav({ show, currentTab }: SideNavProps) {
             to="/"
             className={`${
               currentTab === CurrentPage.Tracking
-                ? "hover:bg-primary-100 duration-300"
+                ? "hover:bg-primary-300 duration-300"
                 : "hover:bg-background-light-400"
             } rounded-md w-8 flex-1 flex flex-grow items-center text-center h-10 ${
               currentTab === CurrentPage.Tracking && "bg-primary-200"
@@ -32,7 +32,7 @@ function SideNav({ show, currentTab }: SideNavProps) {
             to="/budgeting"
             className={`${
               currentTab === CurrentPage.Budgeting
-                ? "hover:bg-primary-100 duration-300"
+                ? "hover:bg-primary-300 duration-300"
                 : "hover:bg-background-light-400"
             } rounded-md w-8 h-10 flex-1 flex flex-grow items-center text-center ${
               currentTab === CurrentPage.Budgeting && "bg-primary-200"
@@ -47,7 +47,7 @@ function SideNav({ show, currentTab }: SideNavProps) {
             to="/stats"
             className={`${
               currentTab === CurrentPage.Stats
-                ? "hover:bg-primary-100 duration-300"
+                ? "hover:bg-primary-300 duration-300"
                 : "hover:bg-background-light-400"
             } rounded-md w-8 h-10 flex-1 flex flex-grow items-center text-center ${
               currentTab === CurrentPage.Stats && "bg-primary-200"

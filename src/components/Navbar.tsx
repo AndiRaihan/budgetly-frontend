@@ -45,7 +45,7 @@ export default function Navbar({ toggleSideNav, setNavbar }: NavbarProps) {
             <h1 className=" text-center">Login</h1>
           </Link>
         </li>
-        <li className=" flex items-center justify-center bg-primary-200 w-36 h-7 rounded-md hover:bg-primary-100 transition-all duration-300 focus:ring-4 focus:bg-primary-300 shadow-lg transform active:scale-75 mx-5 text-white">
+        <li className=" flex items-center justify-center bg-primary-200 w-36 h-7 rounded-md hover:bg-primary-300 transition-all duration-300 focus:ring-4 focus:bg-primary-300 shadow-lg transform active:scale-75 mx-5 text-white">
           <Link className="flex-1 flex-grow text-center" to="/register">
             Register
           </Link>
