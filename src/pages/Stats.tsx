@@ -93,7 +93,7 @@ export default function Stats({ translate, changeCurrentPage }: PageProps) {
       <div className="flex justify-center items-center w-full">
         <PieChart items={data} />
       </div>
-      <div className="flex flex-row-reverse w-11/12">
+      <div className="flex flex-row-reverse w-11/12 my-5">
         <div>
           <span className="text-xl">$</span>
           <Switch
