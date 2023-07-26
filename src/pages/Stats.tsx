@@ -6,12 +6,14 @@ import { Switch } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import Period from "../utils/Period";
 import PieChart from "../components/PieChart";
+import BudgetingBar from "../components/BudgetingBar";
 export default function Stats({ translate, changeCurrentPage }: PageProps) {
   changeCurrentPage(CurrentPage.Stats);
 
   const [isIncome, setIsIncome] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [period, setPeriod] = useState(Period.Daily);
+  const [isPercentage, setIsPercentage] = useState(false);
 
   const { darkMode } = useSelector((state: RootState) => state);
 
@@ -48,12 +50,12 @@ export default function Stats({ translate, changeCurrentPage }: PageProps) {
 
   return (
     <div
-      className={`bg-background-light-100 h-screen flex flex-col pt-20 items-start px-16
+      className={`bg-background-light-100 min-h-screen flex flex-col pt-20 items-start px-16
           ${darkMode.isDarkMode ? "dark" : ""} ${
         translate
           ? "translate-x-52 w-[calc(100vw-13rem)]"
           : " translate-x-0 w-screen"
-      } transition-all ease-in-out duration-200 overflow-hidden`}
+      } transition-all ease-in-out duration-200 pb-20`}
     >
       <div className="flex justify-between items-end p-1 ml-5 mb-3 w-11/12">
         <div>
@@ -91,6 +93,52 @@ export default function Stats({ translate, changeCurrentPage }: PageProps) {
       <div className="flex justify-center items-center w-full">
         <PieChart items={data} />
       </div>
+      <div className="flex flex-row-reverse w-11/12">
+        <div>
+          <span className="text-xl">$</span>
+          <Switch
+            checked={isPercentage}
+            onChange={() => setIsPercentage((prev) => !prev)}
+          />
+          <span className="text-xl">%</span>
+        </div>
+      </div>
+      <BudgetingBar
+        current={1000000}
+        limit={2000000}
+        title="Pangan"
+        showPercent={isPercentage}
+      />
+      <BudgetingBar
+        current={1500000}
+        limit={2500000}
+        title="Papan"
+        showPercent={isPercentage}
+      />
+      <BudgetingBar
+        current={50000}
+        limit={150000}
+        title="Sandang"
+        showPercent={isPercentage}
+      />
+      <BudgetingBar
+        current={100_000}
+        limit={1_000_000}
+        title="Rekreasi"
+        showPercent={isPercentage}
+      />
+            <BudgetingBar
+        current={100_000}
+        limit={1_000_000}
+        title="Rekreasi"
+        showPercent={isPercentage}
+      />
+            <BudgetingBar
+        current={100_000}
+        limit={1_000_000}
+        title="Rekreasi"
+        showPercent={isPercentage}
+      />
     </div>
   );
 }
