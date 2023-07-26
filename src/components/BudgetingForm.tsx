@@ -58,16 +58,18 @@ export default function BudgetingForm({
           required: "Tracking name is required",
         })}
       />
-      <input
-        id="amount"
-        type="number"
-        className="bg-transparent placeholder-black focus:placeholder-slate-600 hover:placeholder-slate-600 text-4xl"
-        placeholder="Target Amount"
-        {...register("amount", {
-          required: "Amount is required",
-          valueAsNumber: true,
-        })}
-      />
+      <div className="my-1 w-full">
+        <input
+          id="amount"
+          type="number"
+          className="bg-transparent placeholder-black focus:placeholder-slate-600 hover:placeholder-slate-600 text-4xl w-full"
+          placeholder="Target Amount"
+          {...register("amount", {
+            required: "Amount is required",
+            valueAsNumber: true,
+          })}
+        />
+      </div>
 
       <div className="flex justify-between items-center">
         <div className="flex">
