@@ -26,7 +26,7 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
         translate
           ? "translate-x-52 w-[calc(100vw-13rem)]"
           : " translate-x-0 w-screen"
-      } transition-all ease-in-out duration-200 overflow-hidden`}
+      } transition-all ease-in-out duration-200 pb-20`}
     >
       <div className="flex justify-between items-end p-1 ml-5 mb-3 w-11/12">
         <h1 className="text-3xl">
