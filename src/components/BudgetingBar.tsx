@@ -13,8 +13,8 @@ export default function BudgetingBar({
 }: BudgetingBarProps) {
   // TODO: Bikin props untuk ngatur persen/angka, judulnya, max-nya, dan jumlah saat ini
   const barLength = (current / limit) * 100;
-  let locale = window.navigator.language;
-  let formatter = new Intl.NumberFormat(locale, {
+  const locale = window.navigator.language;
+  const formatter = new Intl.NumberFormat(locale, {
     style: "currency",
     currency: "USD",
   });
