@@ -81,11 +81,11 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
         <hr className="border rounded-md w-11/12 ml-5 border-black" />
       )}
       {/* TODO: Kalo bisa refactor aja sih ini section headernya biar jadi component sama tracking bar-nya */}
-      <TrackingBar />
+      <TrackingBar title={"Mangan"} amount={100000} />
       <h1 className="text-3xl ml-5 mt-10">Yesterday</h1>
-      <TrackingBar />
-      <TrackingBar />
-      <TrackingBar />
+      <TrackingBar title={"Nasi padang"} amount={20000} />
+      <TrackingBar title={"Nasi goreng"} amount={15000} />
+      <TrackingBar title={"Air putih"} amount={100000} />
     </div>
   );
 }
