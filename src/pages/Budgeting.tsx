@@ -33,12 +33,12 @@ export default function Budgeting({ translate, changeCurrentPage }: PageProps) {
           Today <span className="text-sm">{formattedDate}</span>
         </h1>
         <div>
-          <span className="text-xl">%</span>
+          <span className="text-xl">$</span>
           <Switch
             checked={isPercentage}
             onChange={() => setIsPercentage((prev) => !prev)}
           />
-          <span className="text-xl">$</span>
+          <span className="text-xl">%</span>
         </div>
       </div>
       <BudgetingForm showForm={showForm} setShowForm={setShowForm} />
