@@ -53,10 +53,10 @@ export default function Budgeting({ translate, changeCurrentPage }: PageProps) {
       {showForm && (
         <hr className="border rounded-md w-11/12 ml-5 border-black" />
       )}
-      <BudgetingBar />
-      <BudgetingBar />
-      <BudgetingBar />
-      <BudgetingBar />
+      <BudgetingBar current={1000000} limit={2000000} title="Pangan" showPercent={isPercentage} />
+      <BudgetingBar current={1500000} limit={2500000} title="Papan" showPercent={isPercentage} />
+      <BudgetingBar current={50000} limit={150000} title="Sandang" showPercent={isPercentage} />
+      <BudgetingBar current={100_000} limit={1_000_000} title="Rekreasi" showPercent={isPercentage} />
     </div>
   );
 }
