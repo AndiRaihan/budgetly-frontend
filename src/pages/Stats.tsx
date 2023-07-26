@@ -2,11 +2,11 @@ import { useState } from "react";
 import { RootState } from "../redux/store";
 import CurrentPage from "../utils/CurrentPage";
 import { useSelector } from "react-redux";
-import { Switch } from "@mui/material";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import Period from "../utils/Period";
 import PieChart from "../components/PieChart";
 import BudgetingBar from "../components/BudgetingBar";
+import CustomSwitch from "../components/CustomSwitch";
 export default function Stats({ translate, changeCurrentPage }: PageProps) {
   changeCurrentPage(CurrentPage.Stats);
 
@@ -60,7 +60,7 @@ export default function Stats({ translate, changeCurrentPage }: PageProps) {
       <div className="flex justify-between items-end p-1 ml-5 mb-3 w-11/12">
         <div>
           <span className="text-xl">In</span>
-          <Switch
+          <CustomSwitch
             checked={isIncome}
             onChange={() => setIsIncome((prev) => !prev)}
           />
@@ -96,7 +96,7 @@ export default function Stats({ translate, changeCurrentPage }: PageProps) {
       <div className="flex flex-row-reverse w-11/12 my-5">
         <div>
           <span className="text-xl">$</span>
-          <Switch
+          <CustomSwitch
             checked={isPercentage}
             onChange={() => setIsPercentage((prev) => !prev)}
           />
@@ -127,13 +127,13 @@ export default function Stats({ translate, changeCurrentPage }: PageProps) {
         title="Rekreasi"
         showPercent={isPercentage}
       />
-            <BudgetingBar
+      <BudgetingBar
         current={100_000}
         limit={1_000_000}
         title="Rekreasi"
         showPercent={isPercentage}
       />
-            <BudgetingBar
+      <BudgetingBar
         current={100_000}
         limit={1_000_000}
         title="Rekreasi"

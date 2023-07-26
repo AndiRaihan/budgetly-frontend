@@ -1,8 +1,8 @@
-import { Switch } from "@mui/material";
 import React from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import IconWarning from "../assets/icon _warning_.svg";
 import Period from "../utils/Period";
+import CustomSwitch from "./CustomSwitch";
 
 export default function BudgetingForm({
   showForm,
@@ -90,7 +90,10 @@ export default function BudgetingForm({
               type="date"
               className="bg-transparent"
               {...register("budgetDate", {
-                required: watch('period') === Period.Custom ? "Date is required" : false,
+                required:
+                  watch("period") === Period.Custom
+                    ? "Date is required"
+                    : false,
                 valueAsDate: true,
               })}
             />
@@ -113,7 +116,7 @@ export default function BudgetingForm({
               name="trackType"
               control={control}
               defaultValue={false}
-              render={({ field }) => <Switch {...field} />}
+              render={({ field }) => <CustomSwitch {...field} />}
             />
             <span className="text-black ml-0 mr-3">Recurring</span>
           </div>

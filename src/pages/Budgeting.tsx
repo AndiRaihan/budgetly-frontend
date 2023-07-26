@@ -4,7 +4,7 @@ import { RootState } from "../redux/store";
 import CurrentPage from "../utils/CurrentPage";
 import BudgetingForm from "../components/BudgetingForm";
 import BudgetingBar from "../components/BudgetingBar";
-import { Switch } from "@mui/material";
+import CustomSwitch from "../components/CustomSwitch";
 
 export default function Budgeting({ translate, changeCurrentPage }: PageProps) {
   changeCurrentPage(CurrentPage.Budgeting);
@@ -34,7 +34,7 @@ export default function Budgeting({ translate, changeCurrentPage }: PageProps) {
         </h1>
         <div>
           <span className="text-xl">$</span>
-          <Switch
+          <CustomSwitch
             checked={isPercentage}
             onChange={() => setIsPercentage((prev) => !prev)}
           />
@@ -53,10 +53,30 @@ export default function Budgeting({ translate, changeCurrentPage }: PageProps) {
       {showForm && (
         <hr className="border rounded-md w-11/12 ml-5 border-black" />
       )}
-      <BudgetingBar current={1000000} limit={2000000} title="Pangan" showPercent={isPercentage} />
-      <BudgetingBar current={1500000} limit={2500000} title="Papan" showPercent={isPercentage} />
-      <BudgetingBar current={50000} limit={150000} title="Sandang" showPercent={isPercentage} />
-      <BudgetingBar current={100_000} limit={1_000_000} title="Rekreasi" showPercent={isPercentage} />
+      <BudgetingBar
+        current={1000000}
+        limit={2000000}
+        title="Pangan"
+        showPercent={isPercentage}
+      />
+      <BudgetingBar
+        current={1500000}
+        limit={2500000}
+        title="Papan"
+        showPercent={isPercentage}
+      />
+      <BudgetingBar
+        current={50000}
+        limit={150000}
+        title="Sandang"
+        showPercent={isPercentage}
+      />
+      <BudgetingBar
+        current={100_000}
+        limit={1_000_000}
+        title="Rekreasi"
+        showPercent={isPercentage}
+      />
     </div>
   );
 }

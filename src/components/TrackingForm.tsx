@@ -1,8 +1,11 @@
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
-import Switch from "@mui/material/Switch";
 import IconWarning from "../assets/icon _warning_.svg";
+import CustomSwitch from "./CustomSwitch";
 
-export default function TrackingForm({ showForm, setShowForm: setShowForm }: TrackingFormProps) {
+export default function TrackingForm({
+  showForm,
+  setShowForm: setShowForm,
+}: TrackingFormProps) {
   type TrackingInput = {
     trackingName: string;
     amount: number | null;
@@ -42,15 +45,15 @@ export default function TrackingForm({ showForm, setShowForm: setShowForm }: Tra
       } transition-all ease-in-out duration-300 flex flex-col justify-center bg-transparent w-11/12 overflow-hidden`}
       noValidate
     >
-        <input
-          id="trackingName"
-          type="text"
-          className="bg-transparent placeholder-black focus:placeholder-slate-600"
-          placeholder="Expense/Income Name"
-          {...register("trackingName", {
-            required: "Tracking name is required",
-          })}
-        />
+      <input
+        id="trackingName"
+        type="text"
+        className="bg-transparent placeholder-black focus:placeholder-slate-600"
+        placeholder="Expense/Income Name"
+        {...register("trackingName", {
+          required: "Tracking name is required",
+        })}
+      />
       <input
         id="amount"
         type="number"
@@ -79,7 +82,7 @@ export default function TrackingForm({ showForm, setShowForm: setShowForm }: Tra
               name="trackType"
               control={control}
               defaultValue={false}
-              render={({ field }) => <Switch {...field} />}
+              render={({ field }) => <CustomSwitch {...field} />}
             />
             <span className="text-black ml-0 mr-3">Expense</span>
           </div>
