@@ -14,7 +14,7 @@ function SideNav({ show, currentTab }: SideNavProps) {
       <ul className="flex flex-col items-center py-20 h-full">
         <li className=" w-11/12 h-10 flex items-center justify-center m-1">
           <Link
-            to="/"
+            to="/tracking"
             className={`${
               currentTab === CurrentPage.Tracking
                 ? "hover:bg-primary-300 duration-300"

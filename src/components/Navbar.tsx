@@ -16,7 +16,8 @@ export default function Navbar({ toggleSideNav, setNavbar }: NavbarProps) {
   useEffect(() => {
     if (location.pathname === "/register" || location.pathname === "/login") {
       setNavbar(false);
-    } else {
+    }
+    else {
       setNavbar(true);
     }
   }, [location.pathname]);

@@ -60,8 +60,7 @@ export default function RegisterForm() {
         </button>
       </div>
       <p className="text-gray-500 my-2">
-        {/* TODO: Damn perlu belajar english lagi ini */}
-        Haven't have an account?{" "}
+        Dont't have an account?{" "}
         <Link to="/register" className="text-primary-200">
           Sign Up
         </Link>

@@ -11,6 +11,7 @@ export default {
         poppins: ["poppins", "sans-serif"],
       },
       colors: {
+        'dark-green':"#005037",
         background: {
           light : {
             100: '#F2FCF6',

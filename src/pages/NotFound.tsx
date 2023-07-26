@@ -23,7 +23,7 @@ export default function NotFound() {
         variant="outlined"
         onClick={() => navigate(-1)}
       >
-        Go to Previous Page
+        Go to Home Page
       </Button>
     </div>
   );

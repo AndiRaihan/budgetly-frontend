@@ -1,6 +1,7 @@
 import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
+import Tracking from "./pages/Tracking";
+import LandingPage from "./pages/LandingPage";
 import NotFound from "./pages/NotFound";
 import Navbar from "./components/Navbar";
 import SideNav from "./components/SideNav";
@@ -24,7 +25,7 @@ function App() {
 
   useEffect(() => {
     const handlePopstate = () => {
-      if (window.location.pathname === "/register" || window.location.pathname === "/login") {
+      if (window.location.pathname === "/register" || window.location.pathname === "/login" || window.location.pathname === "/") {
         setShowNavbar(false);
       } else {
         setShowNavbar(true);
@@ -44,13 +45,13 @@ function App() {
 
   return (
     <BrowserRouter>
-      {showNavbar && <Navbar toggleSideNav={toggleSidebar} setNavbar={setShowNavbar} />}
+      {showNavbar && <Navbar toggleSideNav={toggleSidebar} setNavbar={setShowNavbar}/>}
       {showNavbar && <SideNav show={showSidebar} currentTab={currentTab} />}
       <Routes>
         <Route
-          path="/"
+          path="/tracking"
           element={
-            <Home
+            <Tracking
               translate={showSidebar}
               changeCurrentPage={(CurrentPage: CurrentPage) =>
                 setCurrentTab(CurrentPage)
@@ -80,6 +81,7 @@ function App() {
             />
           }
         />
+        <Route path="/" element={<LandingPage />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route path="*" element={<NotFound />} />
