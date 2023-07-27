@@ -59,12 +59,12 @@ export default function Stats({ translate, changeCurrentPage }: PageProps) {
     >
       <div className="flex justify-between items-end p-1 ml-5 mb-3 w-11/12">
         <div>
-          <span className="text-xl">In</span>
+          <span className="text-lg">Income</span>
           <CustomSwitch
             checked={isIncome}
             onChange={() => setIsIncome((prev) => !prev)}
           />
-          <span className="text-xl">Ex</span>
+          <span className="text-lg">Expenses</span>
         </div>
         <div className="relative z-50">
           <button
