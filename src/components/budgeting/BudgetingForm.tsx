@@ -1,15 +1,18 @@
-import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import React from "react";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import IconWarning from "../assets/icon _warning_.svg";
-import CustomSwitch from "./CustomSwitch";
+import Period from "../../utils/Period";
+import CustomSwitch from "../CustomSwitch";
 
-export default function TrackingForm({
+export default function BudgetingForm({
   showForm,
-  setShowForm: setShowForm,
-}: TrackingFormProps) {
+  setShowForm,
+}: BudgetingFromProps) {
   type TrackingInput = {
-    trackingName: string;
+    title: string;
     amount: number | null;
-    trackDate: Date;
+    period: Period;
+    budgetDate: Date;
     trackType: boolean;
     category: string;
   };
@@ -20,14 +23,15 @@ export default function TrackingForm({
     control,
     reset,
     formState: { errors, isDirty, isValid },
+    watch,
   } = useForm<TrackingInput>();
 
   const handleReset = () => {
     setShowForm(false);
     reset({
-      trackingName: "",
+      title: "",
       amount: null,
-      trackDate: new Date(),
+      budgetDate: new Date(),
       trackType: false,
       category: "Placeholder",
     });
@@ -46,11 +50,11 @@ export default function TrackingForm({
       noValidate
     >
       <input
-        id="trackingName"
+        id="title"
         type="text"
         className="bg-transparent placeholder-black focus:placeholder-slate-600"
-        placeholder="Expense/Income Name"
-        {...register("trackingName", {
+        placeholder="Title"
+        {...register("title", {
           required: "Tracking name is required",
         })}
       />
@@ -59,7 +63,7 @@ export default function TrackingForm({
           id="amount"
           type="number"
           className="bg-transparent placeholder-black focus:placeholder-slate-600 hover:placeholder-slate-600 text-4xl w-full"
-          placeholder="Amount"
+          placeholder="Target Amount"
           {...register("amount", {
             required: "Amount is required",
             valueAsNumber: true,
@@ -69,25 +73,33 @@ export default function TrackingForm({
 
       <div className="flex justify-between items-center">
         <div className="flex">
-          <input
-            id="track-date"
-            type="date"
-            className="bg-transparent"
-            {...register("trackDate", {
-              required: "Date is required",
-              valueAsDate: true,
+          <select
+            className="bg-transparent focus:ring-primary-100 focus:border-primary-100 focus:border px-2 py-1 rounded-md"
+            {...register("period", {
+              required: "Period is required",
             })}
-          />
-          <div className="border border-background-light-400 rounded-md mx-2">
-            <span className="text-black ml-3 mr-0">Income</span>
-            <Controller
-              name="trackType"
-              control={control}
-              defaultValue={false}
-              render={({ field }) => <CustomSwitch {...field} />}
+          >
+            <option value={Period.Daily} selected>
+              {Period.Daily}
+            </option>
+            <option value={Period.Weekly}>{Period.Weekly}</option>
+            <option value={Period.Monthly}>{Period.Monthly}</option>
+            <option value={Period.Custom}>{Period.Custom}</option>
+          </select>
+          {watch("period") === Period.Custom && (
+            <input
+              id="track-date"
+              type="date"
+              className="bg-transparent"
+              {...register("budgetDate", {
+                required:
+                  watch("period") === Period.Custom
+                    ? "Date is required"
+                    : false,
+                valueAsDate: true,
+              })}
             />
-            <span className="text-black ml-0 mr-3">Expense</span>
-          </div>
+          )}
           <select
             className="bg-transparent focus:ring-primary-100 focus:border-primary-100 focus:border px-2 py-1 rounded-md"
             {...register("category", {
@@ -101,6 +113,15 @@ export default function TrackingForm({
             </option>
             <option value="contoh">Contoh</option>
           </select>
+          <div className="mx-2">
+            <Controller
+              name="trackType"
+              control={control}
+              defaultValue={false}
+              render={({ field }) => <CustomSwitch {...field} />}
+            />
+            <span className="text-black ml-0 mr-3">Recurring</span>
+          </div>
         </div>
         <div>
           <button
@@ -121,10 +142,10 @@ export default function TrackingForm({
           </button>
         </div>
       </div>
-      {errors.trackingName && (
+      {errors.title && (
         <p className="text-red-600 dark:text-red-500 text-sm flex justify-center items-center self-start">
           <img src={IconWarning} className="w-3 mx-2" />
-          {errors.trackingName.message}
+          {errors.title.message}
         </p>
       )}
       {errors.amount && (
@@ -133,10 +154,10 @@ export default function TrackingForm({
           {errors.amount.message}
         </p>
       )}
-      {errors.trackDate && (
+      {errors.budgetDate && (
         <p className="text-red-600 dark:text-red-500 text-sm flex justify-center items-center self-start">
           <img src={IconWarning} className="w-3 mx-2" />
-          {errors.trackDate.message}
+          {errors.budgetDate.message}
         </p>
       )}
       {errors.category && (
@@ -149,7 +170,7 @@ export default function TrackingForm({
   );
 }
 
-type TrackingFormProps = {
+type BudgetingFromProps = {
   showForm: boolean;
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>;
 };

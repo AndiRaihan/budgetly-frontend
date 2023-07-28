@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store.ts";
 import CurrentPage from "../utils/CurrentPage.tsx";
-import TrackingForm from "../components/TrackingForm.tsx";
-import TrackingBar from "../components/TrackingBar.tsx";
+import TrackingForm from "../components/tracking/TrackingForm.tsx";
+import TrackingBar from "../components/tracking/TrackingBar.tsx";
 import TuneIcon from "@mui/icons-material/Tune";
 
 export default function Home({ translate, changeCurrentPage }: PageProps) {

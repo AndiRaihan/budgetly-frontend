@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import Period from "../utils/Period";
 import PieChart from "../components/PieChart";
-import BudgetingBar from "../components/BudgetingBar";
+import BudgetingBar from "../components/budgeting/BudgetingBar";
 import CustomSwitch from "../components/CustomSwitch";
 export default function Stats({ translate, changeCurrentPage }: PageProps) {
   changeCurrentPage(CurrentPage.Stats);

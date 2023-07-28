@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import CurrentPage from "../utils/CurrentPage";
-import BudgetingForm from "../components/BudgetingForm";
-import BudgetingBar from "../components/BudgetingBar";
+import BudgetingForm from "../components/budgeting/BudgetingForm";
+import BudgetingBar from "../components/budgeting/BudgetingBar";
 import CustomSwitch from "../components/CustomSwitch";
 
 export default function Budgeting({ translate, changeCurrentPage }: PageProps) {
