@@ -84,7 +84,16 @@ function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route path="*" element={<NotFound />} />
+        <Route 
+          path="*" 
+          element={
+              <NotFound   
+              translate={showSidebar}
+              changeCurrentPage={(CurrentPage: CurrentPage) =>
+              setCurrentTab(CurrentPage)
+            } />
+          }
+          />
       </Routes>
     </BrowserRouter>
   );

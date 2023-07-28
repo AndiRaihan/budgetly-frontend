@@ -2,9 +2,11 @@ import { Button } from "@mui/material";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { RootState } from "../redux/store";
+import CurrentPage from "../utils/CurrentPage";
 import debt from "../assets/20323-removebg-preview.png"
 
-export default function NotFound() {
+export default function NotFound({ translate, changeCurrentPage }: PageProps) {
+  changeCurrentPage(CurrentPage.Budgeting);
   const { darkMode } = useSelector((state: RootState) => state);
 
   const navigate = useNavigate();
@@ -14,9 +16,12 @@ export default function NotFound() {
   }
   return (
     <div
-      className={"bg-background-light-200 h-screen flex flex-col justify-center items-center".concat(
-        darkMode.isDarkMode ? "dark" : ""
-      )}
+      className={`bg-background-light-100 h-screen flex flex-col pt-48 px-16
+          ${darkMode.isDarkMode ? "dark" : ""} ${
+        translate
+          ? "translate-x-52 w-[calc(100vw-13rem)]"
+          : " translate-x-0 w-screen"
+      } transition-all ease-in-out duration-200 pb-20`}
     >
       <div className="flex justify-center items-center">
         <img src={debt} alt="" className="w-64" />
@@ -33,3 +38,8 @@ export default function NotFound() {
     </div>
   );
 }
+
+export type PageProps = {
+  translate: boolean;
+  changeCurrentPage: (currentTab: CurrentPage) => void;
+};

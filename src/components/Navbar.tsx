@@ -59,4 +59,5 @@ export default function Navbar({ toggleSideNav, setNavbar }: NavbarProps) {
 export type NavbarProps = {
   toggleSideNav: () => void;
   setNavbar: React.Dispatch<React.SetStateAction<boolean>>;
+  setSideNav : React.Dispatch<React.SetStateAction<boolean>>; 
 };
