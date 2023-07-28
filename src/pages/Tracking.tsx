@@ -73,7 +73,7 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
         onClick={() => setShowForm((prevState) => !prevState)}
         className={`${
           !showForm ? "max-h-max p-1 ml-5" : "max-h-0"
-        } transition-all ease-in-out duration-300  self-start text-start hover:bg-background-light-200 rounded-md w-11/12 overflow-hidden`}
+        } transition-all ease-in-out duration-300 flex-shrink-0 self-start text-start hover:bg-background-light-200 rounded-md w-11/12 overflow-hidden`}
       >
         +Add Expense/income
       </button>
@@ -81,11 +81,43 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
         <hr className="border rounded-md w-11/12 ml-5 border-black" />
       )}
       {/* TODO: Kalo bisa refactor aja sih ini section headernya biar jadi component sama tracking bar-nya */}
-      <TrackingBar title={"Mangan"} amount={100000} />
+      <TrackingBar trackingData={
+        {
+          trackingName: "Nasi padang",
+          amount: 20000,
+          trackDate: new Date(),
+          category: "contoh",
+          trackType: true,
+        }
+      } />
       <h1 className="text-3xl ml-5 mt-10">Yesterday</h1>
-      <TrackingBar title={"Nasi padang"} amount={20000} />
-      <TrackingBar title={"Nasi goreng"} amount={15000} />
-      <TrackingBar title={"Air putih"} amount={100000} />
+      <TrackingBar trackingData={
+        {
+          trackingName: "Minum minum",
+          amount: 230000,
+          trackDate: new Date(),
+          category: "contoh",
+          trackType: true,
+        }
+      } />
+      <TrackingBar trackingData={
+        {
+          trackingName: "Nasi Goreng",
+          amount: 120000,
+          trackDate: new Date(),
+          category: "contoh",
+          trackType: true,
+        }
+      } />
+      <TrackingBar trackingData={
+        {
+          trackingName: "Utang ajra",
+          amount: 100000000,
+          trackDate: new Date(),
+          category: "contoh",
+          trackType: true,
+        }
+      } />
     </div>
   );
 }
