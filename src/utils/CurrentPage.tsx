@@ -1,7 +1,8 @@
 enum CurrentPage {
     Tracking,
     Budgeting,
-    Stats
+    Stats,
+    Others
 }
 
 export default CurrentPage;
