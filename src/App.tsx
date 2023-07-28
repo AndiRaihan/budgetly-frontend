@@ -25,9 +25,10 @@ function App() {
 
   useEffect(() => {
     const handlePopstate = () => {
-      if (window.location.pathname === "/register" || window.location.pathname === "/login" || window.location.pathname === "/") {
+      if (window.location.pathname === "/register" || window.location.pathname === "/login") {
         setShowNavbar(false);
-      } else {
+      } 
+      else {
         setShowNavbar(true);
       }
     };
@@ -46,7 +47,7 @@ function App() {
   return (
     <BrowserRouter>
       {showNavbar && <Navbar toggleSideNav={toggleSidebar} setNavbar={setShowNavbar}/>}
-      {showNavbar && <SideNav show={showSidebar} currentTab={currentTab} />}
+      {showNavbar && <SideNav show={showSidebar} currentTab={currentTab}/>}
       <Routes>
         <Route
           path="/tracking"
@@ -81,7 +82,17 @@ function App() {
             />
           }
         />
-        <Route path="/" element={<LandingPage />} />
+        <Route 
+            path="/" 
+            element={
+              <LandingPage 
+              translate={showSidebar}
+              changeCurrentPage={(CurrentPage: CurrentPage) =>
+              setCurrentTab(CurrentPage)
+              }
+              />
+            }
+            />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
         <Route 
