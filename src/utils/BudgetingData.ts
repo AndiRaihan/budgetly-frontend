@@ -1,13 +1,15 @@
+import { nanoid } from "nanoid";
 import { BudgetingBarProps } from "../components/budgeting/BudgetingBar";
 import Period from "./Period";
 
 const budgetingData : BudgetingBarProps[] = [
     {
+        id: nanoid(),
         budgetingData: {
             amount: 2000000,
             budgetDate: new Date(),
             category: "contoh",
-            period: Period.Monthly,
+            period: Period.Custom,
             title: "Pangan",
             trackType: true,
         },
@@ -16,6 +18,7 @@ const budgetingData : BudgetingBarProps[] = [
     },
 
     {
+        id: nanoid(),
         budgetingData: {
             amount: 2500000,
             budgetDate: new Date(),
@@ -28,6 +31,7 @@ const budgetingData : BudgetingBarProps[] = [
         showPercent: false,
     },
     {
+        id: nanoid(),
         budgetingData: {
             amount: 150000,
             budgetDate: new Date(),
@@ -40,6 +44,7 @@ const budgetingData : BudgetingBarProps[] = [
         showPercent: false,
     },
     {
+        id: nanoid(),
         budgetingData: {
             amount: 1_000_000,
             budgetDate: new Date(),

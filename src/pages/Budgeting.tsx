@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import CurrentPage from "../utils/CurrentPage";
@@ -13,6 +13,12 @@ export default function Budgeting({ translate, changeCurrentPage }: PageProps) {
   const [isPercentage, setIsPercentage] = useState(false);
   const [budgetings, setBudgetings] = useState(budgetingData);
   const { darkMode } = useSelector((state: RootState) => state);
+
+  useEffect(() => {
+    setBudgetings((prev) =>
+      prev.map((budgeting) => ({ ...budgeting, showPercent: isPercentage }))
+    );
+  }, [isPercentage]);
 
   const currentDate = new Date();
   const formattedDate = currentDate.toLocaleDateString("en-US", {
@@ -56,21 +62,25 @@ export default function Budgeting({ translate, changeCurrentPage }: PageProps) {
         <hr className="border rounded-md w-11/12 ml-5 border-black" />
       )}
       <BudgetingBar
+        id={budgetings[0].id}
         budgetingData={budgetings[0].budgetingData}
         current={budgetings[0].current}
         showPercent={budgetings[0].showPercent}
       />
       <BudgetingBar
+        id={budgetings[0].id}
         budgetingData={budgetings[1].budgetingData}
         current={budgetings[1].current}
         showPercent={budgetings[1].showPercent}
       />
       <BudgetingBar
+        id={budgetings[0].id}
         budgetingData={budgetings[2].budgetingData}
         current={budgetings[2].current}
         showPercent={budgetings[2].showPercent}
       />
       <BudgetingBar
+        id={budgetings[0].id}
         budgetingData={budgetings[3].budgetingData}
         current={budgetings[3].current}
         showPercent={budgetings[3].showPercent}

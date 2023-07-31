@@ -2,6 +2,7 @@ import { useState } from "react";
 import EditBudgetingForm, { BudgetingInput } from "./EditBudgetingForm";
 
 export type BudgetingBarProps = {
+  id: string;
   showPercent: boolean;
   budgetingData: BudgetingInput;
   current: number;
