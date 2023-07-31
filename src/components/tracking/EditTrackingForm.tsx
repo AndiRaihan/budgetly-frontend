@@ -1,6 +1,6 @@
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
-import CustomSwitch from "../CustomSwitch";
 import IconWarning from "../../assets/icon _warning_.svg";
+import CustomLighterSwitch from "../CustomLigherSwitch";
 
 export type TrackingInput = {
   trackingName: string;
@@ -87,7 +87,7 @@ export default function EditTrackingForm({
             <Controller
               name="trackType"
               control={control}
-              render={({ field }) => <CustomSwitch {...field} />}
+              render={({ field }) => <CustomLighterSwitch {...field} />}
             />
             <span className="text-background-light-100 ml-0 mr-3">Expense</span>
           </div>

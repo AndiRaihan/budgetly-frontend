@@ -1,7 +1,7 @@
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import IconWarning from "../../assets/icon _warning_.svg";
 import Period from "../../utils/Period";
-import CustomSwitch from "../CustomSwitch";
+import CustomLighterSwitch from "../CustomLigherSwitch";
 
 export type BudgetingInput = {
   title: string;
@@ -75,7 +75,7 @@ export default function EditBudgetingForm({
       <div className="flex justify-between items-center">
         <div className="flex">
           <select
-            className="bg-transparent bg-transparent focus:ring-primary-100 focus:border-primary-100 focus:border text-background-light-100 placeholder-background-light-100 focus:placeholder-background-light-300 px-2 py-1 rounded-md"
+            className="bg-transparent focus:ring-primary-100 focus:border-primary-100 focus:border text-background-light-100 placeholder-background-light-100 focus:placeholder-background-light-300 px-2 py-1 rounded-md"
             {...register("period", {
               required: "Period is required",
             })}
@@ -119,7 +119,7 @@ export default function EditBudgetingForm({
             <Controller
               name="trackType"
               control={control}
-              render={({ field }) => <CustomSwitch {...field} />}
+              render={({ field }) => <CustomLighterSwitch {...field} />}
             />
             <span className="text-background-light-100 ml-0 mr-3">Recurring</span>
           </div>
