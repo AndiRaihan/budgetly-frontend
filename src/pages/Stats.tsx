@@ -15,7 +15,7 @@ export default function Stats({ translate, changeCurrentPage }: PageProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [period, setPeriod] = useState(Period.Daily);
   const [isPercentage, setIsPercentage] = useState(false);
-  const [budgetings, setBudgetings] = useState(budgetingData);
+  const [stats, setStats] = useState(budgetingData);
 
   const { darkMode } = useSelector((state: RootState) => state);
 
@@ -106,24 +106,24 @@ export default function Stats({ translate, changeCurrentPage }: PageProps) {
         </div>
       </div>
       <BudgetingBar
-        budgetingData={budgetings[0].budgetingData}
-        current={budgetings[0].current}
-        showPercent={budgetings[0].showPercent}
+        budgetingData={stats[0].budgetingData}
+        current={stats[0].current}
+        showPercent={stats[0].showPercent}
       />
       <BudgetingBar
-        budgetingData={budgetings[1].budgetingData}
-        current={budgetings[1].current}
-        showPercent={budgetings[1].showPercent}
+        budgetingData={stats[1].budgetingData}
+        current={stats[1].current}
+        showPercent={stats[1].showPercent}
       />
       <BudgetingBar
-        budgetingData={budgetings[2].budgetingData}
-        current={budgetings[2].current}
-        showPercent={budgetings[2].showPercent}
+        budgetingData={stats[2].budgetingData}
+        current={stats[2].current}
+        showPercent={stats[2].showPercent}
       />
       <BudgetingBar
-        budgetingData={budgetings[3].budgetingData}
-        current={budgetings[3].current}
-        showPercent={budgetings[3].showPercent}
+        budgetingData={stats[3].budgetingData}
+        current={stats[3].current}
+        showPercent={stats[3].showPercent}
       />
     </div>
   );
