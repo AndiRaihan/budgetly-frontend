@@ -1,7 +1,7 @@
 import { BudgetingBarProps } from "../components/budgeting/BudgetingBar";
 import Period from "./Period";
 
-const data : BudgetingBarProps[] = [
+const budgetingData : BudgetingBarProps[] = [
     {
         budgetingData: {
             amount: 2000000,
@@ -52,3 +52,5 @@ const data : BudgetingBarProps[] = [
         showPercent: false,
     }
 ]
+
+export default budgetingData;
