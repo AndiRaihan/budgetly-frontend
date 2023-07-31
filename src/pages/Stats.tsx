@@ -23,6 +23,19 @@ export default function Stats({ translate, changeCurrentPage }: PageProps) {
     );
   }, [isPercentage]);
 
+  const showEditForm = (id: string) => {
+    setStats(prev => prev.map(stat => {
+      if (stat.id === id) {
+        return {...stat, isOpened : true}
+      }
+      return {...stat, isOpened: false}
+    }))
+  }
+
+  const closeEditForm = () => {
+    setStats(prev => prev.map(stat => ({...stat, isOpened: false})))
+  }
+
   const { darkMode } = useSelector((state: RootState) => state);
 
   const periods = Object.values(Period);
@@ -116,24 +129,36 @@ export default function Stats({ translate, changeCurrentPage }: PageProps) {
         budgetingData={stats[0].budgetingData}
         current={stats[0].current}
         showPercent={stats[0].showPercent}
+        isOpened={stats[0].isOpened}
+        showEditForm={showEditForm}
+        closeForm={closeEditForm}
       />
       <BudgetingBar
         id={stats[1].id}
         budgetingData={stats[1].budgetingData}
         current={stats[1].current}
         showPercent={stats[1].showPercent}
+        isOpened={stats[1].isOpened}
+        showEditForm={showEditForm}
+        closeForm={closeEditForm}
       />
       <BudgetingBar
         id={stats[2].id}
         budgetingData={stats[2].budgetingData}
         current={stats[2].current}
         showPercent={stats[2].showPercent}
+        isOpened={stats[2].isOpened}
+        showEditForm={showEditForm}
+        closeForm={closeEditForm}
       />
       <BudgetingBar
         id={stats[3].id}
         budgetingData={stats[3].budgetingData}
         current={stats[3].current}
         showPercent={stats[3].showPercent}
+        isOpened={stats[3].isOpened}
+        showEditForm={showEditForm}
+        closeForm={closeEditForm}
       />
     </div>
   );

@@ -1,8 +1,7 @@
 import { nanoid } from "nanoid";
-import { BudgetingBarProps } from "../components/budgeting/BudgetingBar";
 import Period from "./Period";
 
-const budgetingData : BudgetingBarProps[] = [
+const budgetingData = [
     {
         id: nanoid(),
         budgetingData: {
@@ -15,6 +14,7 @@ const budgetingData : BudgetingBarProps[] = [
         },
         current: 1000000,
         showPercent: false,
+        isOpened: false,
     },
 
     {
@@ -29,6 +29,7 @@ const budgetingData : BudgetingBarProps[] = [
         },
         current: 1500000,
         showPercent: false,
+        isOpened: false,
     },
     {
         id: nanoid(),
@@ -42,6 +43,7 @@ const budgetingData : BudgetingBarProps[] = [
         },
         current: 50000,
         showPercent: false,
+        isOpened: false,
     },
     {
         id: nanoid(),
@@ -55,6 +57,7 @@ const budgetingData : BudgetingBarProps[] = [
         },
         current: 100_000,
         showPercent: false,
+        isOpened: false,
     }
 ]
 

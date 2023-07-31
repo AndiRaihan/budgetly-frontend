@@ -1,4 +1,3 @@
-import React from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import IconWarning from "../../assets/icon _warning_.svg";
 import Period from "../../utils/Period";
@@ -15,12 +14,12 @@ export type BudgetingInput = {
 
 type EditBudgetingFromProps = {
   showForm: boolean;
-  setShowForm: React.Dispatch<React.SetStateAction<boolean>>;
+  closeForm: () => void;
   budgetingStatus: BudgetingInput;
 };
 export default function EditBudgetingForm({
   showForm,
-  setShowForm,
+  closeForm,
   budgetingStatus,
 }: EditBudgetingFromProps) {
   const {
@@ -35,7 +34,7 @@ export default function EditBudgetingForm({
   });
 
   const handleReset = () => {
-    setShowForm(false);
+    closeForm();
     reset(budgetingStatus);
   };
 

@@ -4,16 +4,23 @@ import EditBudgetingForm, { BudgetingInput } from "./EditBudgetingForm";
 export type BudgetingBarProps = {
   id: string;
   showPercent: boolean;
+  showEditForm: (id: string) => void;
+  isOpened: boolean;
   budgetingData: BudgetingInput;
   current: number;
+  closeForm: () => void;
 };
 
 export default function BudgetingBar({
   showPercent,
   budgetingData,
   current,
+  id,
+  isOpened,
+  showEditForm,
+  closeForm,
 }: BudgetingBarProps) {
-  const [isEditOpen, setIsEditOpen] = useState(false);
+  const [, ] = useState(false);
   const barLength =
     budgetingData.amount !== null ? (current / budgetingData.amount) * 100 : 0;
   const locale = window.navigator.language;
@@ -21,16 +28,16 @@ export default function BudgetingBar({
     style: "currency",
     currency: "USD",
   });
-  return isEditOpen ? (
+  return isOpened ? (
     <EditBudgetingForm
       budgetingStatus={budgetingData}
-      setShowForm={setIsEditOpen}
-      showForm={isEditOpen}
+      closeForm={closeForm}
+      showForm={isOpened}
     />
   ) : (
     <div
       className="w-11/12 flex items-center justify-between rounded-md bg-primary-100 px-3 m-5 relative z-10 hover:cursor-pointer"
-      onClick={() => setIsEditOpen(true)}
+      onClick={() => showEditForm(id)}
     >
       <div
         style={{

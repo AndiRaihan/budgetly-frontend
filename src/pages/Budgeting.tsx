@@ -20,6 +20,26 @@ export default function Budgeting({ translate, changeCurrentPage }: PageProps) {
     );
   }, [isPercentage]);
 
+  const showEditForm = (id: string) => {
+    setBudgetings((prev) =>
+      prev.map((budgeting) => {
+        if (budgeting.id === id) {
+          return {
+            ...budgeting,
+            isOpened: true,
+          };
+        }
+        return { ...budgeting, isOpened: false };
+      })
+    );
+  };
+
+  const closeEditForm = () => {
+    setBudgetings((prev) =>
+      prev.map((budgeting) => ({ ...budgeting, isOpened: false }))
+    );
+  };
+
   const currentDate = new Date();
   const formattedDate = currentDate.toLocaleDateString("en-US", {
     weekday: "long",
@@ -66,24 +86,36 @@ export default function Budgeting({ translate, changeCurrentPage }: PageProps) {
         budgetingData={budgetings[0].budgetingData}
         current={budgetings[0].current}
         showPercent={budgetings[0].showPercent}
+        isOpened={budgetings[0].isOpened}
+        showEditForm={showEditForm}
+        closeForm={closeEditForm}
       />
       <BudgetingBar
-        id={budgetings[0].id}
+        id={budgetings[1].id}
         budgetingData={budgetings[1].budgetingData}
         current={budgetings[1].current}
         showPercent={budgetings[1].showPercent}
+        isOpened={budgetings[1].isOpened}
+        showEditForm={showEditForm}
+        closeForm={closeEditForm}
       />
       <BudgetingBar
-        id={budgetings[0].id}
+        id={budgetings[2].id}
         budgetingData={budgetings[2].budgetingData}
         current={budgetings[2].current}
         showPercent={budgetings[2].showPercent}
+        isOpened={budgetings[2].isOpened}
+        showEditForm={showEditForm}
+        closeForm={closeEditForm}
       />
       <BudgetingBar
-        id={budgetings[0].id}
+        id={budgetings[3].id}
         budgetingData={budgetings[3].budgetingData}
         current={budgetings[3].current}
         showPercent={budgetings[3].showPercent}
+        isOpened={budgetings[3].isOpened}
+        showEditForm={showEditForm}
+        closeForm={closeEditForm}
       />
     </div>
   );
