@@ -7,7 +7,7 @@ import CustomSwitch from "../CustomSwitch";
 export default function BudgetingForm({
   showForm,
   setShowForm,
-}: BudgetingFromProps) {
+}: EditBudgetingFromProps) {
   type TrackingInput = {
     title: string;
     amount: number | null;
@@ -46,7 +46,7 @@ export default function BudgetingForm({
         showForm
           ? "max-h-screen p-5 m-5 border-2 shadow-md"
           : "max-h-0 p-0 m-0 shadow-none border-none"
-      } transition-all ease-in-out duration-300 flex shrink-0 flex-col justify-center bg-transparent w-11/12 overflow-hidden`}
+      } transition-all ease-in-out duration-300 flex flex-col justify-center bg-transparent w-11/12 overflow-hidden`}
       noValidate
     >
       <input
@@ -170,7 +170,7 @@ export default function BudgetingForm({
   );
 }
 
-type BudgetingFromProps = {
+type EditBudgetingFromProps = {
   showForm: boolean;
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>;
 };
