@@ -4,13 +4,36 @@ import { RootState } from "../redux/store.ts";
 import CurrentPage from "../utils/CurrentPage.tsx";
 import TrackingForm from "../components/tracking/TrackingForm.tsx";
 import TrackingBar from "../components/tracking/TrackingBar.tsx";
+import trackingData from "../utils/TrackingData.ts";
 import TuneIcon from "@mui/icons-material/Tune";
 
 export default function Home({ translate, changeCurrentPage }: PageProps) {
   changeCurrentPage(CurrentPage.Tracking);
+
   const [showForm, setShowForm] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [trackings, setTrackings] = useState(trackingData);
+
   const { darkMode } = useSelector((state: RootState) => state);
+
+  function showEditForm(id : string) {
+    setTrackings((prev) => 
+      prev.map((tracking) => {
+        if (tracking.id === id) {
+          return {...tracking, isOpened: true}
+        }
+        return {...tracking, isOpened: false}
+      })
+    )
+  }
+
+  function closeForm() {
+    setTrackings((prev) => 
+      prev.map((tracking) => {
+        return {...tracking, isOpened: false}
+      })
+    )
+  }
 
   const currentDate = new Date();
   const formattedDate = currentDate.toLocaleDateString("en-US", {
@@ -81,43 +104,59 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
         <hr className="border rounded-md w-11/12 ml-5 border-black" />
       )}
       {/* TODO: Kalo bisa refactor aja sih ini section headernya biar jadi component sama tracking bar-nya */}
-      <TrackingBar trackingData={
-        {
-          trackingName: "Nasi padang",
-          amount: 20000,
-          trackDate: new Date(),
-          category: "contoh",
-          trackType: true,
-        }
-      } />
+      <TrackingBar
+        trackingData={{
+          trackingName: trackings[0].trackingName,
+          amount: trackings[0].amount,
+          trackDate: trackings[0].trackDate,
+          category: trackings[0].category,
+          trackType: trackings[0].trackType,
+        }}
+        closeForm={closeForm}
+        id={trackings[0].id}
+        isOpened={trackings[0].isOpened}
+        showEditForm={showEditForm}
+      />
       <h1 className="text-3xl ml-5 mt-10">Yesterday</h1>
-      <TrackingBar trackingData={
-        {
-          trackingName: "Minum minum",
-          amount: 230000,
-          trackDate: new Date(),
-          category: "contoh",
-          trackType: true,
-        }
-      } />
-      <TrackingBar trackingData={
-        {
-          trackingName: "Nasi Goreng",
-          amount: 120000,
-          trackDate: new Date(),
-          category: "contoh",
-          trackType: true,
-        }
-      } />
-      <TrackingBar trackingData={
-        {
-          trackingName: "Utang ajra",
-          amount: 100000000,
-          trackDate: new Date(),
-          category: "contoh",
-          trackType: true,
-        }
-      } />
+      <TrackingBar
+        trackingData={{
+          trackingName: trackings[1].trackingName,
+          amount: trackings[1].amount,
+          trackDate: trackings[1].trackDate,
+          category: trackings[1].category,
+          trackType: trackings[1].trackType,
+        }}
+        closeForm={closeForm}
+        id={trackings[1].id}
+        isOpened={trackings[1].isOpened}
+        showEditForm={showEditForm}
+      />
+      <TrackingBar
+        trackingData={{
+          trackingName: trackings[2].trackingName,
+          amount: trackings[2].amount,
+          trackDate: trackings[2].trackDate,
+          category: trackings[2].category,
+          trackType: trackings[2].trackType,
+        }}
+        closeForm={closeForm}
+        id={trackings[2].id}
+        isOpened={trackings[2].isOpened}
+        showEditForm={showEditForm}
+      />
+      <TrackingBar
+        trackingData={{
+          trackingName: trackings[3].trackingName,
+          amount: trackings[3].amount,
+          trackDate: trackings[3].trackDate,
+          category: trackings[3].category,
+          trackType: trackings[3].trackType,
+        }}
+        closeForm={closeForm}
+        id={trackings[3].id}
+        isOpened={trackings[3].isOpened}
+        showEditForm={showEditForm}
+      />
     </div>
   );
 }

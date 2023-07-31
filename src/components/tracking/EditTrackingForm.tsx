@@ -12,12 +12,12 @@ export type TrackingInput = {
 
 type EditTrackingFormProps = {
   showForm: boolean;
-  setShowForm: React.Dispatch<React.SetStateAction<boolean>>;
+  closeForm: () => void;
   trackingStatus: TrackingInput;
 };
 export default function EditTrackingForm({
   showForm,
-  setShowForm,
+  closeForm,
   trackingStatus,
 }: EditTrackingFormProps) {
     
@@ -32,7 +32,7 @@ export default function EditTrackingForm({
   });
 
   const handleReset = () => {
-    setShowForm(false);
+    closeForm();
     reset(trackingStatus);
   };
 
