@@ -7,6 +7,7 @@ import Period from "../utils/Period";
 import PieChart from "../components/PieChart";
 import BudgetingBar from "../components/budgeting/BudgetingBar";
 import CustomSwitch from "../components/CustomSwitch";
+import budgetingData from "../utils/BudgetingData";
 export default function Stats({ translate, changeCurrentPage }: PageProps) {
   changeCurrentPage(CurrentPage.Stats);
 
@@ -14,6 +15,7 @@ export default function Stats({ translate, changeCurrentPage }: PageProps) {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [period, setPeriod] = useState(Period.Daily);
   const [isPercentage, setIsPercentage] = useState(false);
+  const [budgetings, setBudgetings] = useState(budgetingData);
 
   const { darkMode } = useSelector((state: RootState) => state);
 
@@ -104,40 +106,24 @@ export default function Stats({ translate, changeCurrentPage }: PageProps) {
         </div>
       </div>
       <BudgetingBar
-        current={1000000}
-        limit={2000000}
-        title="Pangan"
-        showPercent={isPercentage}
+        budgetingData={budgetings[0].budgetingData}
+        current={budgetings[0].current}
+        showPercent={budgetings[0].showPercent}
       />
       <BudgetingBar
-        current={1500000}
-        limit={2500000}
-        title="Papan"
-        showPercent={isPercentage}
+        budgetingData={budgetings[1].budgetingData}
+        current={budgetings[1].current}
+        showPercent={budgetings[1].showPercent}
       />
       <BudgetingBar
-        current={50000}
-        limit={150000}
-        title="Sandang"
-        showPercent={isPercentage}
+        budgetingData={budgetings[2].budgetingData}
+        current={budgetings[2].current}
+        showPercent={budgetings[2].showPercent}
       />
       <BudgetingBar
-        current={100_000}
-        limit={1_000_000}
-        title="Rekreasi"
-        showPercent={isPercentage}
-      />
-      <BudgetingBar
-        current={100_000}
-        limit={1_000_000}
-        title="Rekreasi"
-        showPercent={isPercentage}
-      />
-      <BudgetingBar
-        current={100_000}
-        limit={1_000_000}
-        title="Rekreasi"
-        showPercent={isPercentage}
+        budgetingData={budgetings[3].budgetingData}
+        current={budgetings[3].current}
+        showPercent={budgetings[3].showPercent}
       />
     </div>
   );
