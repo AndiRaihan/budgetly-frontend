@@ -47,13 +47,13 @@ export default function EditBudgetingForm({
         showForm
           ? "max-h-screen p-5 m-5 border-2 shadow-md"
           : "max-h-0 p-0 m-0 shadow-none border-none"
-      } transition-all ease-in-out shrink-0 duration-300 flex flex-col justify-center bg-transparent w-11/12 overflow-hidden`}
+      } transition-all ease-in-out shrink-0 duration-300 flex flex-col justify-center bg-primary-200 w-11/12 overflow-hidden rounded-2xl`}
       noValidate
     >
       <input
         id="title"
         type="text"
-        className="bg-transparent placeholder-black focus:placeholder-slate-600"
+        className="bg-transparent text-background-light-100 placeholder-background-light-100 focus:placeholder-background-light-300"
         placeholder="Title"
         {...register("title", {
           required: "Tracking name is required",
@@ -63,7 +63,7 @@ export default function EditBudgetingForm({
         <input
           id="amount"
           type="number"
-          className="bg-transparent placeholder-black focus:placeholder-slate-600 hover:placeholder-slate-600 text-4xl w-full"
+          className="bg-transparent text-background-light-100 placeholder-background-light-100 focus:placeholder-background-light-300 text-4xl w-full"
           placeholder="Target Amount"
           {...register("amount", {
             required: "Amount is required",
@@ -75,7 +75,7 @@ export default function EditBudgetingForm({
       <div className="flex justify-between items-center">
         <div className="flex">
           <select
-            className="bg-transparent focus:ring-primary-100 focus:border-primary-100 focus:border px-2 py-1 rounded-md"
+            className="bg-transparent bg-transparent focus:ring-primary-100 focus:border-primary-100 focus:border text-background-light-100 placeholder-background-light-100 focus:placeholder-background-light-300 px-2 py-1 rounded-md"
             {...register("period", {
               required: "Period is required",
             })}
@@ -91,7 +91,7 @@ export default function EditBudgetingForm({
             <input
               id="track-date"
               type="date"
-              className="bg-transparent"
+              className="bg-transparent text-background-light-100 placeholder-background-light-100 focus:placeholder-background-light-300"
               {...register("budgetDate", {
                 required:
                   watch("period") === Period.Custom
@@ -102,7 +102,7 @@ export default function EditBudgetingForm({
             />
           )}
           <select
-            className="bg-transparent focus:ring-primary-100 focus:border-primary-100 focus:border px-2 py-1 rounded-md"
+            className="bg-transparent focus:ring-primary-100 focus:border-primary-100 focus:border text-background-light-100 placeholder-background-light-100 focus:placeholder-background-light-300 px-2 py-1 rounded-md"
             {...register("category", {
               required: "Category is required",
               validate: (value) =>
@@ -121,7 +121,7 @@ export default function EditBudgetingForm({
               control={control}
               render={({ field }) => <CustomSwitch {...field} />}
             />
-            <span className="text-black ml-0 mr-3">Recurring</span>
+            <span className="text-background-light-100 ml-0 mr-3">Recurring</span>
           </div>
         </div>
         <div>
