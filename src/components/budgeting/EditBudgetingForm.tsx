@@ -116,10 +116,10 @@ export default function EditBudgetingForm({
             <option value="contoh">Contoh</option>
           </select>
           <div className="mx-2">
+            {/* TODO:Fix Switch display bug  */}
             <Controller
               name="trackType"
               control={control}
-              defaultValue={false}
               render={({ field }) => <CustomSwitch {...field} />}
             />
             <span className="text-black ml-0 mr-3">Recurring</span>
