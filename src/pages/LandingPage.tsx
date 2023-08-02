@@ -3,6 +3,7 @@ import Features from "../components/Features";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import CurrentPage from "../utils/CurrentPage";
+import Footer from "../components/Footer";
 
 export default function LandingPage({ translate, changeCurrentPage }: PageProps) {
   changeCurrentPage(CurrentPage.Budgeting);
@@ -20,6 +21,7 @@ export default function LandingPage({ translate, changeCurrentPage }: PageProps)
       >
         <Hero/>
         <Features/>
+        <Footer/>
     </div>
 
   );
