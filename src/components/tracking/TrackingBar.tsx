@@ -34,14 +34,11 @@ export default function TrackingBar({
         isOpened ? "max-h-96" : "max-h-[24px] -z-20"
       } transition-all duration-300 ease-in-out hover:cursor-pointer flex items-center justify-between rounded-md bg-primary-200 px-3 ml-5 my-3`}
     >
-      {!isOpened && (
-        <div className="text-white">{trackingData.trackingName}</div>
-      )}
-      {!isOpened && (
-        <div className="text-white">
-          {formatter.format(trackingData.amount ?? 0)}
-        </div>
-      )}
+      <div className="text-white">{trackingData.trackingName}</div>
+
+      <div className="text-white">
+        {formatter.format(trackingData.amount ?? 0)}
+      </div>
     </div>
   );
 }
