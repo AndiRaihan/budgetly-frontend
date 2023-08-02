@@ -1,40 +1,19 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { RootState } from "../redux/store";
 import CurrentPage from "../utils/CurrentPage";
 import { useSelector } from "react-redux";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import Period from "../utils/Period";
 import PieChart from "../components/PieChart";
-import BudgetingBar from "../components/budgeting/BudgetingBar";
 import CustomSwitch from "../components/CustomSwitch";
-import budgetingData from "../utils/BudgetingData";
+import StatsBar from "../components/stats/StatsBar";
+import { nanoid } from "nanoid";
 export default function Stats({ translate, changeCurrentPage }: PageProps) {
   changeCurrentPage(CurrentPage.Stats);
 
   const [isIncome, setIsIncome] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [period, setPeriod] = useState(Period.Daily);
-  const [isPercentage, setIsPercentage] = useState(false);
-  const [stats, setStats] = useState(budgetingData);
-
-  useEffect(() => {
-    setStats((prev) =>
-      prev.map((stat) => ({ ...stat, showPercent: isPercentage }))
-    );
-  }, [isPercentage]);
-
-  const showEditForm = (id: string) => {
-    setStats(prev => prev.map(stat => {
-      if (stat.id === id) {
-        return {...stat, isOpened : true}
-      }
-      return {...stat, isOpened: false}
-    }))
-  }
-
-  const closeEditForm = () => {
-    setStats(prev => prev.map(stat => ({...stat, isOpened: false})))
-  }
 
   const { darkMode } = useSelector((state: RootState) => state);
 
@@ -53,7 +32,26 @@ export default function Stats({ translate, changeCurrentPage }: PageProps) {
       label: "Penghapus",
       y: 50,
     },
+    {
+      label: "Penggaris",
+      y: 30,
+    },
+    {
+      label: "correction tape",
+      y: 20,
+    }
   ];
+
+  const sum = data.reduce((acc, curr) => acc + curr.y, 0);
+
+  const statsBar = data.map((dataItem) => (
+    <StatsBar
+      category={dataItem.label}
+      amount={dataItem.y}
+      total={sum}
+      key={nanoid()}
+    />
+  ));
 
   const DropDownItem: any = periods.map((periodsItem) => (
     <li
@@ -111,55 +109,11 @@ export default function Stats({ translate, changeCurrentPage }: PageProps) {
           </div>
         </div>
       </div>
-      <div className="flex justify-center items-center w-full">
+      <div className="flex justify-center items-center w-full mb-6">
         <PieChart items={data} />
       </div>
-      <div className="flex flex-row-reverse w-11/12 my-5">
-        <div>
-          <span className="text-xl">$</span>
-          <CustomSwitch
-            checked={isPercentage}
-            onChange={() => setIsPercentage((prev) => !prev)}
-          />
-          <span className="text-xl">%</span>
-        </div>
-      </div>
-      <BudgetingBar
-        id={stats[0].id}
-        budgetingData={stats[0].budgetingData}
-        current={stats[0].current}
-        showPercent={stats[0].showPercent}
-        isOpened={stats[0].isOpened}
-        showEditForm={showEditForm}
-        closeForm={closeEditForm}
-      />
-      <BudgetingBar
-        id={stats[1].id}
-        budgetingData={stats[1].budgetingData}
-        current={stats[1].current}
-        showPercent={stats[1].showPercent}
-        isOpened={stats[1].isOpened}
-        showEditForm={showEditForm}
-        closeForm={closeEditForm}
-      />
-      <BudgetingBar
-        id={stats[2].id}
-        budgetingData={stats[2].budgetingData}
-        current={stats[2].current}
-        showPercent={stats[2].showPercent}
-        isOpened={stats[2].isOpened}
-        showEditForm={showEditForm}
-        closeForm={closeEditForm}
-      />
-      <BudgetingBar
-        id={stats[3].id}
-        budgetingData={stats[3].budgetingData}
-        current={stats[3].current}
-        showPercent={stats[3].showPercent}
-        isOpened={stats[3].isOpened}
-        showEditForm={showEditForm}
-        closeForm={closeEditForm}
-      />
+
+      {statsBar}
     </div>
   );
 }
