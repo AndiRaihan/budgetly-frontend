@@ -27,7 +27,8 @@ export default function Navbar({ toggleSideNav, setNavbar }: NavbarProps) {
   }
 
   return (
-    <nav className=" bg-background-light-200 flex justify-between items-center p-4 h-14 fixed w-full z-50">
+    <nav className={` flex justify-between items-center p-4 h-14 fixed w-full z-50
+        ${darkMode.isDarkMode ? "bg-background-dark-300" : "bg-background-light-200"}`}>
       <div className="flex items-center justify-center">
         <button
           className="flex items-center justify-center h-8 w-14 hover:bg-background-light-300 rounded-md"
@@ -46,8 +47,10 @@ export default function Navbar({ toggleSideNav, setNavbar }: NavbarProps) {
             <h1 className=" text-center">Login</h1>
           </Link>
         </li>
-        <li className=" flex items-center justify-center bg-primary-200 w-36 h-7 rounded-md hover:bg-primary-300 transition-all duration-300 focus:ring-4 focus:bg-primary-300 shadow-lg transform active:scale-75 mx-5 text-white">
-          <Link className="flex-1 flex-grow text-center" to="/register">
+        <li className={`flex items-center justify-center bg-primary-200 w-36 h-7 rounded-md hover:bg-primary-300 transition-all duration-300 focus:ring-4
+             focus:bg-primary-300 shadow-lg transform active:scale-75 mx-5 text-white
+             ${darkMode.isDarkMode ? "bg-background-dark-200" : ""}`}>
+          <Link className={`flex-1 flex-grow text-center ${darkMode.isDarkMode ? "text-background-dark-300" : ""}`} to="/register">
             Register
           </Link>
         </li>

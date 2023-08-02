@@ -44,18 +44,18 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
 
   return (
     <div
-      className={`bg-background-light-100 h-screen flex flex-col pt-20 items-start px-16
-        ${darkMode.isDarkMode ? "dark" : ""} ${
+      className={` h-screen flex flex-col pt-20 items-start px-16
+        ${darkMode.isDarkMode ? "bg-background-dark-400" : "bg-background-light-100"} ${
         translate
           ? "translate-x-52 w-[calc(100vw-13rem)]"
           : " translate-x-0 w-screen"
       } transition-all ease-in-out duration-200 pb-20`}
     >
       <div className="flex justify-between items-end p-1 ml-5 mb-3 w-11/12">
-        <h1 className="text-3xl">
+        <h1 className={`text-3xl ${darkMode.isDarkMode ? "text-background-dark-300" : ""}`}>
           Today <span className="text-sm">{formattedDate}</span>
         </h1>
-        <div className="relative z-50">
+        <div className={`relative z-50 ${darkMode.isDarkMode ? "text-background-dark-300" : ""}`}>
           <button
             className="flex items-center justify-center text-xl z-20 py-1 px-5 hover:bg-background-light-200"
             onClick={() => setIsDropdownOpen((prev) => !prev)}
@@ -94,9 +94,9 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
       <TrackingForm showForm={showForm} setShowForm={setShowForm} />
       <button
         onClick={() => setShowForm((prevState) => !prevState)}
-        className={`${
-          !showForm ? "max-h-max p-1 ml-5" : "max-h-0"
-        } transition-all ease-in-out duration-300 flex-shrink-0 self-start text-start hover:bg-background-light-200 rounded-md w-11/12 overflow-hidden`}
+        className={`
+        ${darkMode.isDarkMode ? "text-background-dark-300" : ""}
+        ${!showForm ? "max-h-max p-1 ml-5" : "max-h-0"} transition-all ease-in-out duration-300 flex-shrink-0 self-start text-start hover:bg-background-light-200 rounded-md w-11/12 overflow-hidden`}
       >
         +Add Expense/income
       </button>
@@ -117,7 +117,7 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
         isOpened={trackings[0].isOpened}
         showEditForm={showEditForm}
       />
-      <h1 className="text-3xl ml-5 mt-10">Yesterday</h1>
+      <h1 className={`text-3xl ml-5 mt-10 ${darkMode.isDarkMode ? "text-background-dark-300" : ""}`}>Yesterday</h1>
       <TrackingBar
         trackingData={{
           trackingName: trackings[1].trackingName,

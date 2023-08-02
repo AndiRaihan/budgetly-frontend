@@ -5,12 +5,16 @@ import tracking from "../assets/tracking.svg";
 import CurrentPage from "../utils/CurrentPage";
 import { useEffect } from "react";
 
+import {useSelector } from "react-redux";
+import { RootState } from "../redux/store";
+
 function SideNav({ show, currentTab }: SideNavProps) {
+  const { darkMode } = useSelector((state: RootState) => state);
   return (
     <nav
-      className={` top-18 left-0 h-full w-52 fixed bg-background-light-300 ${
-        show ?  "translate-x-0" : "-translate-x-full"
-      } ease-in-out duration-200`}
+      className={`top-18 left-0 h-full w-52 fixed  
+      ${darkMode.isDarkMode ? "bg-background-dark-300" : "bg-background-light-300"}
+      ${show ?  "translate-x-0" : "-translate-x-full"} ease-in-out duration-200`}
     >
       <ul className="flex flex-col items-center py-20 h-full">
         <li className=" w-11/12 h-10 flex items-center justify-center m-1">
@@ -24,7 +28,8 @@ function SideNav({ show, currentTab }: SideNavProps) {
               currentTab === CurrentPage.Tracking && "bg-primary-200"
             }`}
           >
-            <img src={tracking} className="w-5 mx-2"></img>
+            <img src={tracking} className={`w-5 mx-2
+            ${darkMode.isDarkMode ? "fill-background-dark-100" : "text-black"}`}></img>
             Tracking
           </Link>
         </li>

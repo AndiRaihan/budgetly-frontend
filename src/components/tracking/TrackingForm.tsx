@@ -1,6 +1,8 @@
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import IconWarning from "../../assets/icon _warning_.svg";
 import CustomSwitch from "../CustomSwitch";
+import {useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 export default function TrackingForm({
   showForm,
@@ -34,11 +36,13 @@ export default function TrackingForm({
   };
 
   const onSubmit: SubmitHandler<TrackingInput> = (data) => console.log(data);
+  const { darkMode } = useSelector((state: RootState) => state);
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className={` ${
+      className={` 
+      ${
         showForm
           ? "max-h-screen p-5 m-5 border-2 shadow-md"
           : "max-h-0 p-0 m-0 shadow-none border-none"
