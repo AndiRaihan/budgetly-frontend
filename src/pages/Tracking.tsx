@@ -52,12 +52,12 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
       } transition-all ease-in-out duration-200 pb-20`}
     >
       <div className="flex justify-between items-end p-1 ml-5 mb-3 w-11/12">
-        <h1 className={`text-3xl ${darkMode.isDarkMode ? "text-background-dark-300" : ""}`}>
+        <h1 className={`text-3xl ${darkMode.isDarkMode ? "text-background-dark-200" : ""}`}>
           Today <span className="text-sm">{formattedDate}</span>
         </h1>
-        <div className={`relative z-50 ${darkMode.isDarkMode ? "text-background-dark-300" : ""}`}>
+        <div className={`relative z-50`}>
           <button
-            className="flex items-center justify-center text-xl z-20 py-1 px-5 hover:bg-background-light-200"
+            className={` ${darkMode.isDarkMode ? "text-background-dark-200" : "hover:bg-background-light-200"} flex items-center justify-center text-xl z-20 py-1 px-5 `}
             onClick={() => setIsDropdownOpen((prev) => !prev)}
           >
             <span>
@@ -67,7 +67,8 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
           </button>
 
           <div
-            className={`transition-all duration-300 ${
+            className={`transition-all duration-300 
+            ${
               isDropdownOpen ? "max-h-60" : "max-h-0"
             } absolute top-10 left-0 bg-background-light-300 -z-50 rounded-2xl shadow w-44 overflow-hidden`}
           >

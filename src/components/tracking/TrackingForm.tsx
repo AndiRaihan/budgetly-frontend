@@ -36,7 +36,6 @@ export default function TrackingForm({
   };
 
   const onSubmit: SubmitHandler<TrackingInput> = (data) => console.log(data);
-  const { darkMode } = useSelector((state: RootState) => state);
 
   return (
     <form
