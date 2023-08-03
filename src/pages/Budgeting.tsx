@@ -49,30 +49,32 @@ export default function Budgeting({ translate, changeCurrentPage }: PageProps) {
 
   return (
     <div
-      className={`bg-background-light-100 h-screen flex flex-col pt-20 items-start px-16
-          ${darkMode.isDarkMode ? "dark" : ""} ${
+      className={` h-screen flex flex-col pt-20 items-start px-16
+          ${darkMode.isDarkMode ? "bg-background-dark-400" : "bg-background-light-100"} ${
         translate
           ? "translate-x-52 w-[calc(100vw-13rem)]"
           : " translate-x-0 w-screen"
       } transition-all ease-in-out duration-200 pb-20`}
     >
       <div className="flex justify-between items-end p-1 ml-5 mb-3 w-11/12">
-        <h1 className="text-3xl">
+        <h1 className={`text-3xl ${darkMode.isDarkMode ? "text-background-dark-200" : ""}`}>
           Today <span className="text-sm">{formattedDate}</span>
         </h1>
         <div>
-          <span className="text-xl">$</span>
+          <span className={`text-xl ${darkMode.isDarkMode ? "text-background-dark-200" : ""}`}>$</span>
           <CustomSwitch
             checked={isPercentage}
             onChange={() => setIsPercentage((prev) => !prev)}
           />
-          <span className="text-xl">%</span>
+          <span className={`text-xl ${darkMode.isDarkMode ? "text-background-dark-200" : ""}`}>%</span>
         </div>
       </div>
       <BudgetingForm showForm={showForm} setShowForm={setShowForm} />
       <button
         onClick={() => setShowForm((prevState) => !prevState)}
-        className={`${
+        className={`
+        ${darkMode.isDarkMode ? "text-background-dark-200" : ""}
+        ${
           !showForm ? "max-h-max p-1 ml-5" : "max-h-0"
         } transition-all ease-in-out duration-300 shrink-0 self-start text-start hover:bg-background-light-200 rounded-md w-11/12 overflow-hidden`}
       >

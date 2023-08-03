@@ -3,7 +3,6 @@ import budgetIcon from "../assets/budget-icon.svg";
 import stats from "../assets/stats.svg";
 import tracking from "../assets/tracking.svg";
 import CurrentPage from "../utils/CurrentPage";
-import { useEffect } from "react";
 
 import {useSelector } from "react-redux";
 import { RootState } from "../redux/store";

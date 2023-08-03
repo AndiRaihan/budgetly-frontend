@@ -3,6 +3,9 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import IconWarning from "../../assets/icon _warning_.svg";
 import Period from "../../utils/Period";
 import CustomSwitch from "../CustomSwitch";
+import {useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+
 
 export default function BudgetingForm({
   showForm,
@@ -39,6 +42,8 @@ export default function BudgetingForm({
 
   const onSubmit: SubmitHandler<TrackingInput> = (data) => console.log(data);
 
+  const { darkMode } = useSelector((state: RootState) => state);
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -52,7 +57,7 @@ export default function BudgetingForm({
       <input
         id="title"
         type="text"
-        className="bg-transparent placeholder-black focus:placeholder-slate-600"
+        className={`${darkMode.isDarkMode ? "text-background-dark-200 placeholder-background-dark-200" : "placeholder-black focus:placeholder-slate-600"} bg-transparent  `}
         placeholder="Title"
         {...register("title", {
           required: "Tracking name is required",
@@ -62,7 +67,7 @@ export default function BudgetingForm({
         <input
           id="amount"
           type="number"
-          className="bg-transparent placeholder-black focus:placeholder-slate-600 hover:placeholder-slate-600 text-4xl w-full"
+          className = {`${darkMode.isDarkMode ? "text-background-dark-200 placeholder-background-dark-200" : "placeholder-black focus:placeholder-slate-600"} bg-transparent hover:placeholder-slate-600 text-4xl w-full`}
           placeholder="Target Amount"
           {...register("amount", {
             required: "Amount is required",
@@ -74,7 +79,8 @@ export default function BudgetingForm({
       <div className="flex justify-between items-center">
         <div className="flex">
           <select
-            className="bg-transparent focus:ring-primary-100 focus:border-primary-100 focus:border px-2 py-1 rounded-md"
+            className= {` ${darkMode.isDarkMode ? "text-background-dark-200 " : "focus:ring-primary-100 focus:border-primary-100"} 
+            bg-transparent  focus:border px-2 py-1 rounded-md`}
             {...register("period", {
               required: "Period is required",
             })}
@@ -101,7 +107,8 @@ export default function BudgetingForm({
             />
           )}
           <select
-            className="bg-transparent focus:ring-primary-100 focus:border-primary-100 focus:border px-2 py-1 rounded-md"
+            className= {`${darkMode.isDarkMode ? "text-background-dark-200 " : "focus:ring-primary-100 focus:border-primary-100"} 
+            bg-transparent focus:border px-2 py-1 rounded-md`} 
             {...register("category", {
               required: "Category is required",
               validate: (value) =>
@@ -120,7 +127,8 @@ export default function BudgetingForm({
               defaultValue={false}
               render={({ field }) => <CustomSwitch {...field} />}
             />
-            <span className="text-black ml-0 mr-3">Recurring</span>
+            <span className = {`${darkMode.isDarkMode ? "text-background-dark-200 " : "text-black"} 
+            ml-0 mr-3`}>Recurring</span>
           </div>
         </div>
         <div>

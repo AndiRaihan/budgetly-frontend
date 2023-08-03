@@ -2,6 +2,8 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import IconWarning from "../../assets/icon _warning_.svg";
 import Period from "../../utils/Period";
 import CustomLighterSwitch from "../CustomLigherSwitch";
+import {useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 export type BudgetingInput = {
   title: string;
@@ -40,20 +42,26 @@ export default function EditBudgetingForm({
 
   const onSubmit: SubmitHandler<BudgetingInput> = (data) => console.log(data);
 
+  const { darkMode } = useSelector((state: RootState) => state);
+
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className={` ${
+      className={` 
+      ${darkMode.isDarkMode ? "bg-background-dark-300" : "bg-primary-200"} 
+      ${
         showForm
           ? "max-h-screen p-5 m-5 border-2 shadow-md"
           : "max-h-0 p-0 m-0 shadow-none border-none"
-      } transition-all ease-in-out shrink-0 duration-300 flex flex-col justify-center bg-primary-200 w-11/12 overflow-hidden rounded-2xl`}
+      } transition-all ease-in-out shrink-0 duration-300 flex flex-col justify-center w-11/12 overflow-hidden rounded-2xl`}
       noValidate
     >
       <input
         id="title"
         type="text"
-        className="bg-transparent text-background-light-100 placeholder-background-light-100 focus:placeholder-background-light-300"
+        className={`
+        ${darkMode.isDarkMode ? "text-background-dark-200" : "text-background-light-100"}
+        bg-transparent  placeholder-background-light-100 focus:placeholder-background-light-300`}
         placeholder="Title"
         {...register("title", {
           required: "Tracking name is required",
@@ -63,7 +71,9 @@ export default function EditBudgetingForm({
         <input
           id="amount"
           type="number"
-          className="bg-transparent text-background-light-100 placeholder-background-light-100 focus:placeholder-background-light-300 text-4xl w-full"
+          className={`
+          ${darkMode.isDarkMode ? "text-background-dark-200" : "text-background-light-100"}
+          bg-transparent  placeholder-background-light-100 focus:placeholder-background-light-300 text-4xl w-full`}
           placeholder="Target Amount"
           {...register("amount", {
             required: "Amount is required",

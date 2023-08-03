@@ -1,5 +1,7 @@
 import { useState } from "react";
 import EditBudgetingForm, { BudgetingInput } from "./EditBudgetingForm";
+import {useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 export type BudgetingBarProps = {
   id: string;
@@ -21,6 +23,7 @@ export default function BudgetingBar({
   closeForm,
 }: BudgetingBarProps) {
   const [, ] = useState(false);
+  const { darkMode } = useSelector((state: RootState) => state);
   const barLength =
     budgetingData.amount !== null ? (current / budgetingData.amount) * 100 : 0;
   const locale = window.navigator.language;
@@ -36,17 +39,20 @@ export default function BudgetingBar({
     />
   ) : (
     <div
-      className="w-11/12 flex items-center justify-between rounded-md bg-primary-100 px-3 m-5 relative z-10 hover:cursor-pointer"
+    
+      className={`w-11/12 flex items-center justify-between rounded-md  px-3 m-5 relative z-10 hover:cursor-pointer
+      ${darkMode.isDarkMode ? "bg-background-dark-350" : "bg-primary-100"}`}
       onClick={() => showEditForm(id)}
     >
       <div
         style={{
           width: `${barLength}%`,
         }}
-        className={`absolute bg-primary-200 w-[${barLength}%] h-full z-20 rounded-md top-0 left-0`}
+        className={`absolute
+        ${darkMode.isDarkMode ? "bg-background-dark-300" : "bg-primary-200"}  w-[${barLength}%] h-full z-20 rounded-md top-0 left-0`}
       ></div>
-      <div className="text-white z-30">{budgetingData.title}</div>
-      <div className="text-black z-30">
+      <div className={`z-30 ${darkMode.isDarkMode ? "text-background-dark-200" : "text-white "}`}>{budgetingData.title}</div>
+      <div className={`z-30 ${darkMode.isDarkMode ? "text-background-dark-200" : "text-black "}`}>
         {showPercent
           ? `${
               budgetingData.amount !== null
