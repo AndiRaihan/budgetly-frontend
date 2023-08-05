@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import budgetIcon from "../assets/budget-icon.svg";
 import stats from "../assets/stats.svg";
 import tracking from "../assets/tracking.svg";

@@ -3,6 +3,7 @@ import CanvasJSReact from "@canvasjs/react-charts";
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 export default function PieChart({ items }: PageProps) {
+  // @ts-ignore
   let chart;
   const options = {
       backgroundColor: "transparent",
