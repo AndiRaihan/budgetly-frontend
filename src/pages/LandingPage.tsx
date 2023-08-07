@@ -12,8 +12,8 @@ export default function LandingPage({ translate, changeCurrentPage }: PageProps)
 
   return (
     <div
-      className={`bg-background-light-100
-          ${darkMode.isDarkMode ? "dark" : ""} ${
+      className={`
+          ${darkMode.isDarkMode ? "bg-background-dark-400" : "bg-background-light-100"} ${
         translate
           ? "translate-x-52 w-[calc(100vw-13rem)]"
           : " translate-x-0 w-screen"
