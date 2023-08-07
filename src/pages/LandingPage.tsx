@@ -6,7 +6,7 @@ import CurrentPage from "../utils/CurrentPage";
 import Footer from "../components/Footer";
 
 export default function LandingPage({ translate, changeCurrentPage }: PageProps) {
-  changeCurrentPage(CurrentPage.Budgeting);
+  changeCurrentPage(CurrentPage.Others);
 
   const { darkMode } = useSelector((state: RootState) => state);
 
