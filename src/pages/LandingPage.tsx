@@ -16,8 +16,8 @@ export default function LandingPage({ translate, changeCurrentPage }: PageProps)
           ${darkMode.isDarkMode ? "bg-background-dark-400" : "bg-background-light-100"} ${
         translate
           ? "translate-x-52 w-[calc(100vw-13rem)]"
-          : " translate-x-0 w-screen"
-      } transition-all ease-in-out duration-200 pb-20`}
+          : " translate-x-0"
+      } transition-all ease-in-out duration-200 pb-8`}
       >
         <Hero/>
         <Features/>
