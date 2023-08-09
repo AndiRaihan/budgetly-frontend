@@ -16,23 +16,23 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
 
   const { darkMode } = useSelector((state: RootState) => state);
 
-  function showEditForm(id : string) {
-    setTrackings((prev) => 
+  function showEditForm(id: string) {
+    setTrackings((prev) =>
       prev.map((tracking) => {
         if (tracking.id === id) {
-          return {...tracking, isOpened: true}
+          return { ...tracking, isOpened: true };
         }
-        return {...tracking, isOpened: false}
+        return { ...tracking, isOpened: false };
       })
-    )
+    );
   }
 
   function closeForm() {
-    setTrackings((prev) => 
+    setTrackings((prev) =>
       prev.map((tracking) => {
-        return {...tracking, isOpened: false}
+        return { ...tracking, isOpened: false };
       })
-    )
+    );
   }
 
   const currentDate = new Date();
@@ -45,19 +45,31 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
   return (
     <div
       className={` h-screen flex flex-col pt-20 items-start px-16
-        ${darkMode.isDarkMode ? "bg-background-dark-400" : "bg-background-light-100"} ${
+        ${
+          darkMode.isDarkMode
+            ? "bg-background-dark-400"
+            : "bg-background-light-100"
+        } ${
         translate
           ? "translate-x-52 w-[calc(100vw-13rem)]"
           : " translate-x-0 w-screen"
       } transition-all ease-in-out duration-200 pb-20`}
     >
       <div className="flex justify-between items-end p-1 ml-5 mb-3 w-11/12">
-        <h1 className={`text-3xl ${darkMode.isDarkMode ? "text-background-dark-200" : ""}`}>
+        <h1
+          className={`text-3xl ${
+            darkMode.isDarkMode ? "text-background-dark-200" : ""
+          }`}
+        >
           Today <span className="text-sm">{formattedDate}</span>
         </h1>
         <div className={`relative z-50`}>
           <button
-            className={` ${darkMode.isDarkMode ? "text-background-dark-200" : "hover:bg-background-light-200"} flex items-center justify-center text-xl z-20 py-1 px-5 `}
+            className={` ${
+              darkMode.isDarkMode
+                ? "text-background-dark-200 hover:bg-background-dark-350 hover:bg-opacity-25"
+                : "hover:bg-background-light-200"
+            } flex items-center justify-center text-xl z-20 py-1 px-5 rounded-md`}
             onClick={() => setIsDropdownOpen((prev) => !prev)}
           >
             <span>
@@ -68,23 +80,37 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
 
           <div
             className={`transition-all duration-300 
-            ${
-              isDropdownOpen ? "max-h-60" : "max-h-0"
-            } absolute top-10 left-0 bg-background-light-300 -z-50 rounded-2xl shadow w-44 overflow-hidden`}
+            ${isDropdownOpen ? "max-h-60" : "max-h-0"} absolute top-10 left-0 ${
+              darkMode.isDarkMode
+                ? "text-background-dark-100 bg-background-dark-350"
+                : "bg-background-light-200"
+            } -z-50 rounded-2xl shadow w-44 overflow-hidden`}
           >
             <ul className="pb-2 pt-2 ">
               <li
-                className={`hover:bg-background-light-200 text-blackpx-4 hover:cursor-pointer px-4 py-2`}
+                className={`${
+                  darkMode.isDarkMode
+                    ? "hover:bg-background-dark-200 hover:text-background-dark-400"
+                    : "hover:bg-background-light-200"
+                } text-blackpx-4 hover:cursor-pointer px-4 py-2`}
               >
                 Opsi 1
               </li>
               <li
-                className={`hover:bg-background-light-200 text-blackpx-4 hover:cursor-pointer px-4 py-2`}
+                className={`${
+                  darkMode.isDarkMode
+                    ? "hover:bg-background-dark-200 hover:text-background-dark-400"
+                    : "hover:bg-background-light-200"
+                } text-blackpx-4 hover:cursor-pointer px-4 py-2`}
               >
                 Opsi 2
               </li>
               <li
-                className={`hover:bg-background-light-200 text-blackpx-4 hover:cursor-pointer px-4 py-2`}
+                className={`${
+                  darkMode.isDarkMode
+                    ? "hover:bg-background-dark-200 hover:text-background-dark-400"
+                    : "hover:bg-background-light-200"
+                } text-blackpx-4 hover:cursor-pointer px-4 py-2`}
               >
                 Opsi 3
               </li>
@@ -96,8 +122,14 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
       <button
         onClick={() => setShowForm((prevState) => !prevState)}
         className={`
-        ${darkMode.isDarkMode ? "text-background-dark-300" : ""}
-        ${!showForm ? "max-h-max p-1 ml-5" : "max-h-0"} transition-all ease-in-out duration-300 flex-shrink-0 self-start text-start hover:bg-background-light-200 rounded-md w-11/12 overflow-hidden`}
+        ${
+          darkMode.isDarkMode
+            ? "text-background-dark-200 hover:bg-background-dark-350 hover:bg-opacity-25"
+            : "hover:bg-background-light-200"
+        }
+        ${
+          !showForm ? "max-h-max p-1 ml-5" : "max-h-0"
+        } transition-all ease-in-out duration-300 flex-shrink-0 self-start text-start rounded-md w-11/12 overflow-hidden`}
       >
         +Add Expense/income
       </button>
@@ -118,7 +150,13 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
         isOpened={trackings[0].isOpened}
         showEditForm={showEditForm}
       />
-      <h1 className={`text-3xl ml-5 mt-10 ${darkMode.isDarkMode ? "text-background-dark-300" : ""}`}>Yesterday</h1>
+      <h1
+        className={`text-3xl ml-5 mt-10 ${
+          darkMode.isDarkMode ? "text-background-dark-200" : ""
+        }`}
+      >
+        Yesterday
+      </h1>
       <TrackingBar
         trackingData={{
           trackingName: trackings[1].trackingName,

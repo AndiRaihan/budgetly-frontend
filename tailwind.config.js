@@ -45,5 +45,11 @@ export default {
       },
     },
   },
+  variants: {
+    extend: {
+      filter: ['responsive', 'hover', 'focus'],
+      brightness: ['responsive', 'hover', 'focus'],
+    }
+  },
   plugins: [],
 };
