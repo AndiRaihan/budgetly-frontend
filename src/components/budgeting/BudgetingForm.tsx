@@ -60,7 +60,7 @@ export default function BudgetingForm({
           darkMode.isDarkMode
             ? "text-background-dark-200 placeholder-background-dark-200"
             : "placeholder-black focus:placeholder-slate-600"
-        } bg-transparent  `}
+        } bg-transparent outline-none`}
         placeholder="Title"
         {...register("title", {
           required: "Tracking name is required",
@@ -74,7 +74,7 @@ export default function BudgetingForm({
             darkMode.isDarkMode
               ? "text-background-dark-200 placeholder-background-dark-200"
               : "placeholder-black focus:placeholder-slate-600"
-          } bg-transparent hover:placeholder-slate-600 text-4xl w-full`}
+          } bg-transparent hover:placeholder-slate-600 text-4xl w-full outline-none`}
           placeholder="Target Amount"
           {...register("amount", {
             required: "Amount is required",
