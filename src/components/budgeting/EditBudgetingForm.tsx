@@ -2,7 +2,7 @@ import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import IconWarning from "../../assets/icon _warning_.svg";
 import Period from "../../utils/Period";
 import CustomLighterSwitch from "../CustomLigherSwitch";
-import {useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 
 export type BudgetingInput = {
@@ -60,8 +60,7 @@ export default function EditBudgetingForm({
         id="title"
         type="text"
         className={`
-        ${darkMode.isDarkMode ? "text-background-dark-200" : "text-background-light-100"}
-        bg-transparent  placeholder-background-light-100 focus:placeholder-background-light-300`}
+        bg-transparent placeholder-background-light-100 focus:placeholder-background-light-300 text-background-light-100 outline-none`}
         placeholder="Title"
         {...register("title", {
           required: "Tracking name is required",
@@ -72,8 +71,12 @@ export default function EditBudgetingForm({
           id="amount"
           type="number"
           className={`
-          ${darkMode.isDarkMode ? "text-background-dark-200" : "text-background-light-100"}
-          bg-transparent  placeholder-background-light-100 focus:placeholder-background-light-300 text-4xl w-full`}
+          ${
+            darkMode.isDarkMode
+              ? "text-background-dark-200"
+              : "text-background-light-100"
+          }
+          bg-transparent placeholder-background-light-100 focus:placeholder-background-light-300 text-background-light-100 text-4xl w-full outline-none`}
           placeholder="Target Amount"
           {...register("amount", {
             required: "Amount is required",
@@ -85,7 +88,12 @@ export default function EditBudgetingForm({
       <div className="flex justify-between items-center">
         <div className="flex">
           <select
-            className="bg-transparent focus:ring-primary-100 focus:border-primary-100 focus:border text-background-light-100 placeholder-background-light-100 focus:placeholder-background-light-300 px-2 py-1 rounded-md"
+            className={` ${
+              darkMode.isDarkMode
+                ? "text-background-dark-200 bg-background-dark-300"
+                : "focus:ring-primary-100 focus:border-primary-100 bg-primary-200"
+            } 
+            focus:border py-1 rounded-md transition-colors duration-300 text-background-light-100 outline-none`}
             {...register("period", {
               required: "Period is required",
             })}
@@ -101,7 +109,12 @@ export default function EditBudgetingForm({
             <input
               id="track-date"
               type="date"
-              className="bg-transparent text-background-light-100 placeholder-background-light-100 focus:placeholder-background-light-300"
+              className={` ${
+                darkMode.isDarkMode
+                  ? "text-background-dark-200 bg-background-dark-300"
+                  : "focus:ring-primary-100 focus:border-primary-100 bg-primary-200"
+              } 
+              focus:border mx-2 py-1 rounded-md transition-colors duration-300 text-background-light-100 outline-none`}
               {...register("budgetDate", {
                 required:
                   watch("period") === Period.Custom
@@ -112,7 +125,11 @@ export default function EditBudgetingForm({
             />
           )}
           <select
-            className="bg-transparent focus:ring-primary-100 focus:border-primary-100 focus:border text-background-light-100 placeholder-background-light-100 focus:placeholder-background-light-300 px-2 py-1 rounded-md"
+            className={` ${
+              darkMode.isDarkMode
+                ? "text-background-dark-200 bg-background-dark-300"
+                : "focus:ring-primary-100 focus:border-primary-100 bg-primary-200"
+            } focus:border px-2 py-1 rounded-md transition-colors duration-300 text-background-light-100 outline-none`}
             {...register("category", {
               required: "Category is required",
               validate: (value) =>
@@ -131,7 +148,9 @@ export default function EditBudgetingForm({
               control={control}
               render={({ field }) => <CustomLighterSwitch {...field} />}
             />
-            <span className="text-background-light-100 ml-0 mr-3">Recurring</span>
+            <span className="text-background-light-100 ml-0 mr-3">
+              Recurring
+            </span>
           </div>
         </div>
         <div>
