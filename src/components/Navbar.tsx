@@ -16,8 +16,7 @@ export default function Navbar({ toggleSideNav, setNavbar }: NavbarProps) {
   useEffect(() => {
     if (location.pathname === "/register" || location.pathname === "/login") {
       setNavbar(false);
-    }
-    else {
+    } else {
       setNavbar(true);
     }
   }, [location.pathname]);
@@ -27,11 +26,17 @@ export default function Navbar({ toggleSideNav, setNavbar }: NavbarProps) {
   }
 
   return (
-    <nav className={` flex justify-between items-center p-4 h-14 fixed w-full z-50
-        ${darkMode.isDarkMode ? "bg-background-dark-300" : "bg-background-light-200"}`}>
+    <nav
+      className={` flex justify-between items-center p-4 h-14 fixed w-full z-50
+        ${
+          darkMode.isDarkMode
+            ? "bg-background-dark-300 dark"
+            : "bg-background-light-200"
+        }`}
+    >
       <div className="flex items-center justify-center">
         <button
-          className="flex items-center justify-center h-8 w-14 hover:bg-background-light-300 rounded-md"
+          className="flex items-center justify-center h-8 w-14 hover:bg-background-light-300 rounded-md dark:hover:bg-background-dark-200 dark:hover:bg-opacity-20"
           onClick={toggleSideNav}
         >
           <img src={menu} className="h-5"></img>
@@ -42,15 +47,19 @@ export default function Navbar({ toggleSideNav, setNavbar }: NavbarProps) {
         <li className="p-2">
           <ThemeSwitch checked={darkMode.isDarkMode} onClick={handleSwitch} />
         </li>
-        <li className=" h-8 w-20 hover:bg-background-light-300 rounded-md flex items-center justify-center">
-          <Link className=" flex-1 flex-grow" to="/login">
+        <li className=" h-8 w-20 hover:bg-background-light-300 dark:hover:bg-background-dark-200 dark:hover:bg-opacity-20 rounded-md flex items-center justify-center">
+          <Link
+            className=" flex-1 flex-grow dark:text-background-dark-200 brightness-125"
+            to="/login"
+          >
             <h1 className=" text-center">Login</h1>
           </Link>
         </li>
-        <li className={`flex items-center justify-center bg-primary-200 w-36 h-7 rounded-md hover:bg-primary-300 transition-all duration-300 focus:ring-4
-             focus:bg-primary-300 shadow-lg transform active:scale-75 mx-5 text-white
-             ${darkMode.isDarkMode ? "bg-background-dark-200" : ""}`}>
-          <Link className={`flex-1 flex-grow text-center ${darkMode.isDarkMode ? "text-background-dark-300" : ""}`} to="/register">
+        <li
+          className={`flex items-center justify-center bg-primary-200 w-36 h-7 rounded-md hover:bg-primary-300 transition-all duration-300 focus:ring-4
+             focus:bg-primary-300 shadow-lg transform active:scale-75 mx-5 text-white dark:text-background-dark-300 dark:bg-background-dark-200 dark:brightness-125 dark:hover:bg-opacity-50`}
+        >
+          <Link className={`flex-1 flex-grow text-center  `} to="/register">
             Register
           </Link>
         </li>
