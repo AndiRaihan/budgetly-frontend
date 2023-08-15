@@ -1,6 +1,8 @@
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import IconWarning from "../../assets/icon _warning_.svg";
 import CustomSwitch from "../CustomSwitch";
+import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 export default function TrackingForm({
   showForm,
@@ -33,6 +35,8 @@ export default function TrackingForm({
     });
   };
 
+  const { darkMode } = useSelector((state: RootState) => state);
+
   const onSubmit: SubmitHandler<TrackingInput> = (data) => console.log(data);
 
   return (
@@ -49,7 +53,11 @@ export default function TrackingForm({
       <input
         id="trackingName"
         type="text"
-        className="bg-transparent placeholder-black focus:placeholder-slate-600"
+        className={`${
+          darkMode.isDarkMode
+            ? "text-background-dark-200 placeholder-background-dark-200"
+            : "placeholder-black focus:placeholder-slate-600"
+        } bg-transparent outline-none`}
         placeholder="Expense/Income Name"
         {...register("trackingName", {
           required: "Tracking name is required",
@@ -59,7 +67,11 @@ export default function TrackingForm({
         <input
           id="amount"
           type="number"
-          className="bg-transparent placeholder-black focus:placeholder-slate-600 hover:placeholder-slate-600 text-4xl w-full"
+          className={`${
+            darkMode.isDarkMode
+              ? "text-background-dark-200 placeholder-background-dark-200"
+              : "placeholder-black focus:placeholder-slate-600"
+          } bg-transparent hover:placeholder-slate-600 text-4xl w-full outline-none`}
           placeholder="Amount"
           {...register("amount", {
             required: "Amount is required",
@@ -73,24 +85,34 @@ export default function TrackingForm({
           <input
             id="track-date"
             type="date"
-            className="bg-transparent"
+            className={` ${
+              darkMode.isDarkMode
+                ? "text-background-dark-200 bg-background-dark-400"
+                : "focus:ring-primary-100 focus:border-primary-100 bg-background-light-100"
+            } 
+            focus:border py-1 rounded-md transition-colors duration-200 outline-none`}
             {...register("trackDate", {
               required: "Date is required",
               valueAsDate: true,
             })}
           />
-          <div className="border border-background-light-400 rounded-md mx-2">
-            <span className="text-black ml-3 mr-0">Income</span>
+          <div className="border border-background-light-400 dark:border-background-dark-350 rounded-md mx-2 text-black dark:text-background-dark-200">
+            <span className=" ml-3 mr-0">Income</span>
             <Controller
               name="trackType"
               control={control}
               defaultValue={false}
               render={({ field }) => <CustomSwitch {...field} />}
             />
-            <span className="text-black ml-0 mr-3">Expense</span>
+            <span className="ml-0 mr-3">Expense</span>
           </div>
           <select
-            className="bg-transparent focus:ring-primary-100 focus:border-primary-100 focus:border px-2 py-1 rounded-md"
+            className={`${
+              darkMode.isDarkMode
+                ? "text-background-dark-200 bg-background-dark-400"
+                : "focus:ring-primary-100 focus:border-primary-100 bg-background-light-100"
+            } 
+            focus:border px-2 py-1 rounded-md transition-colors duration-200`}
             {...register("category", {
               required: "Category is required",
               validate: (value) =>

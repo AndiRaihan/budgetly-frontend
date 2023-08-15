@@ -47,7 +47,7 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
       className={` h-screen flex flex-col pt-20 items-start px-16
         ${
           darkMode.isDarkMode
-            ? "bg-background-dark-400"
+            ? "bg-background-dark-400 dark"
             : "bg-background-light-100"
         } ${
         translate
