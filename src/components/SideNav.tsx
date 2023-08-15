@@ -12,7 +12,7 @@ function SideNav({ show, currentTab }: SideNavProps) {
   return (
     <nav
       className={`top-18 left-0 h-full w-52 fixed  
-      ${darkMode.isDarkMode ? "bg-background-dark-300" : "bg-background-light-300"}
+      ${darkMode.isDarkMode ? "bg-background-dark-300 bg-opacity-90 dark" : "bg-background-light-300"}
       ${show ?  "translate-x-0" : "-translate-x-full"} ease-in-out duration-200`}
     >
       <ul className="flex flex-col items-center py-20 h-full">
@@ -23,12 +23,12 @@ function SideNav({ show, currentTab }: SideNavProps) {
               currentTab === CurrentPage.Tracking
                 ? "hover:bg-primary-300 duration-300"
                 : "hover:bg-background-light-400"
-            } rounded-md w-8 flex-1 flex flex-grow items-center text-center h-10 ${
+            } rounded-md w-8 flex-1 flex flex-grow items-center text-center h-10 text-background-dark-200 dark:brightness-125 ${
               currentTab === CurrentPage.Tracking && "bg-primary-200"
             }`}
           >
             <img src={tracking} className={`w-5 mx-2
-            ${darkMode.isDarkMode ? "fill-background-dark-100" : "text-black"}`}></img>
+            ${darkMode.isDarkMode ? "fill-background-dark-200 fill" : "text-black"}`}></img>
             Tracking
           </Link>
         </li>
@@ -39,7 +39,7 @@ function SideNav({ show, currentTab }: SideNavProps) {
               currentTab === CurrentPage.Budgeting
                 ? "hover:bg-primary-300 duration-300"
                 : "hover:bg-background-light-400"
-            } rounded-md w-8 h-10 flex-1 flex flex-grow items-center text-center ${
+            } rounded-md w-8 h-10 flex-1 flex flex-grow items-center text-center text-background-dark-200 dark:brightness-125 ${
               currentTab === CurrentPage.Budgeting && "bg-primary-200"
             }`}
           >
@@ -54,7 +54,7 @@ function SideNav({ show, currentTab }: SideNavProps) {
               currentTab === CurrentPage.Stats
                 ? "hover:bg-primary-300 duration-300"
                 : "hover:bg-background-light-400"
-            } rounded-md w-8 h-10 flex-1 flex flex-grow items-center text-center ${
+            } rounded-md w-8 h-10 flex-1 flex flex-grow items-center text-center text-background-dark-200 dark:brightness-125 ${
               currentTab === CurrentPage.Stats && "bg-primary-200"
             }`}
           >
