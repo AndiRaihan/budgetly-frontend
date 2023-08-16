@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import budgetIcon from "../assets/budget-icon.svg";
 import CurrentPage from "../utils/CurrentPage";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import TrackingSvg from "../assets/TrackingSvg";
 import StatsSvg from "../assets/StatsSvg";
+import BudgetIconSvg from "../assets/BudgetIconSvg";
 
 function SideNav({ show, currentTab }: SideNavProps) {
   const { darkMode } = useSelector((state: RootState) => state);
@@ -50,7 +50,7 @@ function SideNav({ show, currentTab }: SideNavProps) {
               "bg-primary-200 dark:bg-[#2C3E43]"
             }`}
           >
-            <img src={budgetIcon} className="w-5 mx-2"></img>
+            <BudgetIconSvg className="w-5 mx-2" isDark={darkMode.isDarkMode}  />
             Budgeting
           </Link>
         </li>

@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-import budgetIcon from "../assets/budget-icon.svg";
 import TrackingSvg from "../assets/TrackingSvg";
 import StatsSvg from "../assets/StatsSvg";
+import BudgetIconSvg from "../assets/BudgetIconSvg";
 
 const Features = () => {
   const { darkMode } = useSelector((state: RootState) => state);
@@ -61,7 +61,7 @@ const Features = () => {
           >
             Budgeting
           </h2>
-          <img src={budgetIcon} alt="" className="w-20 mx-auto" />
+          <BudgetIconSvg className="w-20 h-20 mx-auto" isDark={darkMode.isDarkMode} />
           <p
             className={`text-xl ${
               darkMode.isDarkMode ? "text-background-dark-200" : ""
