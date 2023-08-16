@@ -107,6 +107,7 @@ export default function TrackingForm({
             <span className="ml-0 mr-3">Expense</span>
           </div>
           <select
+          defaultValue={"Placeholder"}
             className={`${
               darkMode.isDarkMode
                 ? "text-background-dark-200 bg-background-dark-400"
@@ -119,7 +120,7 @@ export default function TrackingForm({
                 value !== "Placeholder" || "Please select category",
             })}
           >
-            <option value="Placeholder" disabled selected hidden>
+            <option value="Placeholder" disabled hidden>
               Category
             </option>
             <option value="contoh">Contoh</option>
