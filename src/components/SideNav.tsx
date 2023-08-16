@@ -1,11 +1,10 @@
 import { Link } from "react-router-dom";
 import budgetIcon from "../assets/budget-icon.svg";
-import stats from "../assets/stats.svg";
 import CurrentPage from "../utils/CurrentPage";
-
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import TrackingSvg from "../assets/TrackingSvg";
+import StatsSvg from "../assets/StatsSvg";
 
 function SideNav({ show, currentTab }: SideNavProps) {
   const { darkMode } = useSelector((state: RootState) => state);
@@ -32,7 +31,10 @@ function SideNav({ show, currentTab }: SideNavProps) {
               "bg-primary-200 dark:bg-[#2C3E43]"
             }`}
           >
-            <TrackingSvg className="w-5 mx-2" isDark={darkMode.isDarkMode} />
+            <TrackingSvg
+              className="w-5 h-5 mx-2"
+              isDark={darkMode.isDarkMode}
+            />
             Tracking
           </Link>
         </li>
@@ -64,7 +66,7 @@ function SideNav({ show, currentTab }: SideNavProps) {
               "bg-primary-200 dark:bg-[#2C3E43]"
             }`}
           >
-            <img src={stats} className="w-5 mx-2"></img>
+            <StatsSvg className="w-5 h-5 mx-2" isDark={darkMode.isDarkMode} />
             Stats
           </Link>
         </li>
