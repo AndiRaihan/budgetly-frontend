@@ -4,8 +4,8 @@ import { RootState } from "../redux/store";
 import { toggleDarkMode } from "../redux/darkModeSlice";
 import Logo from "./Logo";
 import { Link, useLocation } from "react-router-dom";
-import menu from "../assets/menu.svg";
 import { useEffect } from "react";
+import MenuSvg from "../assets/MenuSvg";
 
 export default function Navbar({ toggleSideNav, setNavbar }: NavbarProps) {
   const { darkMode } = useSelector((state: RootState) => state);
@@ -39,7 +39,7 @@ export default function Navbar({ toggleSideNav, setNavbar }: NavbarProps) {
           className="flex items-center justify-center h-8 w-14 hover:bg-background-light-300 rounded-md dark:hover:bg-background-dark-200 dark:hover:bg-opacity-20"
           onClick={toggleSideNav}
         >
-          <img src={menu} className="h-5"></img>
+          <MenuSvg className="h-5" isDark={darkMode.isDarkMode} />
         </button>
         <Logo />
       </div>
