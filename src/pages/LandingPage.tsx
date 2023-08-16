@@ -13,7 +13,7 @@ export default function LandingPage({ translate, changeCurrentPage }: PageProps)
   return (
     <div
       className={`
-          ${darkMode.isDarkMode ? "bg-background-dark-400" : "bg-background-light-100"} ${
+          ${darkMode.isDarkMode ? "bg-background-dark-400 dark" : "bg-background-light-100"} ${
         translate
           ? " translate-x-52 w-[calc(100vw-13rem)]"
           : " translate-x-0 w-full"
