@@ -10,7 +10,7 @@ export default function Logo() {
 
 
   return (
-    <Link to='/' className='flex'>
+    <Link to='/' className='hidden md:flex '>
         <img src={MoneyBagSVG} alt="Money Bag" className="w-8 h-8" />
         <h1 className={`text-2xl font-bold ml-3 ${darkMode.isDarkMode ? "text-background-dark-200" : ""}`}>Budgetly</h1>
     </Link>

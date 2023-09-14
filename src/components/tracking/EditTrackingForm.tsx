@@ -76,8 +76,8 @@ export default function EditTrackingForm({
         />
       </div>
 
-      <div className="flex justify-between items-center">
-        <div className="flex">
+      <div className="flex flex-col md:flex-row justify-between items-center">
+        <div className="flex flex-col md:flex-row">
           <input
             id="track-date"
             type="date"
@@ -95,7 +95,7 @@ export default function EditTrackingForm({
               control={control}
               render={({ field }) => <CustomLighterSwitch {...field} />}
             />
-            <span className="text-background-light-100 ml-0 mr-3">Expense</span>
+            <span className="text-background-light-100 md:ml-3 mr-0">Expense</span>
           </div>
           <select
             className="bg-transparent focus:ring-primary-100 focus:border-primary-100 focus:border text-background-light-100 placeholder-background-light-100 focus:placeholder-background-light-300 px-2 py-1 rounded-md"

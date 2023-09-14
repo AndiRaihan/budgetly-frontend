@@ -80,8 +80,8 @@ export default function TrackingForm({
         />
       </div>
 
-      <div className="flex justify-between items-center">
-        <div className="flex">
+      <div className="flex flex-col md:flex-row justify-between items-center">
+        <div className="flex flex-col md:flex-row">
           <input
             id="track-date"
             type="date"
@@ -97,7 +97,7 @@ export default function TrackingForm({
             })}
           />
           <div className="border border-background-light-400 dark:border-background-dark-350 rounded-md mx-2 text-black dark:text-background-dark-200">
-            <span className=" ml-3 mr-0">Income</span>
+            <span className=" md:ml-3 mr-0">Income</span>
             <Controller
               name="trackType"
               control={control}
@@ -107,7 +107,7 @@ export default function TrackingForm({
             <span className="ml-0 mr-3">Expense</span>
           </div>
           <select
-          defaultValue={"Placeholder"}
+            defaultValue={"Placeholder"}
             className={`${
               darkMode.isDarkMode
                 ? "text-background-dark-200 bg-background-dark-400"
@@ -126,7 +126,7 @@ export default function TrackingForm({
             <option value="contoh">Contoh</option>
           </select>
         </div>
-        <div>
+        <div className="">
           <button
             type="button"
             className=" bg-gray-400 rounded-md py-1 px-3 hover:brightness-90"
