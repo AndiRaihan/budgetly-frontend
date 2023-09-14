@@ -74,7 +74,7 @@ export default function BudgetingForm({
             darkMode.isDarkMode
               ? "text-background-dark-200 placeholder-background-dark-200"
               : "placeholder-black focus:placeholder-slate-600"
-          } bg-transparent hover:placeholder-slate-600 text-4xl w-full outline-none`}
+          } bg-transparent hover:placeholder-slate-600 text-2xl md:text-4xl w-full outline-none`}
           placeholder="Target Amount"
           {...register("amount", {
             required: "Amount is required",
@@ -83,8 +83,8 @@ export default function BudgetingForm({
         />
       </div>
 
-      <div className="flex justify-between items-center">
-        <div className="flex">
+      <div className="flex flex-col gap-5 md:flex-row justify-between items-center">
+        <div className="flex flex-col gap-5 md:flex-row ">
           <select
             className={` ${
               darkMode.isDarkMode

@@ -56,11 +56,11 @@ export default function Budgeting({ translate, changeCurrentPage }: PageProps) {
           : " translate-x-0 w-screen"
       } transition-all ease-in-out duration-200 pb-20`}
     >
-      <div className="flex justify-between items-end p-1 ml-5 mb-3 w-11/12">
+      <div className="flex flex-col md:flex-row justify-between items-end p-1 ml-5 mb-3 w-11/12">
         <h1 className={`text-3xl ${darkMode.isDarkMode ? "text-background-dark-200" : ""}`}>
           Today <span className="text-sm">{formattedDate}</span>
         </h1>
-        <div>
+        <div className="items-start md:">
           <span className={`text-xl ${darkMode.isDarkMode ? "text-background-dark-200" : ""}`}>$</span>
           <CustomSwitch
             checked={isPercentage}

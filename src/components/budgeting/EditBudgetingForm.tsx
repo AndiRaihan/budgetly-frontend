@@ -85,8 +85,8 @@ export default function EditBudgetingForm({
         />
       </div>
 
-      <div className="flex justify-between items-center">
-        <div className="flex">
+      <div className="flex flex-col gap-5 md:flex-row justify-between items-center">
+        <div className="flex flex-col gap-5 md:flex-row">
           <select
             className={` ${
               darkMode.isDarkMode

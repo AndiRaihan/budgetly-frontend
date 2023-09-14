@@ -57,7 +57,7 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
     >
       <div className="flex justify-between items-end p-1 ml-5 mb-3 w-11/12">
         <h1
-          className={`text-3xl ${
+          className={`text-2xl md:text-3xl ${
             darkMode.isDarkMode ? "text-background-dark-200" : ""
           }`}
         >
