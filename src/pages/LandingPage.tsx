@@ -17,7 +17,7 @@ export default function LandingPage({ translate, changeCurrentPage }: PageProps)
         translate
           ? " translate-x-52 w-[calc(100vw-13rem)]"
           : " translate-x-0 w-full"
-      } transition-all ease-in-out duration-200 pb-8`}
+      } flex flex-col transition-all ease-in-out duration-200`}
       >
         <Hero/>
         <Features/>

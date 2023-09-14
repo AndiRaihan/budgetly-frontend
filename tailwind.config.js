@@ -12,6 +12,19 @@ export default {
       },
       colors: {
         'dark-green':"#005037",
+        light : {
+          100: '#F2FCF6',
+          200: '#E6F9EE',
+          300: '#D6F5E2',
+          400: '#B8E7D1'
+        },
+        dark: {
+          100 : '#D9D9D9', 
+          200 : '#A5C9CA',
+          300 : '#395B64',
+          350 : '#416772',
+          400 : '#2C3333'
+        },
         background: {
           light : {
             100: '#F2FCF6',

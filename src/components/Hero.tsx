@@ -5,22 +5,22 @@ import { RootState } from "../redux/store";
 const Hero = () => {
   const { darkMode } = useSelector((state: RootState) => state);
   return (
-    <div className="grid grid-cols-2 pt-20 h-screen">
+    <div className="md:grid grid-cols-2 pt-20 h-screen">
       <div className="mt-8">
-        <img src={pic} alt="" className="pl-12" />
+        <img src={pic} alt="" className="hidden md:p-12" />
       </div>
-      <div className="item-center mt-44 pl-3">
-        <h1 className={`text-4xl font-bold  ${darkMode.isDarkMode ? "text-background-dark-200" : "text-dark-green"}`}>
+      <div className="text-center md:item-center mt-44 pl-3">
+        <h1 className={`text-2xl font-bold md:text-4xl   ${darkMode.isDarkMode ? "text-background-dark-200" : "text-dark-green"}`}>
           Track and Grow with Ease!
         </h1>
-        <p className={`text-xl font-light ${darkMode.isDarkMode ? "text-background-dark-200" : "text-dark-green"}`}>
+        <p className={`text-lg md:text-xl font-light ${darkMode.isDarkMode ? "text-background-dark-200" : "text-dark-green"}`}>
           Budgetly is an expense/income tracking web application. Its <br />{" "}
           features are expense/income tracking, budgeting, and <br />
           statistics insight on your spending that will help your money <br />
           management journey!
         </p>
 
-        <a href="" className={`text-lg font-bold ${darkMode.isDarkMode ? "text-background-dark-200" : "text-[#7BA88D]"}`}>
+        <a href="" className={`text-center md:text-lg font-bold ${darkMode.isDarkMode ? "text-background-dark-200" : "text-[#7BA88D]"}`}>
           Learn more
         </a>
       </div>

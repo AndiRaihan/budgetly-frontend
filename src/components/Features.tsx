@@ -16,9 +16,9 @@ const Features = () => {
       >
         Features
       </h1>
-      <div className={`grid grid-cols-3 gap-8`}>
+      <div className={`flex flex-col md:grid grid-cols-3 gap-8`}>
         <div
-          className={`flex flex-col p-4 my-4 rounded-lg hover:scale-105 duration-300 ${
+          className={`flex-col md:ustify-center p-4 my-4 rounded-lg hover:scale-105 duration-300 ${
             darkMode.isDarkMode
               ? "bg-background-dark-300"
               : "bg-background-light-300"
@@ -48,7 +48,7 @@ const Features = () => {
           </p>
         </div>
         <div
-          className={`flex flex-col p-4 my-4 rounded-lg hover:scale-105 duration-300 ${
+          className={`flex-col p-4 my-4 rounded-lg hover:scale-105 duration-300 ${
             darkMode.isDarkMode
               ? "bg-background-dark-300"
               : "bg-background-light-300"
@@ -75,7 +75,7 @@ const Features = () => {
           </p>
         </div>
         <div
-          className={`flex flex-col p-4 my-4 rounded-lg hover:scale-105 duration-300 ${
+          className={`flex-col p-4 my-4 rounded-lg hover:scale-105 duration-300 ${
             darkMode.isDarkMode
               ? "bg-background-dark-300"
               : "bg-background-light-300"
