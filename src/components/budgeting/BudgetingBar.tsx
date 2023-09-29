@@ -40,7 +40,7 @@ export default function BudgetingBar({
   ) : (
     <div
     
-      className={`w-11/12 flex items-center justify-between rounded-md  px-3 m-5 relative z-10 hover:cursor-pointer
+      className={`w-full flex items-center justify-between rounded-md px-3 m-5 relative z-10 hover:cursor-pointer
       ${darkMode.isDarkMode ? "bg-background-dark-350" : "bg-primary-100"}`}
       onClick={() => showEditForm(id)}
     >

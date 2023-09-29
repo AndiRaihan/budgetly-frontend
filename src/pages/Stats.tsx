@@ -84,7 +84,7 @@ export default function Stats({ translate, changeCurrentPage }: PageProps) {
            : " translate-x-0 w-screen"
        } transition-all ease-in-out duration-200 pb-20`}
     >
-      <div className="flex justify-between items-end p-1 ml-5 mb-3 w-11/12">
+      <div className="flex flex-col p-1 ml-5 mb-3 w-11/12 md:justify-between md:flex-row ">
         <div>
           <span
             className={`text-lg ${
@@ -107,7 +107,7 @@ export default function Stats({ translate, changeCurrentPage }: PageProps) {
         </div>
         <div className="relative z-50">
           <button
-            className={`flex items-center justify-center rounded-2xl text-3xl z-20 py-1 px-5 w-44 text-background-light-100 ${
+            className={`flex items-center justify-center text-2xl rounded-2xl md:text-3xl z-20 py-1 px-5 md:w-44 text-background-light-100 ${
               darkMode.isDarkMode
                 ? "bg-background-dark-300"
                 : "bg-background-light-400"
@@ -139,7 +139,7 @@ export default function Stats({ translate, changeCurrentPage }: PageProps) {
           </div>
         </div>
       </div>
-      <div className={`flex justify-center items-center w-full mb-6`}>
+      <div className={`flex justify-center w-full items-center mb-6`}>
         <PieChart items={data} />
       </div>
 

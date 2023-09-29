@@ -55,7 +55,7 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
           : " translate-x-0 w-screen"
       } transition-all ease-in-out duration-200 pb-20`}
     >
-      <div className="flex justify-between items-end p-1 ml-5 mb-3 w-11/12">
+      <div className="flex flex-col justify-between p-1 ml-5 mb-3 w-11/12 md:flex-row md:items-end">
         <h1
           className={`text-2xl md:text-3xl ${
             darkMode.isDarkMode ? "text-background-dark-200" : ""
@@ -69,7 +69,7 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
               darkMode.isDarkMode
                 ? "text-background-dark-200 hover:bg-background-dark-350 hover:bg-opacity-25"
                 : "hover:bg-background-light-200"
-            } flex items-center justify-center text-xl z-20 py-1 px-5 rounded-md`}
+            } flex items-center justify-center text-xl z-20 py-1 md:px-5 rounded-md`}
             onClick={() => setIsDropdownOpen((prev) => !prev)}
           >
             <span>

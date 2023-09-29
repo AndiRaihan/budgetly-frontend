@@ -7,7 +7,7 @@ const Hero = () => {
   return (
     <div className="md:grid grid-cols-2 pt-20 h-screen">
       <div className="mt-8">
-        <img src={pic} alt="" className="hidden md:p-12" />
+        <img src={pic} alt="" className="hidden md:p-12 lg:inline-block" />
       </div>
       <div className="text-center md:item-center mt-44 pl-3">
         <h1 className={`text-2xl font-bold md:text-4xl   ${darkMode.isDarkMode ? "text-background-dark-200" : "text-dark-green"}`}>

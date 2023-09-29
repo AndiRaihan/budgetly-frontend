@@ -8,7 +8,7 @@ const Features = () => {
   const { darkMode } = useSelector((state: RootState) => state);
 
   return (
-    <div className="h-screen px-10">
+    <div className="h-full py-12 px-10">
       <h1
         className={`flex justify-center text-4xl font-bold ${
           darkMode.isDarkMode ? "text-background-dark-200" : "text-dark-green"
