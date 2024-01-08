@@ -19,17 +19,19 @@ export const JwtTokenState = createSlice({
   reducers: {
     setToken: (state, action: PayloadAction<string>) => {
       state.token = action.payload;
-      localStorage.setItem("token", action.payload);
+      localStorage.setItem("token", JSON.stringify(state.token));
     },
     setId: (state, action: PayloadAction<string>) => {
       state.id = action.payload;
-      localStorage.setItem("id", action.payload);
+      localStorage.setItem("id", JSON.stringify(state.id));
     },
     clearToken: (state) => {
       state.token = "";
+      localStorage.removeItem("token");
     },
     clearId: (state) => {
       state.id = "";
+      localStorage.removeItem("id");
     },
   },
 });

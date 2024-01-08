@@ -11,7 +11,6 @@ type RegisterInput = {
 };
 
 export default function LoginForm() {
-  const { account } = useSelector((state: RootState) => state);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   // TODO: Tambahin message kalo gagal login
@@ -51,6 +50,7 @@ export default function LoginForm() {
       const accountInfo = await response.json();
       dispatch(setId(accountInfo.id));
       navigate("/");
+      window.location.reload();
     } else {
       alert(await response.text());
     }
