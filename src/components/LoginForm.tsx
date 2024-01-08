@@ -1,9 +1,8 @@
-import { useForm, SubmitHandler, set } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { Convert, LoginResponse } from "../dtos/LoginResponse";
 import { setToken, setId } from "../redux/AccountSlice";
-import { RootState } from "../redux/store";
 
 type RegisterInput = {
   username: string;
