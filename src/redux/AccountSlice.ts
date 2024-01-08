@@ -6,9 +6,11 @@ export type AccountState = {
 };
 
 // TODO: Check token from local storage first
+let token = localStorage.getItem("token");
+let id = localStorage.getItem("id");
 const initialState: AccountState = {
-  id: "",
-  token: "",
+  id: id === null ? "" : id,
+  token: token === null ? "" : token,
 };
 
 export const JwtTokenState = createSlice({
@@ -17,12 +19,17 @@ export const JwtTokenState = createSlice({
   reducers: {
     setToken: (state, action: PayloadAction<string>) => {
       state.token = action.payload;
+      localStorage.setItem("token", action.payload);
     },
-    setID: (state, action: PayloadAction<string>) => {
+    setId: (state, action: PayloadAction<string>) => {
       state.id = action.payload;
+      localStorage.setItem("id", action.payload);
     },
     clearToken: (state) => {
       state.token = "";
+    },
+    clearId: (state) => {
+      state.id = "";
     },
   },
 });
