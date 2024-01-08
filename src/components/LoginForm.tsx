@@ -1,5 +1,9 @@
-import { useForm, SubmitHandler } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { useForm, SubmitHandler, set } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { Convert, LoginResponse } from "../dtos/LoginResponse";
+import { setToken, setId } from "../redux/AccountSlice";
+import { RootState } from "../redux/store";
 
 type RegisterInput = {
   username: string;
@@ -7,6 +11,9 @@ type RegisterInput = {
 };
 
 export default function LoginForm() {
+  const { account } = useSelector((state: RootState) => state);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   // TODO: Tambahin message kalo gagal login
   const {
     register,
@@ -14,7 +21,42 @@ export default function LoginForm() {
     formState: {},
   } = useForm<RegisterInput>();
 
-  const onSubmit: SubmitHandler<RegisterInput> = (data) => console.log(data);
+  async function submitLogin(data: RegisterInput) {
+    let response = await fetch(
+      "https://budgetly-backend-v2-production.up.railway.app/api/v1/auth/login",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
+
+    if (response.status === 200) {
+      const loginResponse: LoginResponse = Convert.toLoginResponse(
+        await response.text()
+      );
+      dispatch(setToken(loginResponse.accessToken));
+      response = await fetch(
+        "https://budgetly-backend-v2-production.up.railway.app/api/v1/auth/current",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: "Bearer " + loginResponse.accessToken,
+          },
+        }
+      );
+      const accountInfo = await response.json();
+      dispatch(setId(accountInfo.id));
+      navigate("/");
+    } else {
+      alert(await response.text());
+    }
+  }
+
+  const onSubmit: SubmitHandler<RegisterInput> = (data) => submitLogin(data);
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}

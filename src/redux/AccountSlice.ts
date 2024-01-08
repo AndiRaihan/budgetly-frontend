@@ -34,5 +34,5 @@ export const JwtTokenState = createSlice({
   },
 });
 
-export const { setToken, clearToken } = JwtTokenState.actions;
+export const { setToken, clearToken, setId, clearId } = JwtTokenState.actions;
 export default JwtTokenState.reducer;
