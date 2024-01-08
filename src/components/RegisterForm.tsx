@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";  
+
 
 type RegisterInput = {
   email: string;
@@ -9,6 +11,7 @@ type RegisterInput = {
 };
 
 export default function RegisterForm() {
+  const navigate = useNavigate();
   const EMAIL_REGEX =
     /(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|"(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21\x23-\x5b\x5d-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])*")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\x01-\x08\x0b\x0c\x0e-\x1f\x21-\x5a\x53-\x7f]|\\[\x01-\x09\x0b\x0c\x0e-\x7f])+)\])/;
 
@@ -44,7 +47,31 @@ export default function RegisterForm() {
     setConfirmPasswordValid(errors.confirmPassword === undefined);
   }, [errors.email, errors.password, errors.confirmPassword]);
 
-  const onSubmit: SubmitHandler<RegisterInput> = (data) => console.log(data);
+  async function submitRegister(data: RegisterInput) {
+    
+    const response = await fetch("https://budgetly-backend-v2-production.up.railway.app/api/v1/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        username: data.email,
+        password: data.password,
+      }),
+    });
+
+    if (response.status === 201) {
+      navigate("/login");
+      console.log(response);
+    }
+    else if (response.status === 400) {
+      alert(await response.text());
+      console.log(response);
+    }
+  }
+
+  
+  const onSubmit: SubmitHandler<RegisterInput> = async (data) => await submitRegister(data);
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}

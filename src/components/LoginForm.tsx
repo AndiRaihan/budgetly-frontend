@@ -6,7 +6,7 @@ type RegisterInput = {
   password: string;
 };
 
-export default function RegisterForm() {
+export default function LoginForm() {
   // TODO: Tambahin message kalo gagal login
   const {
     register,
