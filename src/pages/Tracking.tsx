@@ -411,9 +411,6 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
         newTracking.past = prev.past.map((tracking: any) => {
           return { ...tracking, isOpened: false };
         });
-        if (newTracking.past.length !== prev.past.length) {
-          console.log("past length changed");
-        }
         return newTracking;
       }
     );
