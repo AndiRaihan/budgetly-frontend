@@ -4,7 +4,6 @@ import { RootState } from "../redux/store.ts";
 import CurrentPage from "../utils/CurrentPage.tsx";
 import TrackingForm from "../components/tracking/TrackingForm.tsx";
 import TrackingBar from "../components/tracking/TrackingBar.tsx";
-import trackingData from "../utils/TrackingData.ts";
 import TuneIcon from "@mui/icons-material/Tune";
 import {
   Convert,
@@ -234,9 +233,8 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
       );
 
       let previousDate = pastDate;
-      pastData.shift();
 
-      pastData.forEach(
+      pastData.slice(1).forEach(
         (data: {
           trackingName: any;
           amount: any;
@@ -289,8 +287,6 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
           previousDate = data.trackDate;
         }
       );
-
-      console.log(formattedPastDate);
     }
 
     trackingComponents[0] = (
@@ -415,18 +411,14 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
         newTracking.past = prev.past.map((tracking: any) => {
           return { ...tracking, isOpened: false };
         });
+        if (newTracking.past.length !== prev.past.length) {
+          console.log("past length changed");
+        }
         return newTracking;
       }
     );
   }
 
-  const currentDate = new Date();
-  const formattedDate = currentDate.toLocaleDateString("en-US", {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-    year: "numeric",
-  });
 
   return (
     <div
