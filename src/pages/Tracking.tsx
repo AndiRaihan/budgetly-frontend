@@ -103,11 +103,17 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
 
     if (todayData.length > 0) {
       const currentDate = new Date();
-      const formattedCurrentDate = currentDate.toLocaleDateString("en-US", {
+      const options = {
         weekday: "long",
         day: "numeric",
         month: "long",
-      });
+        year: "numeric",
+      };
+      const parts = new Intl.DateTimeFormat("en-US", options).formatToParts(
+        currentDate
+      );
+
+      const formattedCurrentDate = `${parts[0].value}, ${parts[2].value} ${parts[4].value} ${parts[6].value}`;
 
       trackingComponents.push(
         <h1
@@ -119,33 +125,49 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
         </h1>
       );
 
-      todayData.forEach((data: { trackingName: any; amount: any; trackDate: any; category: any; trackType: any; id: string; isOpened: boolean; }) => {
-        trackingComponents.push(
-          <TrackingBar
-            trackingData={{
-              trackingName: data.trackingName,
-              amount: data.amount,
-              trackDate: data.trackDate,
-              category: data.category,
-              trackType: data.trackType,
-            }}
-            closeForm={closeForm}
-            id={data.id}
-            isOpened={data.isOpened}
-            showEditForm={showEditForm}
-          />
-        );
-      });
+      todayData.forEach(
+        (data: {
+          trackingName: any;
+          amount: any;
+          trackDate: any;
+          category: any;
+          trackType: any;
+          id: string;
+          isOpened: boolean;
+        }) => {
+          trackingComponents.push(
+            <TrackingBar
+              trackingData={{
+                trackingName: data.trackingName,
+                amount: data.amount,
+                trackDate: data.trackDate,
+                category: data.category,
+                trackType: data.trackType,
+              }}
+              closeForm={closeForm}
+              id={data.id}
+              isOpened={data.isOpened}
+              showEditForm={showEditForm}
+            />
+          );
+        }
+      );
     }
 
     if (yesterdayData.length > 0) {
       const yesterdayDate = new Date();
       yesterdayDate.setDate(yesterdayDate.getDate() - 1);
-      const formattedYesterdayDate = yesterdayDate.toLocaleDateString("en-US", {
+      const options = {
         weekday: "long",
         day: "numeric",
         month: "long",
-      });
+        year: "numeric",
+      };
+      const parts = new Intl.DateTimeFormat("en-US", options).formatToParts(
+        yesterdayDate
+      );
+
+      const formattedYesterdayDate = `${parts[0].value}, ${parts[2].value} ${parts[4].value} ${parts[6].value}`;
 
       trackingComponents.push(
         <h1
@@ -157,26 +179,118 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
         </h1>
       );
 
-      yesterdayData.forEach((data: { trackingName: any; amount: any; trackDate: any; category: any; trackType: any; id: string; isOpened: boolean; }) => {
-        trackingComponents.push(
-          <TrackingBar
-            trackingData={{
-              trackingName: data.trackingName,
-              amount: data.amount,
-              trackDate: data.trackDate,
-              category: data.category,
-              trackType: data.trackType,
-            }}
-            closeForm={closeForm}
-            id={data.id}
-            isOpened={data.isOpened}
-            showEditForm={showEditForm}
-          />
-        );
-      });
+      yesterdayData.forEach(
+        (data: {
+          trackingName: any;
+          amount: any;
+          trackDate: any;
+          category: any;
+          trackType: any;
+          id: string;
+          isOpened: boolean;
+        }) => {
+          trackingComponents.push(
+            <TrackingBar
+              trackingData={{
+                trackingName: data.trackingName,
+                amount: data.amount,
+                trackDate: data.trackDate,
+                category: data.category,
+                trackType: data.trackType,
+              }}
+              closeForm={closeForm}
+              id={data.id}
+              isOpened={data.isOpened}
+              showEditForm={showEditForm}
+            />
+          );
+        }
+      );
     }
 
     if (pastData.length > 0) {
+      const pastDate = pastData[0].trackDate;
+      const options = {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      };
+      const parts = new Intl.DateTimeFormat("en-US", options).formatToParts(
+        pastDate
+      );
+
+      const formattedPastDate = `${parts[0].value}, ${parts[2].value} ${parts[4].value} ${parts[6].value}`;
+
+      trackingComponents.push(
+        <h1
+          className={`text-2xl md:text-3xl ${
+            trackingComponents.length > 0 ? "ml-5 mt-10 " : " "
+          } ${darkMode.isDarkMode ? "text-background-dark-200" : ""}`}
+        >
+          {formattedPastDate.split(",")[0]}{" "}
+          <span className="text-sm">{formattedPastDate.split(",")[1]}</span>
+        </h1>
+      );
+
+      let previousDate = pastDate;
+      pastData.shift();
+
+      pastData.forEach(
+        (data: {
+          trackingName: any;
+          amount: any;
+          trackDate: any;
+          category: any;
+          trackType: any;
+          id: string;
+          isOpened: boolean;
+        }) => {
+          if (data.trackDate.getDate() !== previousDate.getDate()) {
+            const options = {
+              weekday: "long",
+              day: "numeric",
+              month: "long",
+              year: "numeric",
+            };
+            const parts = new Intl.DateTimeFormat(
+              "en-US",
+              options
+            ).formatToParts(data.trackDate);
+            const formattedPastDate = `${parts[0].value}, ${parts[2].value} ${parts[4].value} ${parts[6].value}`;
+            trackingComponents.push(
+              <h1
+                className={`text-2xl md:text-3xl ${
+                  trackingComponents.length > 0 ? "ml-5 mt-10 " : " "
+                } ${darkMode.isDarkMode ? "text-background-dark-200" : ""}`}
+              >
+                {formattedPastDate.split(",")[0]}{" "}
+                <span className="text-sm">
+                  {formattedPastDate.split(",")[1]}
+                </span>
+              </h1>
+            );
+          }
+          trackingComponents.push(
+            <TrackingBar
+              trackingData={{
+                trackingName: data.trackingName,
+                amount: data.amount,
+                trackDate: data.trackDate,
+                category: data.category,
+                trackType: data.trackType,
+              }}
+              closeForm={closeForm}
+              id={data.id}
+              isOpened={data.isOpened}
+              showEditForm={showEditForm}
+            />
+          );
+          previousDate = data.trackDate;
+        }
+      );
+
+      console.log(formattedPastDate);
     }
 
     trackingComponents[0] = (
@@ -244,54 +358,65 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
   const { darkMode } = useSelector((state: RootState) => state);
 
   function showEditForm(id: string) {
-    setTrackings((prev: { today: { map: (arg0: (tracking: any) => any) => never[]; }; yesterday: { map: (arg0: (tracking: any) => any) => never[]; }; past: { map: (arg0: (tracking: any) => any) => never[]; }; }) => {
-      const newTracking = {
-        today: [],
-        yesterday: [],
-        past: [],
-
+    setTrackings(
+      (prev: {
+        today: { map: (arg0: (tracking: any) => any) => never[] };
+        yesterday: { map: (arg0: (tracking: any) => any) => never[] };
+        past: { map: (arg0: (tracking: any) => any) => never[] };
+      }) => {
+        const newTracking = {
+          today: [],
+          yesterday: [],
+          past: [],
+        };
+        newTracking.today = prev.today.map((tracking: { id: string }) => {
+          if (tracking.id === id) {
+            return { ...tracking, isOpened: true };
+          }
+          return { ...tracking, isOpened: false };
+        });
+        newTracking.yesterday = prev.yesterday.map(
+          (tracking: { id: string }) => {
+            if (tracking.id === id) {
+              return { ...tracking, isOpened: true };
+            }
+            return { ...tracking, isOpened: false };
+          }
+        );
+        newTracking.past = prev.past.map((tracking: { id: string }) => {
+          if (tracking.id === id) {
+            return { ...tracking, isOpened: true };
+          }
+          return { ...tracking, isOpened: false };
+        });
+        return newTracking;
       }
-      newTracking.today = prev.today.map((tracking: { id: string; }) => {
-        if (tracking.id === id) {
-          return { ...tracking, isOpened: true };
-        }
-        return { ...tracking, isOpened: false };
-      });
-      newTracking.yesterday = prev.yesterday.map((tracking: { id: string; }) => {
-        if (tracking.id === id) {
-          return { ...tracking, isOpened: true };
-        }
-        return { ...tracking, isOpened: false };
-      });
-      newTracking.past = prev.past.map((tracking: { id: string; }) => {
-        if (tracking.id === id) {
-          return { ...tracking, isOpened: true };
-        }
-        return { ...tracking, isOpened: false };
-      });
-      return newTracking;
-    });
-
+    );
   }
 
   function closeForm() {
-    setTrackings((prev: { today: { map: (arg0: (tracking: any) => any) => never[]; }; yesterday: { map: (arg0: (tracking: any) => any) => never[]; }; past: { map: (arg0: (tracking: any) => any) => never[]; }; }) => {
-      const newTracking = {
-        today: [],
-        yesterday: [],
-        past: [],
-      };
-      newTracking.today = prev.today.map((tracking: any) => {
-        return { ...tracking, isOpened: false };
-      });
-      newTracking.yesterday = prev.yesterday.map((tracking: any) => {
-        return { ...tracking, isOpened: false };
-      });
-      newTracking.past = prev.past.map((tracking: any) => {
-        return { ...tracking, isOpened: false };
-      });
-      return newTracking;
-    }
+    setTrackings(
+      (prev: {
+        today: { map: (arg0: (tracking: any) => any) => never[] };
+        yesterday: { map: (arg0: (tracking: any) => any) => never[] };
+        past: { map: (arg0: (tracking: any) => any) => never[] };
+      }) => {
+        const newTracking = {
+          today: [],
+          yesterday: [],
+          past: [],
+        };
+        newTracking.today = prev.today.map((tracking: any) => {
+          return { ...tracking, isOpened: false };
+        });
+        newTracking.yesterday = prev.yesterday.map((tracking: any) => {
+          return { ...tracking, isOpened: false };
+        });
+        newTracking.past = prev.past.map((tracking: any) => {
+          return { ...tracking, isOpened: false };
+        });
+        return newTracking;
+      }
     );
   }
 
@@ -300,11 +425,12 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
     weekday: "long",
     day: "numeric",
     month: "long",
+    year: "numeric",
   });
 
   return (
     <div
-      className={` h-screen flex flex-col pt-20 items-start px-16
+      className={` h-full flex flex-col pt-20 items-start px-16
         ${
           darkMode.isDarkMode
             ? "bg-background-dark-400 dark"
@@ -312,7 +438,7 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
         } ${
         translate
           ? "translate-x-52 w-[calc(100vw-13rem)]"
-          : " translate-x-0 w-screen"
+          : " translate-x-0 w-full"
       } transition-all ease-in-out duration-200 pb-20`}
     >
       <TrackingForm showForm={showForm} setShowForm={setShowForm} />
