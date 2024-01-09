@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store.ts";
 import CurrentPage from "../utils/CurrentPage.tsx";
@@ -6,13 +6,49 @@ import TrackingForm from "../components/tracking/TrackingForm.tsx";
 import TrackingBar from "../components/tracking/TrackingBar.tsx";
 import trackingData from "../utils/TrackingData.ts";
 import TuneIcon from "@mui/icons-material/Tune";
+import {
+  Convert,
+  GetAllUserTrackingResponse,
+} from "../dtos/GetAllTrackingResponse.tsx";
+import { useNavigate } from "react-router-dom";
 
 export default function Home({ translate, changeCurrentPage }: PageProps) {
   changeCurrentPage(CurrentPage.Tracking);
+  const navigate = useNavigate();
+
+  const { account } = useSelector((state: RootState) => state);
+
+  if (account.token === "" && account.id === "") {
+    navigate("/login");
+    window.location.reload();
+  }
 
   const [showForm, setShowForm] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [trackings, setTrackings] = useState(trackingData);
+  const [userTrackingData, setUserTrackingData] = useState<any>(null);
+  const [refresh, setRefresh] = useState(false);
+
+  useEffect(() => {
+    async function fetchTrackingData() {
+      const response = await fetch(
+        `https://budgetly-backend-v2-production.up.railway.app/api/v1/tracking/${account.id}?groupBy=time&sortBy=time&type=userId`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${account.token}`,
+          },
+        }
+      );
+
+      const trackingResponse: GetAllUserTrackingResponse =
+        Convert.toGetAllUserTrackingResponse(await response.text());
+      setUserTrackingData(trackingResponse);
+      console.log(userTrackingData);
+    }
+    fetchTrackingData();
+  }, [refresh]);
 
   const { darkMode } = useSelector((state: RootState) => state);
 
@@ -55,7 +91,25 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
           : " translate-x-0 w-screen"
       } transition-all ease-in-out duration-200 pb-20`}
     >
-      <div className="flex flex-col justify-between p-1 ml-5 mb-3 w-11/12 md:flex-row md:items-end">
+      <TrackingForm showForm={showForm} setShowForm={setShowForm} />
+      <button
+        onClick={() => setShowForm((prevState) => !prevState)}
+        className={`
+        ${
+          darkMode.isDarkMode
+            ? "text-background-dark-200 hover:bg-background-dark-350 hover:bg-opacity-25"
+            : "hover:bg-background-light-200"
+        }
+        ${
+          !showForm ? "max-h-max p-1 ml-5" : "max-h-0"
+        } transition-all ease-in-out duration-300 flex-shrink-0 self-start text-start rounded-md w-11/12 overflow-hidden`}
+      >
+        +Add Expense/income
+      </button>
+      {showForm && (
+        <hr className="border rounded-md w-11/12 ml-5 border-black" />
+      )}
+      <div className="flex flex-col justify-between p-1 ml-5 mt-3 w-11/12 md:flex-row md:items-end">
         <h1
           className={`text-2xl md:text-3xl ${
             darkMode.isDarkMode ? "text-background-dark-200" : ""
@@ -118,24 +172,7 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
           </div>
         </div>
       </div>
-      <TrackingForm showForm={showForm} setShowForm={setShowForm} />
-      <button
-        onClick={() => setShowForm((prevState) => !prevState)}
-        className={`
-        ${
-          darkMode.isDarkMode
-            ? "text-background-dark-200 hover:bg-background-dark-350 hover:bg-opacity-25"
-            : "hover:bg-background-light-200"
-        }
-        ${
-          !showForm ? "max-h-max p-1 ml-5" : "max-h-0"
-        } transition-all ease-in-out duration-300 flex-shrink-0 self-start text-start rounded-md w-11/12 overflow-hidden`}
-      >
-        +Add Expense/income
-      </button>
-      {showForm && (
-        <hr className="border rounded-md w-11/12 ml-5 border-black" />
-      )}
+
       {/* TODO: Kalo bisa refactor aja sih ini section headernya biar jadi component sama tracking bar-nya */}
       <TrackingBar
         trackingData={{

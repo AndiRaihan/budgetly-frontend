@@ -1,13 +1,13 @@
 // To parse this data:
 //
-//   import { Convert, GetAllCategoryByIDResponse } from "./file";
+//   import { Convert, GetAllUserTrackingResponse } from "./file";
 //
-//   const getAllCategoryByIDResponse = Convert.toGetAllCategoryByIDResponse(json);
+//   const GetAllUserTrackingResponse = Convert.toGetAllUserTrackingResponse(json);
 //
 // These functions will throw an error if the JSON doesn't
 // match the expected interface, even if the JSON is valid.
 
-export interface GetAllCategoryByIDResponse {
+export interface GetAllUserTrackingResponse {
     today:     TrackingData[];
     yesterday: TrackingData[];
     past:      TrackingData[];
@@ -27,12 +27,12 @@ export interface TrackingData {
 // Converts JSON strings to/from your types
 // and asserts the results of JSON.parse at runtime
 export class Convert {
-    public static toGetAllCategoryByIDResponse(json: string): GetAllCategoryByIDResponse {
-        return cast(JSON.parse(json), r("GetAllCategoryByIDResponse"));
+    public static toGetAllUserTrackingResponse(json: string): GetAllUserTrackingResponse {
+        return cast(JSON.parse(json), r("GetAllUserTrackingResponse"));
     }
 
-    public static getAllCategoryByIDResponseToJson(value: GetAllCategoryByIDResponse): string {
-        return JSON.stringify(uncast(value, r("GetAllCategoryByIDResponse")), null, 2);
+    public static GetAllUserTrackingResponseToJson(value: GetAllUserTrackingResponse): string {
+        return JSON.stringify(uncast(value, r("GetAllUserTrackingResponse")), null, 2);
     }
 }
 
@@ -189,7 +189,7 @@ function r(name: string) {
 }
 
 const typeMap: any = {
-    "GetAllCategoryByIDResponse": o([
+    "GetAllUserTrackingResponse": o([
         { json: "today", js: "today", typ: a("any") },
         { json: "yesterday", js: "yesterday", typ: a("any") },
         { json: "past", js: "past", typ: a(r("Past")) },

@@ -42,7 +42,7 @@ export default function LoginForm() {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            authorization: "Bearer " + loginResponse.accessToken,
+            "Authorization": "Bearer " + loginResponse.accessToken,
           },
         }
       );
