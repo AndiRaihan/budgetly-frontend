@@ -456,7 +456,7 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
           : " translate-x-0 w-full"
       } transition-all ease-in-out duration-200 pb-20`}
     >
-      <TrackingForm showForm={showForm} setShowForm={setShowForm} />
+      <TrackingForm showForm={showForm} setShowForm={setShowForm} setRefresh={setRefresh}/>
       <button
         onClick={() => setShowForm((prevState) => !prevState)}
         className={`

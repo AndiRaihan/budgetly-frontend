@@ -12,6 +12,7 @@ import {
 export default function TrackingForm({
   showForm,
   setShowForm: setShowForm,
+  setRefresh: setRefresh,
 }: TrackingFormProps) {
   type TrackingInput = {
     trackingName: string;
@@ -37,7 +38,7 @@ export default function TrackingForm({
         }
       );
       
-      const categoriesConverted = Convert.toGetAllCategoryByIDResponse(
+      const categoriesConverted: GetAllCategoryByIDResponse[] = Convert.toGetAllCategoryByIDResponse(
         await categoriesResponse.text()
       );
       
@@ -67,7 +68,31 @@ export default function TrackingForm({
 
   const { darkMode } = useSelector((state: RootState) => state);
 
-  const onSubmit: SubmitHandler<TrackingInput> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<TrackingInput> = async (data) => {
+    const trackingPromise = await fetch("https://budgetly-backend-v2-production.up.railway.app/api/v1/tracking/",
+    {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Bearer ${account.token}`,
+      },
+      body: JSON.stringify({
+        name: data.trackingName,
+        amount: data.amount,
+        date: data.trackDate,
+        isExpense: data.trackType,
+        categoryId: data.category,
+      }),
+    })
+
+    if (trackingPromise.status === 201) {
+      setRefresh((prev) => !prev);
+      handleReset();
+    } else {
+      alert(trackingPromise.text())
+    }
+    
+  };
 
   return (
     <form
@@ -206,4 +231,5 @@ export default function TrackingForm({
 type TrackingFormProps = {
   showForm: boolean;
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>;
+  setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
 };
