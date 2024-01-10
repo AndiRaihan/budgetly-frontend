@@ -3,6 +3,8 @@ import IconWarning from "../../assets/icon _warning_.svg";
 import CustomLighterSwitch from "../CustomLigherSwitch";
 import {useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import { useEffect, useState } from "react";
+import { Convert, GetAllCategoryByIDResponse } from "../../dtos/GetAllCategoryByIdResponse";
 
 export type TrackingInput = {
   trackingName: string;
@@ -30,12 +32,47 @@ export default function EditTrackingForm({
     reset,
     formState: { errors, isDirty, isValid },
   } = useForm<TrackingInput>({
-    defaultValues: trackingStatus,
+    // TODO: Format date tidak benar, harusnya yyyy-MM-dd
+    defaultValues: {...trackingStatus, category: "Placeholder"},
   });
+
+  const { account } = useSelector((state: RootState) => state);
+
+  const [categoriesOptions, setCategoriesOptions] = useState<JSX.Element[]>([]);
+
+  // TODO: Loading category terlalu lama, akal akalin biar cepet
+  useEffect(() => {
+    async function fetchCategories() {
+      const categoriesResponse = await fetch(
+        "https://budgetly-backend-v2-production.up.railway.app/api/v1/category/",
+        {
+          method: "GET",
+          headers: {
+            "content-type": "application/json",
+            Authorization: `Bearer ${account.token}`,
+          },
+        }
+      );
+
+      const categoriesConverted: GetAllCategoryByIDResponse[] =
+        Convert.toGetAllCategoryByIDResponse(await categoriesResponse.text());
+
+      setCategoriesOptions(
+        categoriesConverted.map((category) => (
+          <option key={category._id} value={category._id}>
+            {category.name}
+          </option>
+        ))
+      );
+      
+    }
+    fetchCategories();
+    reset(trackingStatus)
+  }, []);
 
   const handleReset = () => {
     closeForm();
-    reset(trackingStatus);
+    reset({...trackingStatus, category: "Placeholder"});
   };
 
   const onSubmit: SubmitHandler<TrackingInput> = (data) => console.log(data);
@@ -98,7 +135,12 @@ export default function EditTrackingForm({
             <span className="text-background-light-100 md:ml-3 mr-0">Expense</span>
           </div>
           <select
-            className="bg-transparent focus:ring-primary-100 focus:border-primary-100 focus:border text-background-light-100 placeholder-background-light-100 focus:placeholder-background-light-300 px-2 py-1 rounded-md"
+            className={`${
+              darkMode.isDarkMode
+                ? "text-background-dark-200 bg-background-dark-300"
+                : "focus:ring-primary-100 focus:border-primary-100 text-background-light-100 bg-primary-200"
+            } 
+            focus:border px-2 py-1 rounded-md transition-colors duration-200`}
             {...register("category", {
               required: "Category is required",
               validate: (value) =>
@@ -108,7 +150,7 @@ export default function EditTrackingForm({
             <option value="Placeholder" disabled selected hidden>
               Category
             </option>
-            <option value="contoh">Contoh</option>
+            {categoriesOptions}
           </select>
         </div>
         <div>
