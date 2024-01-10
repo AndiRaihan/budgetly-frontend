@@ -37,12 +37,17 @@ export default function TrackingForm({
           },
         }
       );
-      
-      const categoriesConverted: GetAllCategoryByIDResponse[] = Convert.toGetAllCategoryByIDResponse(
-        await categoriesResponse.text()
+
+      const categoriesConverted: GetAllCategoryByIDResponse[] =
+        Convert.toGetAllCategoryByIDResponse(await categoriesResponse.text());
+
+      setCategoriesOptions(
+        categoriesConverted.map((category) => (
+          <option key={category._id} value={category._id}>
+            {category.name}
+          </option>
+        ))
       );
-      
-      setCategoriesOptions(categoriesConverted.map((category) => <option value={category._id}>{category.name}</option>))
     }
     fetchCategories();
   });
@@ -69,29 +74,30 @@ export default function TrackingForm({
   const { darkMode } = useSelector((state: RootState) => state);
 
   const onSubmit: SubmitHandler<TrackingInput> = async (data) => {
-    const trackingPromise = await fetch("https://budgetly-backend-v2-production.up.railway.app/api/v1/tracking/",
-    {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-        Authorization: `Bearer ${account.token}`,
-      },
-      body: JSON.stringify({
-        name: data.trackingName,
-        amount: data.amount,
-        date: data.trackDate,
-        isExpense: data.trackType,
-        categoryId: data.category,
-      }),
-    })
+    const trackingPromise = await fetch(
+      "https://budgetly-backend-v2-production.up.railway.app/api/v1/tracking/",
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${account.token}`,
+        },
+        body: JSON.stringify({
+          name: data.trackingName,
+          amount: data.amount,
+          date: data.trackDate,
+          isExpense: data.trackType,
+          categoryId: data.category,
+        }),
+      }
+    );
 
     if (trackingPromise.status === 201) {
       setRefresh((prev) => !prev);
       handleReset();
     } else {
-      alert(trackingPromise.text())
+      alert(trackingPromise.text());
     }
-    
   };
 
   return (

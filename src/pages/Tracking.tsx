@@ -145,6 +145,7 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
         }) => {
           trackingComponents.push(
             <TrackingBar
+              key={data.id}
               trackingData={{
                 trackingName: data.trackingName,
                 amount: data.amount,
@@ -199,6 +200,7 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
         }) => {
           trackingComponents.push(
             <TrackingBar
+              key={data.id}
               trackingData={{
                 trackingName: data.trackingName,
                 amount: data.amount,
@@ -243,6 +245,7 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
 
       trackingComponents.push(
         <TrackingBar
+          key={pastData[0].id}
           trackingData={{
             trackingName: pastData[0].trackingName,
             amount: pastData[0].amount,
@@ -298,6 +301,7 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
             }
             trackingComponents.push(
               <TrackingBar
+                key={data.id}
                 trackingData={{
                   trackingName: data.trackingName,
                   amount: data.amount,
@@ -456,7 +460,11 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
           : " translate-x-0 w-full"
       } transition-all ease-in-out duration-200 pb-20`}
     >
-      <TrackingForm showForm={showForm} setShowForm={setShowForm} setRefresh={setRefresh}/>
+      <TrackingForm
+        showForm={showForm}
+        setShowForm={setShowForm}
+        setRefresh={setRefresh}
+      />
       <button
         onClick={() => setShowForm((prevState) => !prevState)}
         className={`
