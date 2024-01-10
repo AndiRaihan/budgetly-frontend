@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store.ts";
 import CurrentPage from "../utils/CurrentPage.tsx";
 import TrackingForm from "../components/tracking/TrackingForm.tsx";
@@ -10,10 +10,12 @@ import {
   GetAllUserTrackingResponse,
 } from "../dtos/GetAllTrackingResponse.tsx";
 import { useNavigate } from "react-router-dom";
+import { clearId, clearToken } from "../redux/AccountSlice";
 
 export default function Home({ translate, changeCurrentPage }: PageProps) {
   changeCurrentPage(CurrentPage.Tracking);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const { account } = useSelector((state: RootState) => state);
 
@@ -40,6 +42,13 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
           },
         }
       );
+
+      if (response.status !== 200) {
+        dispatch(clearId());
+        dispatch(clearToken());
+        navigate("/login");
+        window.location.reload();
+      }
 
       let trackingResponse: GetAllUserTrackingResponse =
         Convert.toGetAllUserTrackingResponse(await response.text());
@@ -232,61 +241,79 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
         </h1>
       );
 
+      trackingComponents.push(
+        <TrackingBar
+          trackingData={{
+            trackingName: pastData[0].trackingName,
+            amount: pastData[0].amount,
+            trackDate: pastData[0].trackDate,
+            category: pastData[0].category,
+            trackType: pastData[0].trackType,
+          }}
+          closeForm={closeForm}
+          id={pastData[0].id}
+          isOpened={pastData[0].isOpened}
+          showEditForm={showEditForm}
+        />
+      );
+
       let previousDate = pastDate;
 
-      pastData.slice(1).forEach(
-        (data: {
-          trackingName: any;
-          amount: any;
-          trackDate: any;
-          category: any;
-          trackType: any;
-          id: string;
-          isOpened: boolean;
-        }) => {
-          if (data.trackDate.getDate() !== previousDate.getDate()) {
-            const options = {
-              weekday: "long",
-              day: "numeric",
-              month: "long",
-              year: "numeric",
-            };
-            const parts = new Intl.DateTimeFormat(
-              "en-US",
-              options
-            ).formatToParts(data.trackDate);
-            const formattedPastDate = `${parts[0].value}, ${parts[2].value} ${parts[4].value} ${parts[6].value}`;
+      pastData
+        .slice(1)
+        .forEach(
+          (data: {
+            trackingName: any;
+            amount: any;
+            trackDate: any;
+            category: any;
+            trackType: any;
+            id: string;
+            isOpened: boolean;
+          }) => {
+            if (data.trackDate.getDate() !== previousDate.getDate()) {
+              const options = {
+                weekday: "long",
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+              };
+              const parts = new Intl.DateTimeFormat(
+                "en-US",
+                options
+              ).formatToParts(data.trackDate);
+              const formattedPastDate = `${parts[0].value}, ${parts[2].value} ${parts[4].value} ${parts[6].value}`;
+              trackingComponents.push(
+                <h1
+                  className={`text-2xl md:text-3xl ${
+                    trackingComponents.length > 0 ? "ml-5 mt-10 " : " "
+                  } ${darkMode.isDarkMode ? "text-background-dark-200" : ""}`}
+                >
+                  {formattedPastDate.split(",")[0]}{" "}
+                  <span className="text-sm">
+                    {formattedPastDate.split(",")[1]}
+                  </span>
+                </h1>
+              );
+            }
             trackingComponents.push(
-              <h1
-                className={`text-2xl md:text-3xl ${
-                  trackingComponents.length > 0 ? "ml-5 mt-10 " : " "
-                } ${darkMode.isDarkMode ? "text-background-dark-200" : ""}`}
-              >
-                {formattedPastDate.split(",")[0]}{" "}
-                <span className="text-sm">
-                  {formattedPastDate.split(",")[1]}
-                </span>
-              </h1>
+              <TrackingBar
+                trackingData={{
+                  trackingName: data.trackingName,
+                  amount: data.amount,
+                  trackDate: data.trackDate,
+                  category: data.category,
+                  trackType: data.trackType,
+                }}
+                closeForm={closeForm}
+                id={data.id}
+                isOpened={data.isOpened}
+                showEditForm={showEditForm}
+              />
             );
+            previousDate = data.trackDate;
           }
-          trackingComponents.push(
-            <TrackingBar
-              trackingData={{
-                trackingName: data.trackingName,
-                amount: data.amount,
-                trackDate: data.trackDate,
-                category: data.category,
-                trackType: data.trackType,
-              }}
-              closeForm={closeForm}
-              id={data.id}
-              isOpened={data.isOpened}
-              showEditForm={showEditForm}
-            />
-          );
-          previousDate = data.trackDate;
-        }
-      );
+        );
     }
 
     trackingComponents[0] = (
@@ -416,10 +443,9 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
     );
   }
 
-
   return (
     <div
-      className={` h-full flex flex-col pt-20 items-start px-16
+      className={` h-full min-h-screen flex flex-col pt-20 items-start px-16
         ${
           darkMode.isDarkMode
             ? "bg-background-dark-400 dark"
