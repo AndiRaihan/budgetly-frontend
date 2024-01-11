@@ -8,6 +8,7 @@ type TrackingBarProps = {
   showEditForm: (id: string) => void;
   isOpened: boolean;
   closeForm: () => void;
+  setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function TrackingBar({
@@ -16,6 +17,7 @@ export default function TrackingBar({
   id,
   showEditForm,
   closeForm,
+  setRefresh,
 }: TrackingBarProps) {
   const { darkMode } = useSelector((state: RootState) => state);
   const locale = window.navigator.language;
@@ -29,6 +31,7 @@ export default function TrackingBar({
       trackingStatus={trackingData}
       closeForm={closeForm}
       showForm={isOpened}
+      setRefresh={setRefresh}
     />
   ) : (
     <div

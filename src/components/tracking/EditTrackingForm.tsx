@@ -1,15 +1,19 @@
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import IconWarning from "../../assets/icon _warning_.svg";
 import CustomLighterSwitch from "../CustomLigherSwitch";
-import {useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
-import { useEffect, useState } from "react";
-import { Convert, GetAllCategoryByIDResponse } from "../../dtos/GetAllCategoryByIdResponse";
+import React, { useEffect, useState } from "react";
+import {
+  Convert,
+  GetAllCategoryByIDResponse,
+} from "../../dtos/GetAllCategoryByIdResponse";
 
 export type TrackingInput = {
+  trackingId: string;
   trackingName: string;
   amount: number | null;
-  trackDate: Date;
+  trackDate: string;
   trackType: boolean;
   category: string;
 };
@@ -18,13 +22,15 @@ type EditTrackingFormProps = {
   showForm: boolean;
   closeForm: () => void;
   trackingStatus: TrackingInput;
+  categoryList: GetAllCategoryByIDResponse[];
+  setRefresh: any;
 };
 export default function EditTrackingForm({
   showForm,
   closeForm,
   trackingStatus,
+  setRefresh,
 }: EditTrackingFormProps) {
-    
   const {
     register,
     handleSubmit,
@@ -33,7 +39,13 @@ export default function EditTrackingForm({
     formState: { errors, isDirty, isValid },
   } = useForm<TrackingInput>({
     // TODO: Format date tidak benar, harusnya yyyy-MM-dd
-    defaultValues: {...trackingStatus, category: "Placeholder"},
+    defaultValues: {
+      ...trackingStatus,
+      category: "Placeholder",
+      trackDate: trackingStatus.trackDate
+        ? new Date(trackingStatus.trackDate).toISOString().split("T")[0]
+        : new Date().toISOString().split("T")[0],
+    },
   });
 
   const { account } = useSelector((state: RootState) => state);
@@ -64,21 +76,54 @@ export default function EditTrackingForm({
           </option>
         ))
       );
-      
     }
     fetchCategories();
-    reset(trackingStatus)
+    reset({
+      ...trackingStatus,
+      trackDate: trackingStatus.trackDate
+        ? new Date(trackingStatus.trackDate).toISOString().split("T")[0]
+        : new Date().toISOString().split("T")[0],
+    });
   }, []);
 
   const handleReset = () => {
     closeForm();
-    reset({...trackingStatus, category: "Placeholder"});
+    reset({
+      ...trackingStatus,
+      category: "Placeholder",
+      trackDate: trackingStatus.trackDate
+        ? new Date(trackingStatus.trackDate).toISOString().split("T")[0]
+        : new Date().toISOString().split("T")[0],
+    });
   };
 
-  const onSubmit: SubmitHandler<TrackingInput> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<TrackingInput> = async (data) => {
+    console.log(trackingStatus.trackingId);
+    
+    const response = await fetch(
+      `https://budgetly-backend-v2-production.up.railway.app/api/v1/tracking/${trackingStatus.trackingId}`,
+      {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${account.token}`,
+        },
+        body: JSON.stringify({
+          name: data.trackingName,
+          amount: data.amount,
+          date: data.trackDate,
+          isExpense: data.trackType,
+          categoryId: data.category,
+        }),
+      }
+    ).then(setRefresh((prev: any) => !prev)).catch((error) => {
+      alert(error);
+    });
+    console.log(await response);
+    
+  };
 
   const { darkMode } = useSelector((state: RootState) => state);
-
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -94,7 +139,11 @@ export default function EditTrackingForm({
       <input
         id="trackingName"
         type="text"
-        className={`${darkMode.isDarkMode ? "text-background-dark-200" : "text-background-light-100"}  bg-transparent  placeholder-background-light-100 focus:placeholder-background-light-300`}
+        className={`${
+          darkMode.isDarkMode
+            ? "text-background-dark-200"
+            : "text-background-light-100"
+        }  bg-transparent  placeholder-background-light-100 focus:placeholder-background-light-300`}
         placeholder="Expense/Income Name"
         {...register("trackingName", {
           required: "Tracking name is required",
@@ -104,7 +153,11 @@ export default function EditTrackingForm({
         <input
           id="amount"
           type="number"
-          className={`${darkMode.isDarkMode ? "text-background-dark-200" : "text-background-light-100"} bg-transparent  placeholder-background-light-100 focus:placeholder-background-light-300 text-4xl w-full`}
+          className={`${
+            darkMode.isDarkMode
+              ? "text-background-dark-200"
+              : "text-background-light-100"
+          } bg-transparent  placeholder-background-light-100 focus:placeholder-background-light-300 text-4xl w-full`}
           placeholder="Amount"
           {...register("amount", {
             required: "Amount is required",
@@ -132,7 +185,9 @@ export default function EditTrackingForm({
               control={control}
               render={({ field }) => <CustomLighterSwitch {...field} />}
             />
-            <span className="text-background-light-100 md:ml-3 mr-0">Expense</span>
+            <span className="text-background-light-100 md:ml-3 mr-0">
+              Expense
+            </span>
           </div>
           <select
             className={`${

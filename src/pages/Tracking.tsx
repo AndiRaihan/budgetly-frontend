@@ -152,11 +152,13 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
                 trackDate: data.trackDate,
                 category: data.category,
                 trackType: data.trackType,
+                trackingId: data.id,
               }}
               closeForm={closeForm}
               id={data.id}
               isOpened={data.isOpened}
               showEditForm={showEditForm}
+              setRefresh={setRefresh}
             />
           );
         }
@@ -207,11 +209,13 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
                 trackDate: data.trackDate,
                 category: data.category,
                 trackType: data.trackType,
+                trackingId: data.id,
               }}
               closeForm={closeForm}
               id={data.id}
               isOpened={data.isOpened}
               showEditForm={showEditForm}
+              setRefresh={setRefresh}
             />
           );
         }
@@ -252,11 +256,13 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
             trackDate: pastData[0].trackDate,
             category: pastData[0].category,
             trackType: pastData[0].trackType,
+            trackingId: pastData[0].id,
           }}
           closeForm={closeForm}
           id={pastData[0].id}
           isOpened={pastData[0].isOpened}
           showEditForm={showEditForm}
+          setRefresh={setRefresh}
         />
       );
 
@@ -308,11 +314,13 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
                   trackDate: data.trackDate,
                   category: data.category,
                   trackType: data.trackType,
+                  trackingId: data.id,
                 }}
                 closeForm={closeForm}
                 id={data.id}
                 isOpened={data.isOpened}
                 showEditForm={showEditForm}
+                setRefresh={setRefresh}
               />
             );
             previousDate = data.trackDate;
