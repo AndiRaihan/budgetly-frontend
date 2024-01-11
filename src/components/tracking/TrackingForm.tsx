@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { useEffect, useState } from "react";
 import {
-  Convert,
   GetAllCategoryByIDResponse,
 } from "../../dtos/GetAllCategoryByIdResponse";
 
@@ -13,6 +12,7 @@ export default function TrackingForm({
   showForm,
   setShowForm: setShowForm,
   setRefresh: setRefresh,
+  categoryList: categoryList,
 }: TrackingFormProps) {
   type TrackingInput = {
     trackingName: string;
@@ -26,30 +26,13 @@ export default function TrackingForm({
   const [categoriesOptions, setCategoriesOptions] = useState<JSX.Element[]>([]);
 
   useEffect(() => {
-    async function fetchCategories() {
-      const categoriesResponse = await fetch(
-        "https://budgetly-backend-v2-production.up.railway.app/api/v1/category/",
-        {
-          method: "GET",
-          headers: {
-            "content-type": "application/json",
-            Authorization: `Bearer ${account.token}`,
-          },
-        }
-      );
-
-      const categoriesConverted: GetAllCategoryByIDResponse[] =
-        Convert.toGetAllCategoryByIDResponse(await categoriesResponse.text());
-
-      setCategoriesOptions(
-        categoriesConverted.map((category) => (
-          <option key={category._id} value={category._id}>
-            {category.name}
-          </option>
-        ))
-      );
-    }
-    fetchCategories();
+    setCategoriesOptions(
+      categoryList.map((category) => (
+        <option key={category._id} value={category._id}>
+          {category.name}
+        </option>
+      ))
+    );
   }, []);
 
   const {
@@ -238,4 +221,5 @@ type TrackingFormProps = {
   showForm: boolean;
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>;
   setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
+  categoryList: GetAllCategoryByIDResponse[];
 };

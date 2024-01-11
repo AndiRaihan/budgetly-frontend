@@ -11,6 +11,10 @@ import {
 } from "../dtos/GetAllTrackingResponse.tsx";
 import { useNavigate } from "react-router-dom";
 import { clearId, clearToken } from "../redux/AccountSlice";
+import {
+  GetAllCategoryByIDResponse,
+  Convert as ConvertCategories,
+} from "../dtos/GetAllCategoryByIdResponse.tsx";
 
 export default function Home({ translate, changeCurrentPage }: PageProps) {
   changeCurrentPage(CurrentPage.Tracking);
@@ -29,6 +33,9 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
   const [trackings, setTrackings] = useState<any>();
   const [userTrackingData, setUserTrackingData] = useState<any>(null);
   const [refresh, setRefresh] = useState(false);
+  const [categoriesList, setCategoriesList] = useState<
+    GetAllCategoryByIDResponse[]
+  >([]);
 
   useEffect(() => {
     async function fetchTrackingData() {
@@ -159,6 +166,7 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
               isOpened={data.isOpened}
               showEditForm={showEditForm}
               setRefresh={setRefresh}
+              categoriesList={categoriesList}
             />
           );
         }
@@ -216,6 +224,7 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
               isOpened={data.isOpened}
               showEditForm={showEditForm}
               setRefresh={setRefresh}
+              categoriesList={categoriesList}
             />
           );
         }
@@ -263,6 +272,7 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
           isOpened={pastData[0].isOpened}
           showEditForm={showEditForm}
           setRefresh={setRefresh}
+          categoriesList={categoriesList}
         />
       );
 
@@ -321,6 +331,7 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
                 isOpened={data.isOpened}
                 showEditForm={showEditForm}
                 setRefresh={setRefresh}
+                categoriesList={categoriesList}
               />
             );
             previousDate = data.trackDate;
@@ -455,6 +466,28 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
     );
   }
 
+  useEffect(() => {
+    async function fetchCategories() {
+      const categoriesResponse = await fetch(
+        "https://budgetly-backend-v2-production.up.railway.app/api/v1/category/",
+        {
+          method: "GET",
+          headers: {
+            "content-type": "application/json",
+            Authorization: `Bearer ${account.token}`,
+          },
+        }
+      );
+
+      const categoriesConverted: GetAllCategoryByIDResponse[] =
+        ConvertCategories.toGetAllCategoryByIDResponse(
+          await categoriesResponse.text()
+        );
+      setCategoriesList(categoriesConverted);
+    }
+    fetchCategories();
+  }, []);
+
   return (
     <div
       className={` h-full min-h-screen flex flex-col pt-20 items-start px-16
@@ -472,6 +505,7 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
         showForm={showForm}
         setShowForm={setShowForm}
         setRefresh={setRefresh}
+        categoryList={categoriesList}
       />
       <button
         onClick={() => setShowForm((prevState) => !prevState)}

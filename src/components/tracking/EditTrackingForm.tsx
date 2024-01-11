@@ -3,7 +3,7 @@ import IconWarning from "../../assets/icon _warning_.svg";
 import CustomLighterSwitch from "../CustomLigherSwitch";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Convert,
   GetAllCategoryByIDResponse,
@@ -30,6 +30,7 @@ export default function EditTrackingForm({
   closeForm,
   trackingStatus,
   setRefresh,
+  categoryList
 }: EditTrackingFormProps) {
   const {
     register,
@@ -41,7 +42,6 @@ export default function EditTrackingForm({
     // TODO: Format date tidak benar, harusnya yyyy-MM-dd
     defaultValues: {
       ...trackingStatus,
-      category: "Placeholder",
       trackDate: trackingStatus.trackDate
         ? new Date(trackingStatus.trackDate).toISOString().split("T")[0]
         : new Date().toISOString().split("T")[0],
@@ -54,30 +54,13 @@ export default function EditTrackingForm({
 
   // TODO: Loading category terlalu lama, akal akalin biar cepet
   useEffect(() => {
-    async function fetchCategories() {
-      const categoriesResponse = await fetch(
-        "https://budgetly-backend-v2-production.up.railway.app/api/v1/category/",
-        {
-          method: "GET",
-          headers: {
-            "content-type": "application/json",
-            Authorization: `Bearer ${account.token}`,
-          },
-        }
-      );
-
-      const categoriesConverted: GetAllCategoryByIDResponse[] =
-        Convert.toGetAllCategoryByIDResponse(await categoriesResponse.text());
-
-      setCategoriesOptions(
-        categoriesConverted.map((category) => (
-          <option key={category._id} value={category._id}>
-            {category.name}
-          </option>
-        ))
-      );
-    }
-    fetchCategories();
+    setCategoriesOptions(
+      categoryList.map((category) => (
+        <option key={category._id} value={category._id}>
+          {category.name}
+        </option>
+      ))
+    );
     reset({
       ...trackingStatus,
       trackDate: trackingStatus.trackDate
@@ -90,7 +73,6 @@ export default function EditTrackingForm({
     closeForm();
     reset({
       ...trackingStatus,
-      category: "Placeholder",
       trackDate: trackingStatus.trackDate
         ? new Date(trackingStatus.trackDate).toISOString().split("T")[0]
         : new Date().toISOString().split("T")[0],
