@@ -1,6 +1,6 @@
 import { useState } from "react";
 import EditBudgetingForm, { BudgetingInput } from "./EditBudgetingForm";
-import {useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 
 export type BudgetingBarProps = {
@@ -22,7 +22,7 @@ export default function BudgetingBar({
   showEditForm,
   closeForm,
 }: BudgetingBarProps) {
-  const [, ] = useState(false);
+  const [,] = useState(false);
   const { darkMode } = useSelector((state: RootState) => state);
   const barLength =
     budgetingData.amount !== null ? (current / budgetingData.amount) * 100 : 0;
@@ -39,20 +39,31 @@ export default function BudgetingBar({
     />
   ) : (
     <div
-    
-      className={`w-full flex items-center justify-between rounded-md px-3 m-5 relative z-10 hover:cursor-pointer
+      className={`w-11/12 flex items-center justify-between rounded-md px-3 m-5 relative z-10 hover:cursor-pointer
       ${darkMode.isDarkMode ? "bg-background-dark-350" : "bg-primary-100"}`}
       onClick={() => showEditForm(id)}
     >
       <div
         style={{
-          width: `${barLength}%`,
+          width: `${Math.min(barLength, 100)}%`,
         }}
         className={`absolute
-        ${darkMode.isDarkMode ? "bg-background-dark-300" : "bg-primary-200"}  w-[${barLength}%] h-full z-20 rounded-md top-0 left-0`}
+        ${
+          darkMode.isDarkMode ? "bg-background-dark-300" : "bg-primary-200"
+        }  w-[${Math.min(barLength, 100)}%] h-full z-20 rounded-md top-0 left-0`}
       ></div>
-      <div className={`z-30 ${darkMode.isDarkMode ? "text-background-dark-200" : "text-white "}`}>{budgetingData.title}</div>
-      <div className={`z-30 ${darkMode.isDarkMode ? "text-background-dark-200" : "text-black "}`}>
+      <div
+        className={`z-30 ${
+          darkMode.isDarkMode ? "text-background-dark-200" : "text-white "
+        }`}
+      >
+        {budgetingData.title}
+      </div>
+      <div
+        className={`z-30 ${
+          darkMode.isDarkMode ? "text-background-dark-200" : "text-black "
+        }`}
+      >
         {showPercent
           ? `${
               budgetingData.amount !== null
