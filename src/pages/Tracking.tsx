@@ -21,7 +21,7 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { account } = useSelector((state: RootState) => state);
+  const { account, darkMode } = useSelector((state: RootState) => state);
 
   if (account.token === "" && account.id === "") {
     navigate("/login");
@@ -401,7 +401,6 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
 
     setUserTrackingData(trackingComponents);
   }, [trackings]);
-  const { darkMode } = useSelector((state: RootState) => state);
 
   function showEditForm(id: string) {
     setTrackings(
