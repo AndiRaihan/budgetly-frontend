@@ -1,14 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import IconWarning from "../../assets/icon _warning_.svg";
 import Period from "../../utils/Period";
 import CustomSwitch from "../CustomSwitch";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import { GetAllCategoryByIDResponse } from "../../dtos/GetAllCategoryByIdResponse";
 
 export default function BudgetingForm({
   showForm,
   setShowForm,
+  categoryList,
+  setRefresh,
 }: BudgetingFromProps) {
   type TrackingInput = {
     title: string;
@@ -39,9 +42,74 @@ export default function BudgetingForm({
     });
   };
 
-  const onSubmit: SubmitHandler<TrackingInput> = (data) => console.log(data);
+  const { darkMode, account } = useSelector((state: RootState) => state);
 
-  const { darkMode } = useSelector((state: RootState) => state);
+  const [categoriesOptions, setCategoriesOptions] = useState<JSX.Element[]>([]);
+
+  useEffect(() => {
+    setCategoriesOptions(
+      categoryList.map((category) => (
+        <option key={category._id} value={category._id}>
+          {category.name}
+        </option>
+      ))
+    );
+  }, [categoryList]);
+
+  const onSubmit: SubmitHandler<TrackingInput> = async (data) => {
+    let body = {
+      categoryId: data.category,
+      name: data.title,
+      target: data.amount,
+      startDate: new Date(),
+      endDate: new Date(),
+      recurring: true,
+    };
+    if (data.period === Period.Custom) {
+      body = {
+        ...body,
+        recurring: data.trackType,
+        endDate: data.budgetDate,
+      };
+    } else if (data.period === Period.Daily) {
+      body = {
+        ...body,
+        endDate: new Date(),
+      };
+    } else if (data.period === Period.Weekly) {
+      const nextWeek = new Date();
+      nextWeek.setDate(nextWeek.getDate() + 7);
+      body = {
+        ...body,
+        endDate: nextWeek,
+      };
+    } else {
+      const date = new Date();
+      body = {
+        ...body,
+        startDate: new Date(date.getFullYear(), date.getMonth(), 1),
+        endDate: new Date(date.getFullYear(), date.getMonth() + 1, 0),
+      };
+    }
+    const budgetingPromise = await fetch(
+      "https://budgetly-backend-v2-production.up.railway.app/api/v1/budget/",
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${account.token}`,
+        },
+        body: JSON.stringify(body),
+      }
+    );
+
+    if (budgetingPromise.status === 200) {
+      setRefresh((prev: any) => !prev);
+      handleReset();
+    } else {
+      alert(budgetingPromise.text());
+    }
+  };
 
   return (
     <form
@@ -138,24 +206,28 @@ export default function BudgetingForm({
             <option value="Placeholder" disabled selected hidden>
               Category
             </option>
-            <option value="contoh">Contoh</option>
+            {categoriesOptions}
           </select>
-          <div className="mx-2">
-            <Controller
-              name="trackType"
-              control={control}
-              defaultValue={false}
-              render={({ field }) => <CustomSwitch {...field} />}
-            />
-            <span
-              className={`${
-                darkMode.isDarkMode ? "text-background-dark-200 " : "text-black"
-              } 
+          {watch("period") === Period.Custom && (
+            <div className="mx-2">
+              <Controller
+                name="trackType"
+                control={control}
+                defaultValue={false}
+                render={({ field }) => <CustomSwitch {...field} />}
+              />
+              <span
+                className={`${
+                  darkMode.isDarkMode
+                    ? "text-background-dark-200 "
+                    : "text-black"
+                } 
             ml-0 mr-3`}
-            >
-              Recurring
-            </span>
-          </div>
+              >
+                Recurring
+              </span>
+            </div>
+          )}
         </div>
         <div>
           <button
@@ -207,4 +279,6 @@ export default function BudgetingForm({
 type BudgetingFromProps = {
   showForm: boolean;
   setShowForm: React.Dispatch<React.SetStateAction<boolean>>;
+  categoryList: GetAllCategoryByIDResponse[];
+  setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
 };

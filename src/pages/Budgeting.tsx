@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import CurrentPage from "../utils/CurrentPage";
@@ -89,7 +89,7 @@ export default function Budgeting({ translate, changeCurrentPage }: PageProps) {
         );
       setCategoriesList(categoriesConverted);
     }
-    fetchCategories();
+    fetchCategories();    
   }, []);
 
   useEffect(() => {
@@ -257,7 +257,7 @@ export default function Budgeting({ translate, changeCurrentPage }: PageProps) {
           : " translate-x-0 w-screen"
       } transition-all ease-in-out duration-200 pb-20`}
     >
-      <BudgetingForm showForm={showForm} setShowForm={setShowForm} />
+      <BudgetingForm showForm={showForm} setShowForm={setShowForm} categoryList={categoriesList} setRefresh={setRefresh} />
       <button
         onClick={() => setShowForm((prevState) => !prevState)}
         className={`
