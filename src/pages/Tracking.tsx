@@ -290,7 +290,11 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
             id: string;
             isOpened: boolean;
           }) => {
-            if (data.trackDate.getDate() !== previousDate.getDate()) {
+            if (
+              data.trackDate.getDate() !== previousDate.getDate() ||
+              data.trackDate.getMonth() !== previousDate.getMonth() ||
+              data.trackDate.getFullYear() !== previousDate.getFullYear()
+            ) {
               const options = {
                 weekday: "long",
                 day: "numeric",

@@ -12,7 +12,7 @@ import {
 } from "../dtos/GetAllCategoryByIdResponse";
 import { Convert } from "../dtos/AllBudgetResponse";
 import { clearId, clearToken } from "../redux/AccountSlice";
-import Period from "../utils/Period";
+import { Period, convertToPeriod } from "../utils/Period";
 
 export default function Budgeting({ translate, changeCurrentPage }: PageProps) {
   changeCurrentPage(CurrentPage.Budgeting);
@@ -146,7 +146,11 @@ export default function Budgeting({ translate, changeCurrentPage }: PageProps) {
           amount: budgetings[0].target,
           budgetDate: budgetings[0].endDate,
           category: budgetings[0].categoryId,
-          period: Period.Custom,
+          period: convertToPeriod(
+            budgetings[0].recurring,
+            budgetings[0].startDate,
+            budgetings[0].endDate
+          ),
           title: budgetings[0].name,
           trackType: budgetings[0].isExpense,
         }}
@@ -170,7 +174,11 @@ export default function Budgeting({ translate, changeCurrentPage }: PageProps) {
         budgeting.endDate
       );
       const formattedDate = `${parts[0].value}, ${parts[2].value} ${parts[4].value} ${parts[6].value}`;
-      if (budgeting.endDate.getDate() !== previousDate.getDate()) {
+      if (
+        budgeting.endDate.getDate() !== previousDate.getDate() ||
+        budgeting.endDate.getMonth() !== previousDate.getMonth() ||
+        budgeting.endDate.getFullYear() !== previousDate.getFullYear()
+      ) {
         budgetingComponents.push(
           <h1
             className={`text-2xl md:text-3xl ${
@@ -189,7 +197,11 @@ export default function Budgeting({ translate, changeCurrentPage }: PageProps) {
             amount: budgeting.target,
             budgetDate: budgeting.endDate,
             category: budgeting.categoryId,
-            period: Period.Custom,
+            period: convertToPeriod(
+              budgeting.recurring,
+              budgeting.startDate,
+              budgeting.endDate
+            ),
             title: budgeting.name,
             trackType: budgeting.isExpense,
           }}
@@ -232,13 +244,6 @@ export default function Budgeting({ translate, changeCurrentPage }: PageProps) {
     );
   };
 
-  const currentDate = new Date();
-  const formattedDate = currentDate.toLocaleDateString("en-US", {
-    weekday: "long",
-    day: "numeric",
-    month: "long",
-  });
-
   return (
     <div
       className={`h-full min-h-screen flex flex-col pt-20 items-start px-8 md:px-16
@@ -252,7 +257,6 @@ export default function Budgeting({ translate, changeCurrentPage }: PageProps) {
           : " translate-x-0 w-screen"
       } transition-all ease-in-out duration-200 pb-20`}
     >
-      
       <BudgetingForm showForm={showForm} setShowForm={setShowForm} />
       <button
         onClick={() => setShowForm((prevState) => !prevState)}
