@@ -11,6 +11,8 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Stats from "./pages/Stats";
 import Budgeting from "./pages/Budgeting";
+import { useSelector } from "react-redux";
+import { RootState } from "./redux/store";
 
 function App() {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -19,22 +21,28 @@ function App() {
 
   const [showNavbar, setShowNavbar] = useState(true);
 
+  const { account } = useSelector((state: RootState) => state);
+
+  const loggedIn = account.token !== "" && account.id !== "";
+
   useEffect(() => {
     setShowSidebar(false);
   }, [showNavbar]);
 
   useEffect(() => {
     const handlePopstate = () => {
-      if (window.location.pathname === "/register" || window.location.pathname === "/login") {
+      if (
+        window.location.pathname === "/register" ||
+        window.location.pathname === "/login"
+      ) {
         setShowNavbar(false);
-      } 
-      else {
+      } else {
         setShowNavbar(true);
       }
     };
-  
+
     window.addEventListener("popstate", handlePopstate);
-  
+
     return () => {
       window.removeEventListener("popstate", handlePopstate);
     };
@@ -46,8 +54,12 @@ function App() {
 
   return (
     <BrowserRouter>
-      {showNavbar && <Navbar toggleSideNav={toggleSidebar} setNavbar={setShowNavbar}/>}
-      {showNavbar && <SideNav show={showSidebar} currentTab={currentTab}/>}
+      {showNavbar && (
+        <Navbar toggleSideNav={toggleSidebar} setNavbar={setShowNavbar} />
+      )}
+      {showNavbar && loggedIn && (
+        <SideNav show={showSidebar} currentTab={currentTab} />
+      )}
       <Routes>
         <Route
           path="/tracking"
@@ -82,29 +94,30 @@ function App() {
             />
           }
         />
-        <Route 
-            path="/" 
-            element={
-              <LandingPage 
+        <Route
+          path="/"
+          element={
+            <LandingPage
               translate={showSidebar}
               changeCurrentPage={(CurrentPage: CurrentPage) =>
-              setCurrentTab(CurrentPage)
+                setCurrentTab(CurrentPage)
               }
-              />
-            }
             />
+          }
+        />
         <Route path="/register" element={<Register />} />
         <Route path="/login" element={<Login />} />
-        <Route 
-          path="*" 
+        <Route
+          path="*"
           element={
-              <NotFound   
+            <NotFound
               translate={showSidebar}
               changeCurrentPage={(CurrentPage: CurrentPage) =>
-              setCurrentTab(CurrentPage)
-            } />
+                setCurrentTab(CurrentPage)
+              }
+            />
           }
-          />
+        />
       </Routes>
     </BrowserRouter>
   );

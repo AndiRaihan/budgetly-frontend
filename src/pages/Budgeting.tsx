@@ -102,6 +102,7 @@ export default function Budgeting({ translate, changeCurrentPage }: PageProps) {
       month: "long",
       year: "numeric",
     };
+    // @ts-ignore
     const parts = new Intl.DateTimeFormat("en-US", options).formatToParts(
       firstDate
     );
@@ -174,6 +175,7 @@ export default function Budgeting({ translate, changeCurrentPage }: PageProps) {
         month: "long",
         year: "numeric",
       };
+      // @ts-ignore
       const parts = new Intl.DateTimeFormat("en-US", options).formatToParts(
         budgeting.endDate
       );
@@ -228,12 +230,14 @@ export default function Budgeting({ translate, changeCurrentPage }: PageProps) {
   useEffect(() => {
     if (budgetings === null || budgetings === undefined) return;
     setBudgetings((prev) =>
+    // @ts-ignore
       prev.map((budgeting) => ({ ...budgeting, showPercent: isPercentage }))
     );
   }, [isPercentage]);
 
   const showEditForm = (id: string) => {
     setBudgetings((prev) =>
+    // @ts-ignore
       prev.map((budgeting) => {
         if (budgeting._id === id) {
           return {
@@ -248,6 +252,7 @@ export default function Budgeting({ translate, changeCurrentPage }: PageProps) {
 
   const closeEditForm = () => {
     setBudgetings((prev) =>
+    // @ts-ignore
       prev.map((budgeting) => ({ ...budgeting, isOpened: false }))
     );
   };

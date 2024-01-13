@@ -12,6 +12,8 @@ export default function Navbar({ toggleSideNav, setNavbar }: NavbarProps) {
   const { darkMode, account } = useSelector((state: RootState) => state);
   const dispatch = useDispatch();
 
+  const loggedIn = account.token !== "" && account.id !== "";
+
   const location = useLocation();
 
   useEffect(() => {
@@ -38,12 +40,14 @@ export default function Navbar({ toggleSideNav, setNavbar }: NavbarProps) {
         }`}
     >
       <div className="flex items-center justify-center">
-        <button
-          className="flex items-center justify-center h-8 w-14 hover:bg-background-light-300 rounded-md dark:hover:bg-background-dark-200 dark:hover:bg-opacity-20"
-          onClick={toggleSideNav}
-        >
-          <MenuSvg className="h-5" isDark={darkMode.isDarkMode} />
-        </button>
+        {loggedIn && (
+          <button
+            className="flex items-center justify-center h-8 w-14 hover:bg-background-light-300 rounded-md dark:hover:bg-background-dark-200 dark:hover:bg-opacity-20"
+            onClick={toggleSideNav}
+          >
+            <MenuSvg className="h-5" isDark={darkMode.isDarkMode} />
+          </button>
+        )}
         <Logo />
       </div>
       <ul className="flex flex-row items-center justify-center">

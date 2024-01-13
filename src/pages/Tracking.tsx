@@ -124,6 +124,7 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
         month: "long",
         year: "numeric",
       };
+      // @ts-ignore
       const parts = new Intl.DateTimeFormat("en-US", options).formatToParts(
         currentDate
       );
@@ -182,6 +183,7 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
         month: "long",
         year: "numeric",
       };
+      // @ts-ignore
       const parts = new Intl.DateTimeFormat("en-US", options).formatToParts(
         yesterdayDate
       );
@@ -239,6 +241,7 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
         month: "long",
         year: "numeric",
       };
+      // @ts-ignore
       const parts = new Intl.DateTimeFormat("en-US", options).formatToParts(
         pastDate
       );
@@ -303,6 +306,7 @@ export default function Home({ translate, changeCurrentPage }: PageProps) {
               };
               const parts = new Intl.DateTimeFormat(
                 "en-US",
+                // @ts-ignore
                 options
               ).formatToParts(data.trackDate);
               const formattedPastDate = `${parts[0].value}, ${parts[2].value} ${parts[4].value} ${parts[6].value}`;
