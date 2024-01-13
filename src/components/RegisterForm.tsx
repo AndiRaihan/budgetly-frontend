@@ -63,10 +63,8 @@ export default function RegisterForm() {
 
     if (response.status === 201) {
       navigate("/login");
-      console.log(response);
     } else if (response.status === 400) {
       alert(await response.text());
-      console.log(response);
     }
   }
 

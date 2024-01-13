@@ -75,8 +75,6 @@ export default function EditTrackingForm({
   };
 
   const onSubmit: SubmitHandler<TrackingInput> = async (data) => {
-    console.log(trackingStatus.trackingId);
-
     const response = await fetch(
       `https://budgetly-backend-v2-production.up.railway.app/api/v1/tracking/${trackingStatus.trackingId}`,
       {
@@ -98,7 +96,6 @@ export default function EditTrackingForm({
       .catch((error) => {
         alert(error);
       });
-    console.log(await response);
   };
 
   const { darkMode } = useSelector((state: RootState) => state);
