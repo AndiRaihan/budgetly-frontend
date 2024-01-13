@@ -75,7 +75,7 @@ export default function EditTrackingForm({
   };
 
   const onSubmit: SubmitHandler<TrackingInput> = async (data) => {
-    const response = await fetch(
+    await fetch(
       `https://budgetly-backend-v2-production.up.railway.app/api/v1/tracking/${trackingStatus.trackingId}`,
       {
         method: "PUT",
