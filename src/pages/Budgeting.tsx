@@ -161,6 +161,7 @@ export default function Budgeting({ translate, changeCurrentPage }: PageProps) {
         closeForm={closeEditForm}
         startDate={budgetings[0].startDate}
         categoriesList={categoriesList}
+        setRefresh={setRefresh}
       />
     );
 
@@ -214,6 +215,7 @@ export default function Budgeting({ translate, changeCurrentPage }: PageProps) {
           closeForm={closeEditForm}
           startDate={budgeting.startDate}
           categoriesList={categoriesList}
+          setRefresh={setRefresh}
         />
       );
       previousDate = budgeting.endDate;

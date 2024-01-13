@@ -5,7 +5,8 @@ import CustomLighterSwitch from "../CustomLigherSwitch";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { GetAllCategoryByIDResponse } from "../../dtos/GetAllCategoryByIdResponse";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
+import { setRef } from "@mui/material";
 
 export type BudgetingInput = {
   title: string;
@@ -22,6 +23,8 @@ type EditBudgetingFromProps = {
   budgetingStatus: BudgetingInput;
   startDate: Date;
   categoriesList: GetAllCategoryByIDResponse[];
+  setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
+  id: string;
 };
 export default function EditBudgetingForm({
   showForm,
@@ -29,6 +32,8 @@ export default function EditBudgetingForm({
   budgetingStatus,
   startDate,
   categoriesList,
+  id,
+  setRefresh,
 }: EditBudgetingFromProps) {
   const {
     register,
@@ -76,7 +81,59 @@ export default function EditBudgetingForm({
     });
   };
 
-  const onSubmit: SubmitHandler<BudgetingInput> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<BudgetingInput> = async (data) => {
+    let body = {
+      categoryId: data.category,
+      name: data.title,
+      target: data.amount,
+      startDate: startDate,
+      endDate : new Date(),
+      recurring: true,
+    }
+    if (data.period === Period.Custom) {
+      body = {
+        ...body,
+        recurring: data.trackType,
+        endDate: new Date(data.budgetDate),
+      };
+    } else if (data.period === Period.Daily) {
+      body = {
+        ...body,
+        endDate: startDate,
+      };
+    } else if (data.period === Period.Weekly) {
+      const nextWeek = new Date();
+      nextWeek.setDate(startDate.getDate() + 7);
+      body = {
+        ...body,
+        endDate: nextWeek,
+      };
+    } else if (data.period === Period.Monthly) {
+      const date = new Date();
+      body = {
+        ...body,
+        startDate: new Date(date.getFullYear(), date.getMonth(), 1),
+        endDate: new Date(date.getFullYear(), date.getMonth() + 1, 0),
+      };
+    }
+    const budgetingPromise = await fetch(
+      `https://budgetly-backend-v2-production.up.railway.app/api/v1/budget/${id}`,
+      {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+          Authorization: `Bearer ${account.token}`,
+        },
+        body: JSON.stringify(body),
+      }
+    )
+    if (budgetingPromise.status === 200) {
+      setRefresh((prev: any) => !prev);
+      handleReset();
+    } else {
+      alert(budgetingPromise.text());
+    }
+  };
 
   const { darkMode } = useSelector((state: RootState) => state);
 

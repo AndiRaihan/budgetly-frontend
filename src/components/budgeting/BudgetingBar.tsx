@@ -14,6 +14,7 @@ export type BudgetingBarProps = {
   startDate: Date;
   categoriesList: GetAllCategoryByIDResponse[];
   closeForm: () => void;
+  setRefresh: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export default function BudgetingBar({
@@ -26,6 +27,7 @@ export default function BudgetingBar({
   categoriesList,
   showEditForm,
   closeForm,
+  setRefresh,
 }: BudgetingBarProps) {
   const { darkMode } = useSelector((state: RootState) => state);
   const barLength =
@@ -42,6 +44,8 @@ export default function BudgetingBar({
       showForm={isOpened}
       startDate={startDate}
       categoriesList={categoriesList}
+      setRefresh={setRefresh}
+      id={id}
     />
   ) : (
     <div
