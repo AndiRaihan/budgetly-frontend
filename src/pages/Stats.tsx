@@ -1,57 +1,105 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { RootState } from "../redux/store";
 import CurrentPage from "../utils/CurrentPage";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import Period from "../utils/Period";
-import PieChart from "../components/PieChart";
+import {
+  blueberryTwilightPaletteDark,
+  blueberryTwilightPaletteLight,
+} from '@mui/x-charts/colorPalettes';
 import CustomSwitch from "../components/CustomSwitch";
 import StatsBar from "../components/stats/StatsBar";
-import { nanoid } from "nanoid";
+import { Convert, GetAllStatsResponse } from "../dtos/GetAllStatsResponse";
+import { clearId, clearToken } from "../redux/AccountSlice";
+import { useNavigate } from "react-router-dom";
+import { PieChart as SecondPieChart } from "@mui/x-charts/PieChart";
+
 export default function Stats({ translate, changeCurrentPage }: PageProps) {
+  const dataDummy = [
+    {
+      label: "Entertainment",
+      y: 2,
+    },
+    {
+      label: "Food",
+      y: 2,
+    },
+    {
+      label: "Household",
+      y: 2,
+    },
+    {
+      label: "NEW CATEGORY AFTER CHANGES",
+      y: 2,
+    },
+    {
+      label: "Education",
+      y: 2,
+    },
+  ];
   changeCurrentPage(CurrentPage.Stats);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [isIncome, setIsIncome] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [period, setPeriod] = useState(Period.Daily);
+  const [statsData, setStatsData] = useState<GetAllStatsResponse[]>([]);
+  const [data, setData] = useState<any[]>();
 
-  const { darkMode } = useSelector((state: RootState) => state);
+  const { darkMode, account } = useSelector((state: RootState) => state);
 
   const periods = Object.values(Period);
 
-  const data = [
-    {
-      label: "Buku",
-      y: 20,
-    },
-    {
-      label: "Pensil",
-      y: 15,
-    },
-    {
-      label: "Penghapus",
-      y: 50,
-    },
-    {
-      label: "Penggaris",
-      y: 30,
-    },
-    {
-      label: "correction tape",
-      y: 20,
-    },
-  ];
+  useEffect(() => {
+    const fetchStats = async () => {
+      const response = await fetch(
+        "https://budgetly-backend-v2-production.up.railway.app/api/v1/stats/",
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${account.token}`,
+          },
+        }
+      );
+      let data;
+      if (response.status === 200) {
+        data = Convert.toGetAllStatsResponse(await response.text());
+        setStatsData(data);
+      } else {
+        dispatch(clearId());
+        dispatch(clearToken());
+        navigate("/login");
+        window.location.reload();
+      }
+    };
+    fetchStats();
+  }, []);
 
-  const sum = data.reduce((acc, curr) => acc + curr.y, 0);
-
-  const statsBar = data.map((dataItem) => (
-    <StatsBar
-      category={dataItem.label}
-      amount={dataItem.y}
-      total={sum}
-      key={nanoid()}
-    />
-  ));
+  const [statsBar, setStatsBar] = useState<any[]>();
+  useEffect(() => {
+    const data = statsData.map((stats) => {
+      return {
+        id: stats._id,
+        label: stats.categoryName,
+        value: stats.totalAmount,
+      };
+    });
+    setData(data);
+    const sum = data.reduce((acc, curr) => acc + curr.value, 0);
+    setStatsBar(
+      statsData.map((dataItem) => (
+        <StatsBar
+          category={dataItem.categoryName}
+          amount={dataItem.totalAmount}
+          total={sum}
+          key={dataItem._id}
+        />
+      ))
+    );
+  }, [statsData]);
 
   const DropDownItem: any = periods.map((periodsItem) => (
     <li
@@ -140,9 +188,41 @@ export default function Stats({ translate, changeCurrentPage }: PageProps) {
         </div>
       </div>
       <div className={`flex justify-center w-full items-center mb-6`}>
-        <PieChart items={data} />
+        {data && (
+          <SecondPieChart
+            series={[
+              {
+                data: data.map((dataItem) => {
+                  return {
+                    id: dataItem.id,
+                    label: dataItem.label,
+                    value: dataItem.value,
+                  };
+                }),
+                highlightScope: { faded: "global", highlighted: "item" },
+                faded: {
+                  innerRadius: 30,
+                  additionalRadius: -30,
+                  color: "gray",
+                },
+                innerRadius: 20,
+              },
+            ]}
+            colors={darkMode.isDarkMode ? blueberryTwilightPaletteDark : blueberryTwilightPaletteLight}
+            width={1000}
+            height={300}
+            slotProps={
+              {
+                legend: {
+                  labelStyle: {
+                    fill: darkMode.isDarkMode ? "#A5C9CA" : "black",
+                  }
+                }
+              }
+            }
+          />
+        )}
       </div>
-
       {statsBar}
     </div>
   );
