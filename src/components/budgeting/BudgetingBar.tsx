@@ -2,6 +2,7 @@ import { useState } from "react";
 import EditBudgetingForm, { BudgetingInput } from "./EditBudgetingForm";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import { GetAllCategoryByIDResponse } from "../../dtos/GetAllCategoryByIdResponse";
 
 export type BudgetingBarProps = {
   id: string;
@@ -10,6 +11,8 @@ export type BudgetingBarProps = {
   isOpened: boolean;
   budgetingData: BudgetingInput;
   current: number;
+  startDate: Date;
+  categoriesList: GetAllCategoryByIDResponse[];
   closeForm: () => void;
 };
 
@@ -19,10 +22,11 @@ export default function BudgetingBar({
   current,
   id,
   isOpened,
+  startDate,
+  categoriesList,
   showEditForm,
   closeForm,
 }: BudgetingBarProps) {
-  const [,] = useState(false);
   const { darkMode } = useSelector((state: RootState) => state);
   const barLength =
     budgetingData.amount !== null ? (current / budgetingData.amount) * 100 : 0;
@@ -36,6 +40,8 @@ export default function BudgetingBar({
       budgetingStatus={budgetingData}
       closeForm={closeForm}
       showForm={isOpened}
+      startDate={startDate}
+      categoriesList={categoriesList}
     />
   ) : (
     <div
@@ -50,7 +56,10 @@ export default function BudgetingBar({
         className={`absolute
         ${
           darkMode.isDarkMode ? "bg-background-dark-300" : "bg-primary-200"
-        }  w-[${Math.min(barLength, 100)}%] h-full z-20 rounded-md top-0 left-0`}
+        }  w-[${Math.min(
+          barLength,
+          100
+        )}%] h-full z-20 rounded-md top-0 left-0`}
       ></div>
       <div
         className={`z-30 ${

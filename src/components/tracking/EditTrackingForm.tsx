@@ -39,7 +39,6 @@ export default function EditTrackingForm({
     reset,
     formState: { errors, isDirty, isValid },
   } = useForm<TrackingInput>({
-    // TODO: Format date tidak benar, harusnya yyyy-MM-dd
     defaultValues: {
       ...trackingStatus,
       trackDate: trackingStatus.trackDate
@@ -52,7 +51,6 @@ export default function EditTrackingForm({
 
   const [categoriesOptions, setCategoriesOptions] = useState<JSX.Element[]>([]);
 
-  // TODO: Loading category terlalu lama, akal akalin biar cepet
   useEffect(() => {
     setCategoriesOptions(
       categoryList.map((category) => (

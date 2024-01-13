@@ -89,7 +89,7 @@ export default function Budgeting({ translate, changeCurrentPage }: PageProps) {
         );
       setCategoriesList(categoriesConverted);
     }
-    fetchCategories();    
+    fetchCategories();
   }, []);
 
   useEffect(() => {
@@ -159,6 +159,8 @@ export default function Budgeting({ translate, changeCurrentPage }: PageProps) {
         isOpened={budgetings[0].isOpened}
         showEditForm={showEditForm}
         closeForm={closeEditForm}
+        startDate={budgetings[0].startDate}
+        categoriesList={categoriesList}
       />
     );
 
@@ -210,6 +212,8 @@ export default function Budgeting({ translate, changeCurrentPage }: PageProps) {
           isOpened={budgeting.isOpened}
           showEditForm={showEditForm}
           closeForm={closeEditForm}
+          startDate={budgeting.startDate}
+          categoriesList={categoriesList}
         />
       );
       previousDate = budgeting.endDate;
@@ -257,7 +261,12 @@ export default function Budgeting({ translate, changeCurrentPage }: PageProps) {
           : " translate-x-0 w-screen"
       } transition-all ease-in-out duration-200 pb-20`}
     >
-      <BudgetingForm showForm={showForm} setShowForm={setShowForm} categoryList={categoriesList} setRefresh={setRefresh} />
+      <BudgetingForm
+        showForm={showForm}
+        setShowForm={setShowForm}
+        categoryList={categoriesList}
+        setRefresh={setRefresh}
+      />
       <button
         onClick={() => setShowForm((prevState) => !prevState)}
         className={`

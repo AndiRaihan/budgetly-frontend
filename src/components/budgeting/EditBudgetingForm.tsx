@@ -4,12 +4,14 @@ import Period from "../../utils/Period";
 import CustomLighterSwitch from "../CustomLigherSwitch";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
+import { GetAllCategoryByIDResponse } from "../../dtos/GetAllCategoryByIdResponse";
+import { useEffect, useState } from "react";
 
 export type BudgetingInput = {
   title: string;
   amount: number | null;
   period: Period;
-  budgetDate: Date;
+  budgetDate: string;
   trackType: boolean;
   category: string;
 };
@@ -18,11 +20,15 @@ type EditBudgetingFromProps = {
   showForm: boolean;
   closeForm: () => void;
   budgetingStatus: BudgetingInput;
+  startDate: Date;
+  categoriesList: GetAllCategoryByIDResponse[];
 };
 export default function EditBudgetingForm({
   showForm,
   closeForm,
   budgetingStatus,
+  startDate,
+  categoriesList,
 }: EditBudgetingFromProps) {
   const {
     register,
@@ -32,12 +38,42 @@ export default function EditBudgetingForm({
     formState: { errors, isDirty, isValid },
     watch,
   } = useForm<BudgetingInput>({
-    defaultValues: budgetingStatus,
+    defaultValues: {
+      ...budgetingStatus,
+      budgetDate: budgetingStatus.budgetDate
+        ? new Date(budgetingStatus.budgetDate).toISOString().split("T")[0]
+        : new Date().toISOString().split("T")[0],
+    },
   });
+
+  const { account } = useSelector((state: RootState) => state);
+
+  const [categoriesOptions, setCategoriesOptions] = useState<JSX.Element[]>([]);
+
+  useEffect(() => {
+    setCategoriesOptions(
+      categoriesList.map((category) => (
+        <option key={category._id} value={category._id}>
+          {category.name}
+        </option>
+      ))
+    );
+    reset({
+      ...budgetingStatus,
+      budgetDate: budgetingStatus.budgetDate
+        ? new Date(budgetingStatus.budgetDate).toISOString().split("T")[0]
+        : new Date().toISOString().split("T")[0],
+    });
+  }, []);
 
   const handleReset = () => {
     closeForm();
-    reset(budgetingStatus);
+    reset({
+      ...budgetingStatus,
+      budgetDate: budgetingStatus.budgetDate
+        ? new Date(budgetingStatus.budgetDate).toISOString().split("T")[0]
+        : new Date().toISOString().split("T")[0],
+    });
   };
 
   const onSubmit: SubmitHandler<BudgetingInput> = (data) => console.log(data);
@@ -139,19 +175,21 @@ export default function EditBudgetingForm({
             <option value="Placeholder" disabled selected hidden>
               Category
             </option>
-            <option value="contoh">Contoh</option>
+            {categoriesOptions}
           </select>
-          <div className="mx-2">
-            {/* TODO:Fix Switch display bug  */}
-            <Controller
-              name="trackType"
-              control={control}
-              render={({ field }) => <CustomLighterSwitch {...field} />}
-            />
-            <span className="text-background-light-100 ml-0 mr-3">
-              Recurring
-            </span>
-          </div>
+          {watch("period") === Period.Custom && (
+            <div className="mx-2">
+              {/* TODO:Fix Switch display bug  */}
+              <Controller
+                name="trackType"
+                control={control}
+                render={({ field }) => <CustomLighterSwitch {...field} />}
+              />
+              <span className="text-background-light-100 ml-0 mr-3">
+                Recurring
+              </span>
+            </div>
+          )}
         </div>
         <div>
           <button
