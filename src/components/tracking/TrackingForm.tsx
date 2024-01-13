@@ -4,9 +4,7 @@ import CustomSwitch from "../CustomSwitch";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { useEffect, useState } from "react";
-import {
-  GetAllCategoryByIDResponse,
-} from "../../dtos/GetAllCategoryByIdResponse";
+import { GetAllCategoryByIDResponse } from "../../dtos/GetAllCategoryByIdResponse";
 
 export default function TrackingForm({
   showForm,

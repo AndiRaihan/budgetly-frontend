@@ -1,4 +1,4 @@
-import { SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import CurrentPage from "../utils/CurrentPage";
@@ -12,7 +12,7 @@ import {
 } from "../dtos/GetAllCategoryByIdResponse";
 import { Convert } from "../dtos/AllBudgetResponse";
 import { clearId, clearToken } from "../redux/AccountSlice";
-import { Period, convertToPeriod } from "../utils/Period";
+import { convertToPeriod } from "../utils/Period";
 
 export default function Budgeting({ translate, changeCurrentPage }: PageProps) {
   changeCurrentPage(CurrentPage.Budgeting);

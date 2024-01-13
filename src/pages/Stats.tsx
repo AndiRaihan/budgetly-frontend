@@ -7,7 +7,7 @@ import Period from "../utils/Period";
 import {
   blueberryTwilightPaletteDark,
   blueberryTwilightPaletteLight,
-} from '@mui/x-charts/colorPalettes';
+} from "@mui/x-charts/colorPalettes";
 import CustomSwitch from "../components/CustomSwitch";
 import StatsBar from "../components/stats/StatsBar";
 import { Convert, GetAllStatsResponse } from "../dtos/GetAllStatsResponse";
@@ -16,28 +16,6 @@ import { useNavigate } from "react-router-dom";
 import { PieChart as SecondPieChart } from "@mui/x-charts/PieChart";
 
 export default function Stats({ translate, changeCurrentPage }: PageProps) {
-  const dataDummy = [
-    {
-      label: "Entertainment",
-      y: 2,
-    },
-    {
-      label: "Food",
-      y: 2,
-    },
-    {
-      label: "Household",
-      y: 2,
-    },
-    {
-      label: "NEW CATEGORY AFTER CHANGES",
-      y: 2,
-    },
-    {
-      label: "Education",
-      y: 2,
-    },
-  ];
   changeCurrentPage(CurrentPage.Stats);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -208,18 +186,20 @@ export default function Stats({ translate, changeCurrentPage }: PageProps) {
                 innerRadius: 20,
               },
             ]}
-            colors={darkMode.isDarkMode ? blueberryTwilightPaletteDark : blueberryTwilightPaletteLight}
+            colors={
+              darkMode.isDarkMode
+                ? blueberryTwilightPaletteDark
+                : blueberryTwilightPaletteLight
+            }
             width={1000}
             height={300}
-            slotProps={
-              {
-                legend: {
-                  labelStyle: {
-                    fill: darkMode.isDarkMode ? "#A5C9CA" : "black",
-                  }
-                }
-              }
-            }
+            slotProps={{
+              legend: {
+                labelStyle: {
+                  fill: darkMode.isDarkMode ? "#A5C9CA" : "black",
+                },
+              },
+            }}
           />
         )}
       </div>

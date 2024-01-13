@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { GetAllCategoryByIDResponse } from "../../dtos/GetAllCategoryByIdResponse";
 import React, { useEffect, useState } from "react";
-import { setRef } from "@mui/material";
 
 export type BudgetingInput = {
   title: string;
@@ -87,9 +86,9 @@ export default function EditBudgetingForm({
       name: data.title,
       target: data.amount,
       startDate: startDate,
-      endDate : new Date(),
+      endDate: new Date(),
       recurring: true,
-    }
+    };
     if (data.period === Period.Custom) {
       body = {
         ...body,
@@ -126,7 +125,7 @@ export default function EditBudgetingForm({
         },
         body: JSON.stringify(body),
       }
-    )
+    );
     if (budgetingPromise.status === 200) {
       setRefresh((prev: any) => !prev);
       handleReset();

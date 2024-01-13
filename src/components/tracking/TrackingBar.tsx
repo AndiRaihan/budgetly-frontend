@@ -1,5 +1,5 @@
 import EditTrackingForm, { TrackingInput } from "./EditTrackingForm";
-import {useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 
 type TrackingBarProps = {
@@ -19,7 +19,7 @@ export default function TrackingBar({
   showEditForm,
   closeForm,
   setRefresh,
-  categoriesList
+  categoriesList,
 }: TrackingBarProps) {
   const { darkMode } = useSelector((state: RootState) => state);
   const locale = window.navigator.language;
@@ -44,9 +44,19 @@ export default function TrackingBar({
       ${isOpened ? "max-h-96" : "max-h-[24px] -z-20"} 
       transition-all duration-300 ease-in-out hover:cursor-pointer flex items-center justify-between rounded-md  px-3 ml-5 my-3`}
     >
-      <div className = {`${darkMode.isDarkMode ? "text-background-dark-200" : "text-white"}`}>{trackingData.trackingName}</div>
+      <div
+        className={`${
+          darkMode.isDarkMode ? "text-background-dark-200" : "text-white"
+        }`}
+      >
+        {trackingData.trackingName}
+      </div>
 
-      <div className={`${darkMode.isDarkMode ? "text-background-dark-200" : "text-white"}`}>
+      <div
+        className={`${
+          darkMode.isDarkMode ? "text-background-dark-200" : "text-white"
+        }`}
+      >
         {formatter.format(trackingData.amount ?? 0)}
       </div>
     </div>

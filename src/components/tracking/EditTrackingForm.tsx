@@ -4,10 +4,7 @@ import CustomLighterSwitch from "../CustomLigherSwitch";
 import { useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 import { useEffect, useState } from "react";
-import {
-  Convert,
-  GetAllCategoryByIDResponse,
-} from "../../dtos/GetAllCategoryByIdResponse";
+import { GetAllCategoryByIDResponse } from "../../dtos/GetAllCategoryByIdResponse";
 
 export type TrackingInput = {
   trackingId: string;
@@ -30,7 +27,7 @@ export default function EditTrackingForm({
   closeForm,
   trackingStatus,
   setRefresh,
-  categoryList
+  categoryList,
 }: EditTrackingFormProps) {
   const {
     register,
@@ -79,7 +76,7 @@ export default function EditTrackingForm({
 
   const onSubmit: SubmitHandler<TrackingInput> = async (data) => {
     console.log(trackingStatus.trackingId);
-    
+
     const response = await fetch(
       `https://budgetly-backend-v2-production.up.railway.app/api/v1/tracking/${trackingStatus.trackingId}`,
       {
@@ -96,11 +93,12 @@ export default function EditTrackingForm({
           categoryId: data.category,
         }),
       }
-    ).then(setRefresh((prev: any) => !prev)).catch((error) => {
-      alert(error);
-    });
+    )
+      .then(setRefresh((prev: any) => !prev))
+      .catch((error) => {
+        alert(error);
+      });
     console.log(await response);
-    
   };
 
   const { darkMode } = useSelector((state: RootState) => state);

@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { useNavigate } from "react-router-dom";  
-
+import { useNavigate } from "react-router-dom";
 
 type RegisterInput = {
   email: string;
@@ -48,30 +47,31 @@ export default function RegisterForm() {
   }, [errors.email, errors.password, errors.confirmPassword]);
 
   async function submitRegister(data: RegisterInput) {
-    
-    const response = await fetch("https://budgetly-backend-v2-production.up.railway.app/api/v1/auth/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        username: data.email,
-        password: data.password,
-      }),
-    });
+    const response = await fetch(
+      "https://budgetly-backend-v2-production.up.railway.app/api/v1/auth/register",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: data.email,
+          password: data.password,
+        }),
+      }
+    );
 
     if (response.status === 201) {
       navigate("/login");
       console.log(response);
-    }
-    else if (response.status === 400) {
+    } else if (response.status === 400) {
       alert(await response.text());
       console.log(response);
     }
   }
 
-  
-  const onSubmit: SubmitHandler<RegisterInput> = async (data) => await submitRegister(data);
+  const onSubmit: SubmitHandler<RegisterInput> = async (data) =>
+    await submitRegister(data);
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
@@ -80,90 +80,91 @@ export default function RegisterForm() {
     >
       <h1 className="text-3xl mb-3">Create your free account</h1>
       <div className="w-72 m-5">
-          <div className="relative">
-            <input
-              type="email"
-              id="email"
-              className={emailValid ? NORMAL_INPUT_CLASS : ERROR_INPUT_CLASS}
-              placeholder=" "
-              {...register("email", {
-                required: "Email is required",
-                pattern: {
-                  value: EMAIL_REGEX,
-                  message: "Please enter a valid Email",
-                },
-              })}
-            />
-            <label
-              htmlFor="username"
-              className={emailValid ? NORMAL_LABEL_CLASS : ERROR_LABEL_CLASS}
-            >
-              Email
-            </label>
-          </div>
-          {!emailValid && (
-            <span className="text-red-600 dark:text-red-500 text-sm ml-1">
-              {errors.email?.message}
-            </span>
-          )}
+        <div className="relative">
+          <input
+            type="email"
+            id="email"
+            className={emailValid ? NORMAL_INPUT_CLASS : ERROR_INPUT_CLASS}
+            placeholder=" "
+            {...register("email", {
+              required: "Email is required",
+              pattern: {
+                value: EMAIL_REGEX,
+                message: "Please enter a valid Email",
+              },
+            })}
+          />
+          <label
+            htmlFor="username"
+            className={emailValid ? NORMAL_LABEL_CLASS : ERROR_LABEL_CLASS}
+          >
+            Email
+          </label>
+        </div>
+        {!emailValid && (
+          <span className="text-red-600 dark:text-red-500 text-sm ml-1">
+            {errors.email?.message}
+          </span>
+        )}
       </div>
       <div className="w-72 mb-5">
-          <div className="relative w-72">
-            <input
-              type="password"
-              id="password"
-              className={passwordValid ? NORMAL_INPUT_CLASS : ERROR_INPUT_CLASS}
-              placeholder=" "
-              {...register("password", {
-                required: "Password is required",
-                pattern: {
-                  value: PASSWORD_REGEX,
-                  message:
-                    "Password must contain at least 8 characters, 1 uppercase, 1 lowercase, 1 number and 1 special character",
-                },
-              })}
-            />
-            <label
-              htmlFor="password"
-              className={passwordValid ? NORMAL_LABEL_CLASS : ERROR_LABEL_CLASS}
-            >
-              Password
-            </label>
-          </div>
-          {!passwordValid && (
-            <p className="text-red-600 dark:text-red-500 text-sm ml-1">
-              {errors.password?.message}
-            </p>
-          )}
+        <div className="relative w-72">
+          <input
+            type="password"
+            id="password"
+            className={passwordValid ? NORMAL_INPUT_CLASS : ERROR_INPUT_CLASS}
+            placeholder=" "
+            {...register("password", {
+              required: "Password is required",
+              pattern: {
+                value: PASSWORD_REGEX,
+                message:
+                  "Password must contain at least 8 characters, 1 uppercase, 1 lowercase, 1 number and 1 special character",
+              },
+            })}
+          />
+          <label
+            htmlFor="password"
+            className={passwordValid ? NORMAL_LABEL_CLASS : ERROR_LABEL_CLASS}
+          >
+            Password
+          </label>
+        </div>
+        {!passwordValid && (
+          <p className="text-red-600 dark:text-red-500 text-sm ml-1">
+            {errors.password?.message}
+          </p>
+        )}
       </div>
       <div className="w-72 mb-5">
-          <div className="relative">
-            <input
-              type="password"
-              id="confirm_password"
-              className={
-                confirmPasswordValid ? NORMAL_INPUT_CLASS : ERROR_INPUT_CLASS
-              }
-              placeholder=" "
-              {...register("confirmPassword", {
-                required: "Please retype your password",
-                validate: (value) => value === watch("password") || "Passwords do not match",
-              })}
-            />
-            <label
-              htmlFor="confirm_password"
-              className={
-                confirmPasswordValid ? NORMAL_LABEL_CLASS : ERROR_LABEL_CLASS
-              }
-            >
-              Confirm Password
-            </label>
-          </div>
-          {!confirmPasswordValid && (
-            <p className="text-red-600 dark:text-red-500 text-sm ml-1">
-              {errors.confirmPassword?.message}
-            </p>
-          )}
+        <div className="relative">
+          <input
+            type="password"
+            id="confirm_password"
+            className={
+              confirmPasswordValid ? NORMAL_INPUT_CLASS : ERROR_INPUT_CLASS
+            }
+            placeholder=" "
+            {...register("confirmPassword", {
+              required: "Please retype your password",
+              validate: (value) =>
+                value === watch("password") || "Passwords do not match",
+            })}
+          />
+          <label
+            htmlFor="confirm_password"
+            className={
+              confirmPasswordValid ? NORMAL_LABEL_CLASS : ERROR_LABEL_CLASS
+            }
+          >
+            Confirm Password
+          </label>
+        </div>
+        {!confirmPasswordValid && (
+          <p className="text-red-600 dark:text-red-500 text-sm ml-1">
+            {errors.confirmPassword?.message}
+          </p>
+        )}
       </div>
       <div className="flex items-center justify-center w-1/3 h-8 my-4">
         <button
