@@ -31,7 +31,7 @@ export default function TrackingForm({
         </option>
       ))
     );
-  }, []);
+  }, [categoryList]);
 
   const {
     register,
