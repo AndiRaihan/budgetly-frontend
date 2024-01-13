@@ -93,7 +93,13 @@ export default function Budgeting({ translate, changeCurrentPage }: PageProps) {
   }, []);
 
   useEffect(() => {
-    if (budgetings === null || budgetings === undefined) return;
+    if (
+      budgetings === null ||
+      budgetings === undefined ||
+      budgetings[0] === undefined ||
+      budgetings[0] === null
+    )
+      return;
     let budgetingComponents = [];
     const firstDate = budgetings[0].endDate;
     const options = {
@@ -230,14 +236,14 @@ export default function Budgeting({ translate, changeCurrentPage }: PageProps) {
   useEffect(() => {
     if (budgetings === null || budgetings === undefined) return;
     setBudgetings((prev) =>
-    // @ts-ignore
+      // @ts-ignore
       prev.map((budgeting) => ({ ...budgeting, showPercent: isPercentage }))
     );
   }, [isPercentage]);
 
   const showEditForm = (id: string) => {
     setBudgetings((prev) =>
-    // @ts-ignore
+      // @ts-ignore
       prev.map((budgeting) => {
         if (budgeting._id === id) {
           return {
@@ -252,7 +258,7 @@ export default function Budgeting({ translate, changeCurrentPage }: PageProps) {
 
   const closeEditForm = () => {
     setBudgetings((prev) =>
-    // @ts-ignore
+      // @ts-ignore
       prev.map((budgeting) => ({ ...budgeting, isOpened: false }))
     );
   };
