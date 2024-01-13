@@ -162,6 +162,7 @@ export default function Budgeting({ translate, changeCurrentPage }: PageProps) {
         startDate={budgetings[0].startDate}
         categoriesList={categoriesList}
         setRefresh={setRefresh}
+        key={budgetings[0]._id}
       />
     );
 
@@ -216,6 +217,7 @@ export default function Budgeting({ translate, changeCurrentPage }: PageProps) {
           startDate={budgeting.startDate}
           categoriesList={categoriesList}
           setRefresh={setRefresh}
+          key={budgeting._id}
         />
       );
       previousDate = budgeting.endDate;
